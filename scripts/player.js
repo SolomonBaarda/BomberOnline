@@ -9,6 +9,9 @@ function Player(name) {
     this.isAlive = function() {
       return alive;
     }
+    this.setAlive = function() {
+        alive = true;
+      }
 
     this.setDead = function() {
       alive = false;

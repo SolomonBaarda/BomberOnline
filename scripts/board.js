@@ -32,17 +32,23 @@ function Board(width, height) {
 
     /**
         This is the class for a tile that can be destroyed.
-    */
+     */
     function DestructableTile(x, y) {
-      Tile.call(this, x, y);
+    	Tile.call(this, x, y);
     }
 
+    /**This is the class for the tiles that can not be destroyed and
+     *  that will be randomly positioned across the board but that will
+     *   also be used to mark the silhouette of the board and limit the players movement to the map*/
+    
+    function IndestructibleTile(x, y){
+    	this.x = x;this.y = y;
+    	}
+    
+    /**This is the class for the power up blocks, class that will
+	later divide itself into the different powerUps we might implement into the game*/
+    
+    function PowerUps(x, y){
 
-    /**
-        This is the sub class for storing tiles
-    */
-    function Tile(x, y) {
-        this.x = x;
-        this.y = y;
-    }
-}
+    	this.x = x;this.y = y;
+    }}
