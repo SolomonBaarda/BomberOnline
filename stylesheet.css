@@ -10,3 +10,8 @@ body {
 .main-title {
     color: red;
 }
+
+
+.player {
+    border: 2px solid red;
+}

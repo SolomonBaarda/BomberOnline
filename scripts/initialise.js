@@ -6,10 +6,18 @@
     Function that reads name input from a form. Currently changes
     some html on the screen to display it.
 */
+function Initialise() {
+
+const name = InitialisePlayer();
+
+
+
+
+
+
 function InitialisePlayer() {
     // Get the form input element text value
-    const name = document.querySelector(".main-content .inputName .inputNameForm .submitName").value;
-    console.log(name);
+    let name = document.querySelector(".main-content .inputName .inputNameForm .submitName").value;
 
     // Ensure name is valid.
     // TODO later will have to check name against database of all other
@@ -26,5 +34,8 @@ function InitialisePlayer() {
         // Promt user to enter a valid name input
         window.alert("Please enter a valid display name");
     }
+
+    return name;
+  }
 
 }
