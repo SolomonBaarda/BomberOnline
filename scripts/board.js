@@ -10,12 +10,25 @@ function Board(width, height) {
     // This is the main board collection used to store the locations of objects
     var board = Generate(width, height);
 
-    function Generate(width, height){
+    function Generate(width, height) {
         let board = new[width][height];
+
+        for(int y = 0; y < height; y++) {
+          for(int x = 0; x < width; x++) {
+              if(y == 0 || y == height || x == 0 || x == width) {
+                board[x][y] = new DestructableTile(x, y);
+              }
+              else {
+                board[x][y] = new DestructableTile(x, y);
+              }
+          }
+        }
 
         return board;
     }
 
+
+    
 
     /**
         This is the class for a tile that can be destroyed.

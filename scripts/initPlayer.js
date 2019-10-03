@@ -19,7 +19,8 @@ function InitialisePlayer() {
         description.innerHTML = "Welcome player " +name+ ".";
 
         // Disable form when done
-        document.querySelector(".main-content .inputName .inputNameForm").style.displey="none";
+        const form = document.querySelector(".main-content .inputName .inputNameForm");
+        form.style.display = 'none';
     }
     else {
         // Promt user to enter a valid name input
