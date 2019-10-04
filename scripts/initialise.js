@@ -14,8 +14,8 @@ description.innerHTML = "Welcome player " +name+ ".";
 // Set up the player
 
 // TODO Unsure how to import player script from external script file
-import { Player } from 'scripts/Player.js';
-const player = Player(name);
+// import { Player() } from 'scripts/Player.js';
+// const player = Player(name);
 
 
 

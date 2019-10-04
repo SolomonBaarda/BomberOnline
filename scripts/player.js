@@ -3,8 +3,9 @@
 */
 export function Player(name) {
 
-    const player = {this.name = name, this.alive = false}
-    const playerImage = initialisePlayer();
+
+    const player = {this.name = name, this.alive = false, this.image = initialisePlayer()}
+
 
 
 
