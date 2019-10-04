@@ -6,9 +6,18 @@ window.onload = function Initialise() {
 
 // Get the players name
 const name = askForName();
+
 // Set text to say welcome to the player
-var description = document.querySelector("#inputNameDescription");
+const description = document.querySelector("#inputNameDescription");
 description.innerHTML = "Welcome player " +name+ ".";
+
+// Set up the player
+
+// TODO Unsure how to import player script from external script file
+import { Player } from 'scripts/Player.js';
+const player = Player(name);
+
+
 
 
 
