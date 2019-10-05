@@ -1,32 +1,63 @@
 /*
-    This is the script for the player class. Currently, it stores the players display name.
+This is the script for the player class. Currently, it stores the players display name.
 */
-export function Player(name) {
+
+// Ensure sript runs when the page is loaded
+window.onload = function Player() {
+
+  function Player(name) {
+    this.name = name;
+    this.alive = false;
+    // This is not geting called for some reason.
+    this.image = initialisePlayer();
+
+    console.log(image);
 
 
-    const player = {this.name = name, this.alive = false, this.image = initialisePlayer()}
-
-
-
+    // Need to add event listener to the window as well
 
     function initialisePlayer() {
-        const player = document.getElementById('player');
-        // Set the image source
-        player.src = "sprites/player.jpg";
+      const player = document.getElementById('player');
+      // Set the image source
+      player.src = "sprites/player.jpg";
 
-        return player;
+      console.log("Player image has been set");
+      return player;
     }
 
     function KeyDown(e) {
-        // Left
-        if (e.keyCode == 37) {
-            // move left
-        }
-        // Right
-        if (e.keyCode == 39) {
-            // move right
-        }
+      switch (e.keyCode) {
+        // Move left
+        case 37:
+        moveHoriz(-1);
+        break;
+        // Move right
+        case 39:
+        moveHoriz(1);
+        break;
+        // Move up
+        case 38:
+        moveVert(-1);
+        break;
+        // Move down
+        case 40:
+        moveVert(1);
+        break;
+      }
+
     }
+
+
+    function moveVert(pixels) {
+      // Move the player image vertically by the number of pixels
+
+    }
+
+    function moveHoriz(pixels) {
+      // Move the player image horizontally by the number of pixels
+
+    }
+
 
 
     this.isAlive = function() {
@@ -34,8 +65,8 @@ export function Player(name) {
     }
 
     this.setAlive = function() {
-        alive = true;
-      }
+      alive = true;
+    }
 
     this.setDead = function() {
       alive = false;
@@ -43,4 +74,4 @@ export function Player(name) {
 
 
 
-}
+  }

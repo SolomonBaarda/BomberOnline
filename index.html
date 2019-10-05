@@ -7,8 +7,10 @@
     <title>Bomber Online</title>
     <link rel="stylesheet" href="stylesheet.css" type="text/css" media="all">
 
+    <!-- Initialise the game. Defer until page has loaded -->
+    <script type="text/javascript" src="scripts/initialise.js" defer></script>
     <!-- Load new player details. Defer until page has loaded -->
-    <script type="text/javascript" src="scripts/Initialise.js" defer></script>
+    <script type="text/javascript" src="scripts/player.js" defer></script>
 
 </head>
 
@@ -25,7 +27,7 @@
         <!-- Class for the main game content -->
         <div class="main-game">
             <!-- Player image -->
-            <img id="player">
+            <img id="player" width="64px" height="64px">
         </div>
 
 
