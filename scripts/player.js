@@ -16,13 +16,14 @@ window.onload = function Player() {
 
     // Need to add event listener to the window as well
 
+
     function initialisePlayer() {
-      const player = document.getElementById('player');
+      let playerTag = document.getElementById('player');
       // Set the image source
-      player.src = "sprites/player.jpg";
+      playerTag.src = "sprites/player.jpg";
 
       console.log("Player image has been set");
-      return player;
+      return playerTag;
     }
 
     function KeyDown(e) {
@@ -72,6 +73,6 @@ window.onload = function Player() {
       alive = false;
     }
 
-
-
   }
+
+}
