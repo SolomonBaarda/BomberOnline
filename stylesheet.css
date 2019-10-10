@@ -8,5 +8,19 @@ body {
 
 
 .main-title {
+    margin: 5px;
     color: red;
+}
+
+
+#player {
+    border: 2px solid red;
+}
+
+img {
+    margin: 5px;
+}
+
+.inputName{
+    margin: 5px;
 }

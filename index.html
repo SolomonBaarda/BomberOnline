@@ -7,25 +7,33 @@
     <title>Bomber Online</title>
     <link rel="stylesheet" href="stylesheet.css" type="text/css" media="all">
 
+    <!-- Initialise the game. Defer until page has loaded -->
+    <script type="text/javascript" src="scripts/initialise.js" defer></script>
     <!-- Load new player details. Defer until page has loaded -->
-    <script src="scripts/initPlayer.js" defer></script>
+    <!--
+    <script type="text/javascript" src="scripts/player.js" defer></script>
+    -->
 
 </head>
 
 
 <body>
+    <!-- Class for the main content of the game -->
     <div class="main-content">
         <h1 class="main-title">Welcome to Bomber Online!</h1>
 
         <div class="inputName">
-            <form class="inputNameForm">
-                Choose a display Name: <br>
-                <input type="text" class="submitName"> <br> <br>
-                <input type="button" value="Lets play" onclick="InitialisePlayer()">
-            </form>
-
-            <p id="inputNameDescription">Choose a display name and press the button.</p>
+            <p id="inputNameDescription"></p>
         </div>
+
+        <!-- Class for the main game content -->
+        <div class="main-game">
+            <!-- Player image -->
+            <img id="player" width="64px" height="64px">
+        </div>
+
+
+
     </div>
 
 </body>
