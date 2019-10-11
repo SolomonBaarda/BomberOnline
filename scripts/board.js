@@ -50,7 +50,8 @@ function Board(width, height) {
   }
 
   function Tile(x, y){
-    this.x = x;this.y = y;
+    this.x = x;
+    this.y = y;
   }
 
 
@@ -62,4 +63,6 @@ function Board(width, height) {
   */
   function PowerUps(x, y) {
     this.x = x;this.y = y;
-  }}
+  }
+
+}
