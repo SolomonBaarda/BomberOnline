@@ -2,35 +2,34 @@
 This is the script for the main game board.
 */
 
+var board;
 
 function Board(width, height) {
   this.width = width;   // Width in tiles
   this.height = height;   // Height in tiles
 
   // This is the main board collection used to store the locations of objects
-  var board = Generate(width, height);
+  board = Generate(width, height);
 
 
 
 
   function Generate(width, height) {
-    let board = new[width][height];
+    let newBoard = [width][height];
 
-    for(int y = 0; y < height; y++) {
-      for(int x = 0; x < width; x++) {
+    for(var y = 0; y < height; y++) {
+      for(var x = 0; x < width; x++) {
         // Set border of indestructable tiles at edge of map
         if(y == 0 || y == height || x == 0 || x == width) {
-          board[x][y] = new IndestructibleTile(x, y);
+          //newBoard[x][y] = DestructableTile(x, y);
         }
         else {
-          board[x][y] = new DestructableTile(x, y);
+          //newBoard[x][y] = DestructableTile(x, y);
         }
       }
     }
-
-    return board;
+    return newBoard;
   }
-
 
   /**
   This is the class for the tiles that can not be destroyed and
@@ -39,19 +38,29 @@ function Board(width, height) {
   players movement to the map
   */
   function IndestructibleTile(x, y) {
-    Tile.call(this, x, y);
+    let tile
   }
 
   /**
   This is the class for a tile that can be destroyed.
   */
   function DestructableTile(x, y) {
-    Tile.call(this, x, y);
+    let tile = Tile(x, y)
+    tile.health = 100;
+    tile.element = $('<sprites/player.jpg>');
+
+    return tile;
   }
 
-  function Tile(x, y){
-    this.x = x;
-    this.y = y;
+  function Tile(xPosition, yPosition){
+    let tile = {
+      x: xPosition,
+      y: yPosition,
+      health: 0,
+      element: null
+    }
+
+    return tile;
   }
 
 
@@ -64,5 +73,11 @@ function Board(width, height) {
   function PowerUps(x, y) {
     this.x = x;this.y = y;
   }
+}
 
+
+function UpdateBoard() {
+  for(var i = 0; i < board.length; i++) {
+    board[i].get
+  }
 }

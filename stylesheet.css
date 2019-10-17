@@ -15,6 +15,7 @@ body {
 
 #player {
     border: 2px solid red;
+    margin: 0px;
 }
 
 
@@ -25,4 +26,3 @@ img {
 .inputName{
     margin: 5px;
 }
-

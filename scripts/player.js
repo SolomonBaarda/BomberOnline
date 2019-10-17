@@ -1,60 +1,62 @@
-/*
-This is the script for the player class. Currently, it stores the players display name.
+/**
+This is the script for the player class.
 */
 
 // Reference to the element image
 var image;
-const MAX_SPEED = 3;
+// Maximum speed the player can move at
+const MAX_SPEED = 10;
+// Current velocities for x and y directions
 var velX = 0, velY = 0;
 
 // x and y position of the image
 var x = 0, y = 0;
 
-
-
+// Initialise new player
 function Player(name) {
+  this.name = name;
+  this.alive = false;
 
-    this.name = name;
-    this.alive = false;
-
-    image = setImage();
+  image = setImage();
 
 
-    function setImage() {
-      let playerTag = document.getElementById('player');
-      // Set the image source
-      playerTag.src = "sprites/player.jpg";
-      playerTag.position = "absolute";
+  function setImage() {
+    let playerTag = document.getElementById('player');
+    // Set the image source
+    playerTag.src = "sprites/player.jpg";
+    playerTag.position = "absolute";
 
-      $("#player").show();
+    $("#player").show();
 
-      console.log("Player image has been set");
-      return playerTag;
-    }
+    console.log("Player image has been set.");
+    return playerTag;
+  }
 
-// End of player
+  // End of player
 }
 
-
+// Function for updating the players position
 function UpdatePlayer() {
+  // Set player bounds ie they cannot move past these points
+  let boundsX = $(window).width() - image.width;
+  let boundsY = $(window).height() - image.height;
 
   // Update x position
   x += velX;
   if(x < 0) {x = 0}
-  else if(x > 1000) {x = 1000}
+  else if(x > boundsX) {x = boundsX}
 
   // Update y position
   y += velY;
   if(y < 0) {y = 0}
-  else if(y > 1000) {y = 1000}
+  else if(y > boundsY) {y = boundsY}
 
   // Set positon of image on screen
-  $("#player")
   image.style.left = x + "px";
   image.style.top = y + "px";
 }
 
-
+// Move functions - they set the x and y velocities
 function moveUp() {
   velY = -MAX_SPEED;
 }
@@ -70,6 +72,7 @@ function moveLeft() {
 function moveRight() {
   velX = MAX_SPEED;
 }
+
 
 this.getName = function() {
   return name;

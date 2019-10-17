@@ -1,37 +1,39 @@
 /**
-This is the script for the game controls.
+This is the script for controlling the player movement.
 */
 
+// Boolean values for the active direction
 var up, down, left, right;
 
 function InitialiseController() {
   // Add keyboard listeners to the page
   document.addEventListener("keydown", KeyDown, false);
   document.addEventListener("keyup", KeyUp, false);
-}
 
+  console.log("Keyboard listeners added.");
+}
 
 
 function KeyDown(e) {
   if(e.keyCode != undefined) {
     var key = e.keyCode;
 
-    // left
+    // Key is left
     if(key == 37 || key == 65) {
       moveLeft();
       left = true;
     }
-    // Right
+    // Key is right
     if(key == 39 || key == 68) {
       moveRight();
       right = true;
     }
-    // Up
+    // Key is up
     if(key == 38 || key == 87) {
       moveUp();
       up = true;
     }
-    // Down
+    // Key is down
     if(key == 40 || key == 83) {
       moveDown();
       down = true;
@@ -43,7 +45,7 @@ function KeyUp(e) {
   if(e.keyCode != undefined) {
     var key = e.keyCode;
 
-    // Left
+    // Key is left
     if(key == 37 || key == 65) {
       left = false;
       if(right) {
@@ -53,7 +55,7 @@ function KeyUp(e) {
         resetVelX();
       }
     }
-    // Right
+    // Key is right
     if(key == 39 || key == 68) {
       right = false;
       if(left) {
@@ -63,7 +65,7 @@ function KeyUp(e) {
         resetVelX();
       }
     }
-    // Up
+    // Key is up
     if(key == 38 || key == 87) {
       up = false;
       if(down) {
@@ -73,7 +75,7 @@ function KeyUp(e) {
         resetVelY();
       }
     }
-    // Down
+    // Key is down
     if(key == 40 || key == 83) {
       down = false;
       if(up) {
@@ -85,32 +87,3 @@ function KeyUp(e) {
     }
   }
 }
-
-// Old
-// function KeyDown(e) {
-//   if(e.keyCode != undefined) {
-//     switch (e.keyCode) {
-//
-//       // Move left
-//       case 37:
-//       moveLeft();
-//       break;
-//
-//       // Move right
-//       case 39:
-//       moveRight();
-//       break;
-//
-//       // Move up
-//       case 38:
-//       moveUp();
-//       break;
-//
-//       // Move down
-//       case 40:
-//       moveDown();
-//       break;
-//     }
-//   }
-//
-// }

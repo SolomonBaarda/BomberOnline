@@ -13,6 +13,8 @@
     <!-- Load JQuery library. Hosted by Google. Defer until page has loaded -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js" defer></script>
 
+    <!-- Load game board script. Defer until page has loaded -->
+    <script type="text/javascript" src="scripts/board.js" defer></script>
     <!-- Load Player script. Defer until page has loaded -->
     <script type="text/javascript" src="scripts/player.js" defer></script>
     <!-- Load game controls script. Defer until page has loaded -->
@@ -41,8 +43,10 @@
 
         <!-- Class for the main game content -->
         <div class="main-game">
+          <div class="board">
             <!-- Player image -->
             <img id="player" style="display:none; position:absolute; height="64px left: 0; top: 0;">
+          </div>
         </div>
 
 
