@@ -1,8 +1,9 @@
 /*
 
 IMPORTANT:
-When writing CSS, be sure to sort alphabetically
-into the correct category for easier navigation.
+When writing new CSS, be sure to sort the styles
+alphabetically into the correct category for
+easier navigation.
 
 CATEGORIES:
   - General
@@ -15,6 +16,7 @@ CATEGORIES:
 
 * {
   font-family: bomberText; /* set default font */
+  color: white; /* set default text color */
 }
 
 body {
@@ -32,7 +34,7 @@ button {
   outline: 1px solid black;
   padding: 11px 33px;
   text-decoration: none;
-  transition: 0.25s;
+  transition: 0.33s;
 }
 
 button:hover {
@@ -55,6 +57,21 @@ html {
 
 img {
   margin: 5px;
+}
+
+input {
+
+}
+
+table {
+  color: white;
+  table-layout: fixed;
+  width: 50%;
+}
+
+td {
+  text-align: right;
+  width: 10%;
 }
 
 /* CSS TEXT & FONTS */
@@ -96,6 +113,13 @@ img {
   text-decoration: none;
 }
 
+#infobar {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
 #main-header {
   align-items: center;
   display: flex;
@@ -108,6 +132,10 @@ img {
   margin: 0px;
 }
 
+#playerName {
+  display: none;
+}
+
 #playBox {
   align-items: center;
   background-color: #000000;
@@ -116,6 +144,19 @@ img {
   height: 300px;
   justify-content: center;
   width: 250px;
+}
+
+#tableName {
+  width: 10%;
+  text-align: left;
+}
+#tableScore {
+  width: 10%;
+  text-align: left;
+}
+#tableTime {
+  width: 10%;
+  text-align: left;
 }
 
 #welcomeBox {

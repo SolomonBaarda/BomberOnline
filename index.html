@@ -34,6 +34,16 @@
       <a href="index.html" id="headerLogoRed">Online</a>
     </header>
 
+    <div id="infobar">
+      <table>
+          <tr>
+            <td>NAME:</td> <td id="tableName"></td>
+            <td>TIME:</td> <td id="tableTime"></td>
+            <td>SCORE:</td> <td id="tableScore"></td>
+          </tr>
+      </table>
+    </div>
+
 
     <!-- Class for the main content of the game -->
     <div class="main-content">
@@ -42,6 +52,9 @@
         <div id="playBox">
           <!-- Button to start the initialise script. By default it is hidden -->
           <button type="button" id="play-button" onclick="Initialise()">PLAY</button>
+
+          <input type="text" id="playerName" value="">
+
         </div>
         </div>
 

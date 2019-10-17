@@ -15,13 +15,11 @@ $(document).ready($("#play-button").show())
 function Initialise() {
   // Hide the click to play button
   $("#play-button").hide();
-
-  // let player input username, then pass into the player script
-  Player(askForName());
+  $("#playerName").show();
 
   // Set text to say welcome to the player
-  const description = document.querySelector("#inputNameDescription");
-  description.innerHTML = "Welcome, " +name+ "!";
+  const description = document.querySelector("#tableName");
+  description.innerHTML = name;
 
   // Set up the game controls
   InitialiseController();
@@ -31,8 +29,6 @@ function Initialise() {
   // Call to start the game tick
   Timer();
 
-
-
   /**
   Function that prompts the user to enter a display name and returns it.
   */
@@ -40,7 +36,7 @@ function Initialise() {
     let name = "";
 
     // Ensure name is valid
-    while(name === "" || name === null) {
+    while(name === "" || name === null || name) {
       name = window.prompt("Please enter a display name.", "");
     }
 
