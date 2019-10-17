@@ -9,12 +9,12 @@ var board;
 
 // When the document is ready, make the click to play button visible.
 // This ensures that the page is fully loaded befoere allowing the player to start the game
-$(document).ready($("#click-to-play").show())
+$(document).ready($("#play-button").show())
 
 // Main initialise function
 function Initialise() {
   // Hide the click to play button
-  $("#click-to-play").hide();
+  $("#play-button").hide();
 
   // let player input username, then pass into the player script
   Player(askForName());

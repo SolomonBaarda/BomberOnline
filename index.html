@@ -28,13 +28,24 @@
 
 
 <body>
+    <!-- Class for header above the game -->
+    <header class="main-header">
+
+      <a href="index.html" id="headerLogo">BomberOnline</a>
+
+    </header>
+
+
     <!-- Class for the main content of the game -->
     <div class="main-content">
-        <h1 class="main-title">Welcome to Bomber Online!</h1>
+
 
         <div class="welcome">
           <!-- Button to start the initialise script. By default it is hidden -->
-          <button type="button" id="click-to-play" style="display:none" onclick="Initialise()">Press to play!</button>
+          <button
+            type="button" id="play-button"
+            onclick="Initialise()">Play
+          </button>
         </div>
 
         <div class="inputName">

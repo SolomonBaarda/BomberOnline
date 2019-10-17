@@ -1,28 +1,110 @@
-html {
-    font-family: sans-serif;
-}
+/*
+
+IMPORTANT:
+When writing CSS, be sure to sort alphabetically
+into the correct category for easier navigation.
+
+CATEGORIES:
+  - General
+  - Text/fonts
+  - Classes
+  - ID's
+
+*/
+
+
+
+/* CSS GENERAL */
 
 body {
-    margin: 0;
+  margin: 0;
 }
 
+button {
+  background-color: #000000;
+  border: 6px solid #ffffff;
+  display: inline-block;
+  color: #ffffff;
+  font-family: bomberText;
+  font-size: 17px;
 
-.main-title {
-    margin: 5px;
-    color: red;
+  padding: 11px 33px;
+  text-decoration: none;
 }
 
-
-#player {
-    border: 2px solid red;
-    margin: 0px;
+button:hover {
+  background-color: #ffffff;
+  border: 6px solid #000000;
+  color: #000000;
 }
 
+html {
+  font-family: sans-serif;
+}
 
 img {
-    margin: 5px;
+  margin: 5px;
 }
 
+
+/* CSS TEXT & FONTS */
+
+@font-face {
+  font-family: bomberText;
+  src: url("fonts/FORCED SQUARE.ttf");
+}
+
+@font-face {
+  font-family: bomberHeader;
+  src: url("fonts/unlearn2.ttf");
+}
+
+
+
+/* CSS CLASSES */
+
 .inputName{
-    margin: 5px;
+  margin: 5px;
+}
+
+.main-header {
+  background-color: black;
+}
+
+
+
+/* CSS ID's */
+
+#headerLogo {
+  color: #ffffff;
+  font-family: bomberHeader;
+  font-size: 40px;
+  font-weight: normal;
+  margin: 0;
+  text-align: center;
+  text-decoration: none;
+}
+
+#play-button {
+  background-color: #000000;
+  border: 6px solid #ffffff;
+  display: inline-block;
+  color: #ffffff;
+  font-family: bomberText;
+  font-size: 17px;
+  padding: 11px 33px;
+  text-decoration: none;
+}
+
+#play-button:hover {
+  background-color: #ffffff;
+  border: 6px solid #000000;
+  color: #000000;
+  font-family: bomberText;
+
+}
+
+#player {
+  border: 2px solid black;
+  margin: 0px;
 }
