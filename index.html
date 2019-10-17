@@ -4,15 +4,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Set title -->
     <title>Bomber Online</title>
+
+    <!-- Load stylesheet -->
     <link rel="stylesheet" href="stylesheet.css" type="text/css" media="all">
 
+    <!-- Load JQuery library. Hosted by Google. Defer until page has loaded -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js" defer></script>
+
+    <!-- Load Player script. Defer until page has loaded -->
+    <script type="text/javascript" src="scripts/player.js" defer></script>
+    <!-- Load game controls script. Defer until page has loaded -->
+    <script type="text/javascript" src="scripts/controller.js" defer></script>
     <!-- Initialise the game. Defer until page has loaded -->
     <script type="text/javascript" src="scripts/initialise.js" defer></script>
-    <!-- Load new player details. Defer until page has loaded -->
-    <!--
-    <script type="text/javascript" src="scripts/player.js" defer></script>
-    -->
+    <!-- Load the game tick. Defer until page has loaded -->
+    <script type="text/javascript" src="scripts/run.js" defer></script>
 
 </head>
 
@@ -22,6 +30,11 @@
     <div class="main-content">
         <h1 class="main-title">Welcome to Bomber Online!</h1>
 
+        <div class="welcome">
+          <!-- Button to start the initialise script. By default it is hidden -->
+          <button type="button" id="click-to-play" style="display:none" onclick="Initialise()">Press to play!</button>
+        </div>
+
         <div class="inputName">
             <p id="inputNameDescription"></p>
         </div>
@@ -29,7 +42,7 @@
         <!-- Class for the main game content -->
         <div class="main-game">
             <!-- Player image -->
-            <img id="player" width="64px" height="64px">
+            <img id="player" style="display:none; position:absolute; height="64px left: 0; top: 0;">
         </div>
 
 
