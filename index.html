@@ -28,30 +28,26 @@
 
 
 <body>
-    <!-- Class for header above the game -->
-    <header class="main-header">
-
-      <a href="index.html" id="headerLogo">BomberOnline</a>
-
+    <!-- Header above the game -->
+    <header>
+      <a href="index.html" class="headerLogo">Bomber</a>
+      <a href="index.html" id="headerLogoRed">Online</a>
     </header>
 
 
     <!-- Class for the main content of the game -->
     <div class="main-content">
 
-
-        <div class="welcome">
+        <div id="welcomeBox">
+        <div id="playBox">
           <!-- Button to start the initialise script. By default it is hidden -->
-          <button
-            type="button" id="play-button"
-            onclick="Initialise()">Play
-          </button>
+          <button type="button" id="play-button" onclick="Initialise()">PLAY</button>
+        </div>
         </div>
 
         <div class="inputName">
             <p id="inputNameDescription"></p>
         </div>
-
         <!-- Class for the main game content -->
         <div class="main-game">
           <div class="board">
@@ -59,12 +55,6 @@
             <img id="player" style="display:none; position:absolute; height="64px left: 0; top: 0;">
           </div>
         </div>
-
-
-
     </div>
-
 </body>
-
-
 </html>

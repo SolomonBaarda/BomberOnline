@@ -21,7 +21,7 @@ function Initialise() {
 
   // Set text to say welcome to the player
   const description = document.querySelector("#inputNameDescription");
-  description.innerHTML = "Welcome " +name+ "!";
+  description.innerHTML = "Welcome, " +name+ "!";
 
   // Set up the game controls
   InitialiseController();

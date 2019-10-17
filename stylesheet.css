@@ -9,15 +9,17 @@ CATEGORIES:
   - Text/fonts
   - Classes
   - ID's
-
 */
 
+/*   CSS GENERAL */
 
-
-/* CSS GENERAL */
+* {
+  font-family: bomberText; /* set default font */
+}
 
 body {
   margin: 0;
+  background-color: black;
 }
 
 button {
@@ -27,15 +29,24 @@ button {
   color: #ffffff;
   font-family: bomberText;
   font-size: 17px;
-
+  outline: 1px solid black;
   padding: 11px 33px;
   text-decoration: none;
+  transition: 0.25s;
 }
 
 button:hover {
   background-color: #ffffff;
   border: 6px solid #000000;
   color: #000000;
+}
+
+header {
+  align-items: center;
+  background-color: black;
+  display: flex;
+  justify-content: center;
+  width: 100%;
 }
 
 html {
@@ -58,53 +69,59 @@ img {
   src: url("fonts/unlearn2.ttf");
 }
 
-/* Set default font for all elements */
-* {
-  font-family: bomberText;
-}
-
 /* CSS CLASSES */
+
+
+.headerLogo {
+  color: white;
+  font-family: bomberHeader;
+  font-size: 50px;
+  font-weight: normal;
+  margin: 0;
+  text-decoration: none;
+}
 
 .inputName{
   margin: 5px;
 }
 
-.main-header {
-  background-color: black;
-}
-
 /* CSS ID's */
 
-#headerLogo {
-  color: #ffffff;
+#headerLogoRed {
+  color: #ae0000;
   font-family: bomberHeader;
-  font-size: 40px;
+  font-size: 50px;
   font-weight: normal;
   margin: 0;
-  text-align: center;
   text-decoration: none;
 }
 
-#play-button {
-  background-color: #000000;
-  border: 6px solid #ffffff;
-  display: inline-block;
-  color: #ffffff;
-  font-family: bomberText;
-  font-size: 17px;
-  padding: 11px 33px;
-  text-decoration: none;
-}
-
-#play-button:hover {
-  background-color: #ffffff;
-  border: 6px solid #000000;
-  color: #000000;
-  font-family: bomberText;
-
+#main-header {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  width: 100%;
 }
 
 #player {
   border: 2px solid black;
   margin: 0px;
+}
+
+#playBox {
+  align-items: center;
+  background-color: #000000;
+  border: 6px solid white;
+  display: flex;
+  height: 300px;
+  justify-content: center;
+  width: 250px;
+}
+
+#welcomeBox {
+  align-items: center;
+  display: flex;
+  height: 600px;
+  justify-content: center;
+  width: 100%;
 }
