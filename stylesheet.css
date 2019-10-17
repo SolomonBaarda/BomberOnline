@@ -46,7 +46,6 @@ img {
   margin: 5px;
 }
 
-
 /* CSS TEXT & FONTS */
 
 @font-face {
@@ -59,7 +58,10 @@ img {
   src: url("fonts/unlearn2.ttf");
 }
 
-
+/* Set default font for all elements */
+* {
+  font-family: bomberText;
+}
 
 /* CSS CLASSES */
 
@@ -70,8 +72,6 @@ img {
 .main-header {
   background-color: black;
 }
-
-
 
 /* CSS ID's */
 
