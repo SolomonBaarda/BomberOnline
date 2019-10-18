@@ -8,6 +8,7 @@ easier navigation.
 CATEGORIES:
   - General
   - Text/fonts
+  - Blocks
   - Classes
   - ID's
 */
@@ -43,14 +44,6 @@ button:hover {
   color: #000000;
 }
 
-header {
-  align-items: center;
-  background-color: black;
-  display: flex;
-  justify-content: center;
-  width: 100%;
-}
-
 html {
   font-family: sans-serif;
 }
@@ -60,7 +53,10 @@ img {
 }
 
 input {
-
+  background-color: #000000;
+  border: 6px solid #ffffff;
+  padding: 6px;
+  transition: 1s;
 }
 
 table {
@@ -86,8 +82,46 @@ td {
   src: url("fonts/unlearn2.ttf");
 }
 
-/* CSS CLASSES */
+/* CSS BLOCKS & DIVS */
 
+header {
+  align-items: center;
+  background-color: black;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+#infobar {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+#nameInput {
+  display: grid;
+}
+
+#playBox {
+  align-items: center;
+  background-color: #000000;
+  border: 6px solid white;
+  display: flex;
+  height: 300px;
+  justify-content: center;
+  width: 250px;
+}
+
+#welcomeBox {
+  align-items: center;
+  display: flex;
+  height: 600px;
+  justify-content: center;
+  width: 100%;
+}
+
+/* CSS CLASSES */
 
 .headerLogo {
   color: white;
@@ -104,6 +138,14 @@ td {
 
 /* CSS ID's */
 
+#errorMsg {
+  color: #ae0000;
+  font-family: monospace;
+  font-size: 12px;
+  display: none;
+  text-align: center;
+}
+
 #headerLogoRed {
   color: #ae0000;
   font-family: bomberHeader;
@@ -113,13 +155,6 @@ td {
   text-decoration: none;
 }
 
-#infobar {
-  align-items: center;
-  display: flex;
-  justify-content: center;
-  width: 100%;
-}
-
 #main-header {
   align-items: center;
   display: flex;
@@ -127,42 +162,36 @@ td {
   width: 100%;
 }
 
+#play-button {
+  display: none;
+}
+
 #player {
   border: 2px solid black;
   margin: 0px;
+  display: none;
+  position: absolute;
+  height: 32px;
+  left: 50%;
+  top: 50%;
 }
 
 #playerName {
   display: none;
-}
-
-#playBox {
-  align-items: center;
-  background-color: #000000;
-  border: 6px solid white;
-  display: flex;
-  height: 300px;
-  justify-content: center;
-  width: 250px;
+  font-size: 28px;
+  margin-bottom: 10%;
+  width: 160px;
 }
 
 #tableName {
-  width: 10%;
   text-align: left;
+  width: 10%;
 }
 #tableScore {
-  width: 10%;
   text-align: left;
+  width: 10%;
 }
 #tableTime {
-  width: 10%;
   text-align: left;
-}
-
-#welcomeBox {
-  align-items: center;
-  display: flex;
-  height: 600px;
-  justify-content: center;
-  width: 100%;
+  width: 10%;
 }
