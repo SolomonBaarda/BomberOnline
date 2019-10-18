@@ -1,28 +1,253 @@
-html {
-    font-family: sans-serif;
+/*
+
+IMPORTANT:
+When writing new CSS, be sure to sort the styles
+alphabetically into the correct category for
+easier navigation.
+
+CATEGORIES:
+  - General
+  - Text/fonts
+  - Blocks
+  - Classes
+  - ID's
+*/
+
+/*   CSS GENERAL */
+
+* {
+  font-family: bomberText; /* set default font */
+  color: white; /* set default text color */
 }
 
 body {
-    margin: 0;
+  margin: 0;
+  background-color: black;
 }
 
-
-.main-title {
-    margin: 5px;
-    color: red;
+button {
+  background-color: #000000;
+  border: 6px solid #ffffff;
+  display: inline-block;
+  color: #ffffff;
+  font-family: bomberText;
+  font-size: 17px;
+  outline: 1px solid black;
+  padding: 11px 33px;
+  text-decoration: none;
+  transition: 0.33s;
 }
 
-
-#player {
-    border: 2px solid red;
-    margin: 0px;
+button:hover {
+  background-color: #ffffff;
+  border: 6px solid #000000;
+  color: #000000;
 }
 
+html {
+  font-family: sans-serif;
+}
 
 img {
-    margin: 5px;
+  margin: 5px;
+}
+
+input {
+  background-color: #000000;
+  border: 6px solid #ffffff;
+  padding: 6px;
+  transition: 1s;
+}
+
+table {
+  color: white;
+  table-layout: fixed;
+  width: 50%;
+}
+
+td {
+  text-align: right;
+  width: 10%;
+}
+
+/* CSS TEXT & FONTS */
+
+@font-face {
+  font-family: bomberText;
+  src: url("fonts/FORCED SQUARE.ttf");
+}
+
+@font-face {
+  font-family: bomberHeader;
+  src: url("fonts/unlearn2.ttf");
+}
+
+/* CSS BLOCKS & DIVS */
+
+header {
+  align-items: center;
+  background-color: black;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+footer {
+  align-items: center;
+  background-color: black;
+  border-top: 1px solid white;
+  display: flex;
+  justify-content: center;
+  height: 16px;
+  padding: 0;
+  font-size: 14px;
+  width: 100%;
+}
+
+#infobar {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+#nameInput {
+  display: grid;
+}
+
+#playBox {
+  align-items: center;
+  background-color: #000000;
+  border: 6px solid white;
+  display: flex;
+  height: 300px;
+  justify-content: center;
+  width: 250px;
+}
+
+#welcomeBox {
+  align-items: center;
+  display: flex;
+  height: 600px;
+  justify-content: center;
+  width: 100%;
+  animation: 4s ease-out 0s 1 fadeIn;
+}
+
+/* CSS CLASSES */
+
+.headerLogo {
+  color: white;
+  font-family: bomberHeader;
+  font-size: 50px;
+  font-weight: normal;
+  margin: 0;
+  text-decoration: none;
+  animation: 2s ease-out 0s 1 hdFadeIn;
 }
 
 .inputName{
-    margin: 5px;
+  margin: 5px;
+}
+
+/* CSS ID's */
+
+#errorMsg {
+  color: #ae0000;
+  font-family: monospace;
+  font-size: 12px;
+  display: none;
+  text-align: center;
+}
+
+#headerLogoRed {
+  color: #ae0000;
+  font-family: bomberHeader;
+  font-size: 50px;
+  font-weight: normal;
+  margin: 0;
+  text-decoration: none;
+  animation: 2s ease-out 0s 1 hdFadeIn;
+}
+
+#main-header {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+#play-button {
+  display: none;
+}
+
+#player {
+  border: 2px solid black;
+  margin: 0px;
+  display: none;
+  position: absolute;
+  height: 32px;
+  left: 50%;
+  top: 50%;
+}
+
+#playerName {
+  display: none;
+  font-size: 28px;
+  margin-bottom: 10%;
+  width: 160px;
+}
+
+#start-button {
+  background-color: #000000;
+  border: 6px solid #ffffff;
+  display: inline-block;
+  color: #ffffff;
+  font-family: bomberText;
+  font-size: 17px;
+  outline: 1px solid black;
+  padding: 11px 33px;
+  text-decoration: none;
+  transition: 0.33s;
+}
+
+#start-button:hover {
+  background-color: #ae0000;
+  border: 6px solid #000000;
+  color: #000000;
+}
+
+#tableName {
+  text-align: left;
+  width: 10%;
+}
+#tableScore {
+  text-align: left;
+  width: 10%;
+}
+#tableTime {
+  text-align: left;
+  width: 10%;
+}
+
+/* ANIMATION */
+
+@keyframes hdFadeIn {
+  0% {
+    opacity: 0;
+  } 25% {
+    opacity: 0;
+  } 100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  } 35% {
+    opacity: 0;
+  } 100% {
+    opacity: 1;
+  }
 }
