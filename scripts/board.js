@@ -3,33 +3,41 @@ This is the script for the main game board.
 */
 
 var board;
+var boardHeight;
+var boardWidth;
 
 function Board(width, height) {
-  this.width = width;   // Width in tiles
-  this.height = height;   // Height in tiles
+  boardHeight = width;   // Width in tiles
+  boardHeight = height;   // Height in tiles
 
   // This is the main board collection used to store the locations of objects
   board = Generate(width, height);
 
 
 
-
   function Generate(width, height) {
-    let newBoard = [width][height];
+    // Create 2-dimensional array for the board
+    var newBoard = new Array(width);
+    for(let i = 0; i < height; i++) {
+      newBoard[i] = new Array(height);
+    }
 
-    for(var y = 0; y < height; y++) {
-      for(var x = 0; x < width; x++) {
-        // Set border of indestructable tiles at edge of map
-        if(y == 0 || y == height || x == 0 || x == width) {
-          //newBoard[x][y] = DestructableTile(x, y);
+    // Initialise elements
+    for(let y = 0; y < height; y++) {
+      for(let x = 0; x < width; x++) {
+        if(x == 0 || x == width || y == 0 || y == height) {
+          newBoard[x][y] = IndestructibleTile(x, y);
         }
         else {
-          //newBoard[x][y] = DestructableTile(x, y);
+          newBoard[x][y] = DestructableTile(x, y);
         }
       }
     }
+
     return newBoard;
   }
+
+
 
   /**
   This is the class for the tiles that can not be destroyed and
@@ -38,7 +46,12 @@ function Board(width, height) {
   players movement to the map
   */
   function IndestructibleTile(x, y) {
-    let tile
+    let tile = Tile(x, y)
+    tile.isDestructable = false
+
+    tile.element = $('<sprites/indestructibleblock1.png>');
+
+    return tile;
   }
 
   /**
@@ -46,8 +59,8 @@ function Board(width, height) {
   */
   function DestructableTile(x, y) {
     let tile = Tile(x, y)
-    tile.health = 100;
-    tile.element = $('<sprites/player.jpg>');
+    tile.isDestructable = true;
+    tile.element = $('<sprites/destructibleblock.png>');
 
     return tile;
   }
@@ -56,8 +69,9 @@ function Board(width, height) {
     let tile = {
       x: xPosition,
       y: yPosition,
-      health: 0,
-      element: null
+      //health: 0,
+      isDestructable: undefined,
+      element: undefined
     }
 
     return tile;
@@ -73,11 +87,23 @@ function Board(width, height) {
   function PowerUps(x, y) {
     this.x = x;this.y = y;
   }
+
 }
 
 
 function UpdateBoard() {
-  for(var i = 0; i < board.length; i++) {
-    board[i].get
+  var canvas = document.getElementById("#canvas").getContext("2d");
+
+  for(let y = 0; y < boardHeight; y++) {
+    for(let x = 0; x < boardWidth; x++) {
+
+      canvas.fillRect(x, y, 64, 64);
+
+      //$("#canvas").drawImage(board[x][y].element)
+    }
   }
+
+  canvas.fillRect(0, 0, 200, 200);
+
+  console.log("Board updated.");
 }

@@ -2,10 +2,6 @@
 This is the script for initialising the game.
 */
 
-// Pointer to the player element
-var player;
-
-var board;
 
 // When the document is ready, make the click to play button visible.
 // This ensures that the page is fully loaded befoere allowing the player to start the game
@@ -26,7 +22,14 @@ function Initialise() {
   // Set up the game controls
   InitialiseController();
 
-  board = Board(24, 24);
+  let boardSize = 8;
+
+  // Make the canvas visible and set the size
+  $("#canvas").width(boardSize * 64);
+  $("#canvas").height(boardSize * 64);
+  $("#canvas").show();
+
+  Board(boardSize, boardSize);
 
   // Call to start the game tick
   Timer();
