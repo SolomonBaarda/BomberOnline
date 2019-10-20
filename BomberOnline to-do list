@@ -3,11 +3,9 @@ F28WP BomberOnline To Do List:
 ---NOT COMPLETED---
 Level layouts
 Implement destructable and indestructable tiles
-Redo UI
 Multiplayer implementation
 Sprites and animation
 Bomb implementation
-Level Border
 Score system
 Leaderboard system
 Powerups
@@ -30,11 +28,12 @@ Unit tests
 
 
 -Matthew-
+Level Border
 
 ---------------------
 
 ---COMPLETED---
 
-
+Redo UI
 
 ---------------------
