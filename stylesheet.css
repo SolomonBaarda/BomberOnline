@@ -187,11 +187,10 @@ footer {
 }
 
 #player {
-  border: 2px solid black;
+  border: 2px solid green;
   margin: 0px;
   display: none;
   position: absolute;
-  height: 32px;
   left: 50%;
   top: 50%;
 }

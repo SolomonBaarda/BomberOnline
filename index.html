@@ -14,15 +14,15 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js" defer></script>
 
     <!-- Load game board script. Defer until page has loaded -->
-    <script type="text/javascript" src="scripts/board.js" defer></script>
+    <script src="scripts/board.js" defer></script>
     <!-- Load Player script. Defer until page has loaded -->
-    <script type="text/javascript" src="scripts/player.js" defer></script>
+    <script src="scripts/player.js" defer></script>
     <!-- Load game controls script. Defer until page has loaded -->
-    <script type="text/javascript" src="scripts/controller.js" defer></script>
+    <script src="scripts/controller.js" defer></script>
     <!-- Initialise the game. Defer until page has loaded -->
-    <script type="text/javascript" src="scripts/initialise.js" defer></script>
+    <script src="scripts/initialise.js" defer></script>
     <!-- Load the game tick. Defer until page has loaded -->
-    <script type="text/javascript" src="scripts/run.js" defer></script>
+    <script src="scripts/run.js" defer></script>
 
 </head>
 
@@ -51,34 +51,36 @@
         <!-- welcomeBox and playBox acts as a menu screen when the page is loaded.
              After the user inputs a name the game begins-->
         <div id="welcomeBox">
-        <div id="playBox">
+          <div id="playBox">
 
           <!-- Call initialise function -->
           <button type="button" id="start-button" onclick="Initialise()">START</button>
 
           <!-- Text box for name input and button to call SetName, which starts the game. -->
-        <div id="nameInput">
-          <p id="errorMsg">Error: name too long.</p>
-          <input type="text" placeholder="Enter name" id="playerName">
-          <button type="button" id="play-button" onclick="SetName()">PLAY</button>
-        </div>
+          <div id="nameInput">
+            <p id="errorMsg">Error: name too long.</p>
+            <input type="text" placeholder="Enter name" id="playerName">
+            <button type="button" id="play-button" onclick="SetName()">PLAY</button>
+          </div>
 
-        </div>
+          </div>
         </div>
 
         <!-- Unsure if this is still needed. (?) -->
         <div class="inputName">
-            <p id="inputNameDescription"></p>
+          <p id="inputNameDescription"></p>
         </div>
 
 
         <!-- Class for the main game content -->
         <div class="main-game">
 
-          <div class="board">
+          <!-- Player image -->
+          <img id="player" alt="player" style="display:none; position:absolute; height:64px; left:0; top:0;">
 
-            <!-- Player image -->
-            <img id="player">
+          <div class="board">
+            <canvas id="canvas" style="width:64px; height:64px; border:1px solid red; display:none;">
+            </canvas>
           </div>
 
           <canvas id="gameCanvas">
