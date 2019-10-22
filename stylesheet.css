@@ -84,6 +84,11 @@ td {
 
 /* CSS BLOCKS & DIVS */
 
+#gameCanvas {
+  background-color: black;
+  border: 1px solid red;
+}
+
 header {
   align-items: center;
   background-color: black;
