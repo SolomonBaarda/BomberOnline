@@ -181,6 +181,7 @@ footer {
   display: none;
 }
 
+/* 
 #player {
   border: 2px solid green;
   margin: 0px;
@@ -189,6 +190,7 @@ footer {
   left: 50%;
   top: 50%;
 }
+*/
 
 #playerName {
   display: none;

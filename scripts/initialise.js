@@ -73,13 +73,9 @@ function SetName() {
   InitialiseController();
 
   let boardSize = 8;
-
-  // Make the canvas visible and set the size
-  $("#canvas").width(boardSize * 64);
-  $("#canvas").height(boardSize * 64);
-  $("#canvas").show();
-
   Board(boardSize, boardSize);
+
+  InitialiseCanvas(boardSize);
 
   // Call to start the game tick
   Timer();

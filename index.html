@@ -19,6 +19,8 @@
     <script src="scripts/player.js" defer></script>
     <!-- Load game controls script. Defer until page has loaded -->
     <script src="scripts/controller.js" defer></script>
+    <!-- Load canvas script. Defer until page has loaded -->
+    <script src="scripts/canvas.js" defer></script>
     <!-- Initialise the game. Defer until page has loaded -->
     <script src="scripts/initialise.js" defer></script>
     <!-- Load the game tick. Defer until page has loaded -->
@@ -73,10 +75,10 @@
         <div class="main-game">
 
           <!-- Player image -->
-          <img id="player" alt="player" style="display:none; position:absolute; height:64px; left:0; top:0;">
+          <img id="player" alt="player" style="display:none; position:absolute; left:0; top:0;">
 
           <div class="board">
-            <canvas id="canvas" style="width:64px; height:64px; border:1px solid red; display:none;"></canvas>
+            <canvas id="canvas" style="border:1px solid red; display:none;"></canvas>
           </div>
         </div>
     </div>

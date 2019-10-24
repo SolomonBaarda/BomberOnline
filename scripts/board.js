@@ -91,19 +91,8 @@ function Board(width, height) {
 }
 
 
+
 function UpdateBoard() {
-  var canvas = document.getElementById("#canvas").getContext("2d");
-
-  for(let y = 0; y < boardHeight; y++) {
-    for(let x = 0; x < boardWidth; x++) {
-
-      canvas.fillRect(x, y, 64, 64);
-
-      //$("#canvas").drawImage(board[x][y].element)
-    }
-  }
-
-  canvas.fillRect(0, 0, 200, 200);
-
+  
   console.log("Board updated.");
 }

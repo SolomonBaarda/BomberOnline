@@ -19,6 +19,9 @@ function Player(name) {
 
   image = setImage();
 
+  $("#player").width(PIXELS_PER_TILE);
+  $("#player").height(PIXELS_PER_TILE);
+
 
   function setImage() {
     let playerTag = document.getElementById('player');
@@ -26,7 +29,8 @@ function Player(name) {
     playerTag.src = "sprites/player.jpg";
     playerTag.position = "absolute";
 
-    $("#player").show();
+    // Use canvas to render image now
+    $("#player").hide();
 
     console.log("Player image has been set.");
     return playerTag;
@@ -38,22 +42,30 @@ function Player(name) {
 // Function for updating the players position
 function UpdatePlayer() {
   // Set player bounds ie they cannot move past these points
-  let boundsX = $(window).width() - image.width;
-  let boundsY = $(window).height() - image.height;
+  let minX = 0;
+  let minY = 0;
+  let maxX = $("#canvas").width() - image.width;
+  let maxY = $("#canvas").height() - image.height;
 
   // Update x position
   x += velX;
-  if(x < 0) {x = 0}
-  else if(x > boundsX) {x = boundsX}
+  if(x < minX) {x = minX}
+  else if(x > maxX) {x = maxX}
 
   // Update y position
   y += velY;
-  if(y < 0) {y = 0}
-  else if(y > boundsY) {y = boundsY}
+  if(y < minY) {y = minY}
+  else if(y > maxY) {y = maxY}
+}
 
+
+function RenderPlayer(ctx) {
   // Set positon of image on screen
-  image.style.left = x + "px";
-  image.style.top = y + "px";
+  // Old method
+  // image.style.left = getPlayerX() + "px";
+  // image.style.top = getPlayerY() + "px";
+
+  ctx.drawImage(image, x, y, PIXELS_PER_TILE, PIXELS_PER_TILE);
 }
 
 // Move functions - they set the x and y velocities
@@ -73,7 +85,6 @@ function moveRight() {
   velX = MAX_SPEED;
 }
 
-
 this.getName = function() {
   return name;
 }
@@ -88,6 +99,14 @@ this.setAlive = function() {
 
 this.setDead = function() {
   alive = false;
+}
+
+function getPlayerX() {
+  return x;
+}
+
+function getPlayerY() {
+  return y;
 }
 
 function resetVelX() {
