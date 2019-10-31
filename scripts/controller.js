@@ -38,6 +38,14 @@ function KeyDown(e) {
       moveDown();
       down = true;
     }
+    //key is q
+    if(key == 81) {
+      bombDrop();
+    }
+    //key is e
+    if (key == 69) {
+
+    }
   }
 }
 
