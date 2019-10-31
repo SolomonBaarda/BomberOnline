@@ -38,6 +38,10 @@ function KeyDown(e) {
       moveDown();
       down = true;
     }
+    // Key is shift 
+    if(key == 16) {
+      moveWalk();
+    }
   }
 }
 
@@ -84,6 +88,10 @@ function KeyUp(e) {
       else {
         resetVelY();
       }
+    }
+    // Key is shift 
+    if(key == 16) {
+      moveRun();
     }
   }
 }

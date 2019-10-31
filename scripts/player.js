@@ -4,8 +4,14 @@ This is the script for the player class.
 
 // Reference to the element image
 var image;
+const size = 3 * PIXELS_PER_TILE / 4;
+const offset = (PIXELS_PER_TILE / 4) / 2;
 // Maximum speed the player can move at
-const MAX_SPEED = 10;
+const MAX_SPEED = 2;
+// Player's current speed 
+var speed = MAX_SPEED;
+// Boolean for slow walk
+var isRunning = true;
 // Current velocities for x and y directions
 var velX = 0, velY = 0;
 
@@ -18,10 +24,6 @@ function Player(name) {
   this.alive = false;
 
   image = setImage();
-
-  $("#player").width(PIXELS_PER_TILE);
-  $("#player").height(PIXELS_PER_TILE);
-
 
   function setImage() {
     let playerTag = document.getElementById('player');
@@ -44,8 +46,15 @@ function UpdatePlayer() {
   // Set player bounds ie they cannot move past these points
   let minX = 0;
   let minY = 0;
-  let maxX = $("#canvas").width() - image.width;
-  let maxY = $("#canvas").height() - image.height;
+  let maxX = $("#canvas").width() - size;
+  let maxY = $("#canvas").height() - size;
+
+  if(isRunning) {
+    speed = MAX_SPEED;
+  }
+  else {
+    speed = MAX_SPEED / 2;
+  }
 
   // Update x position
   x += velX;
@@ -65,24 +74,32 @@ function RenderPlayer(ctx) {
   // image.style.left = getPlayerX() + "px";
   // image.style.top = getPlayerY() + "px";
 
-  ctx.drawImage(image, x, y, PIXELS_PER_TILE, PIXELS_PER_TILE);
+  ctx.drawImage(image, x + offset, y + offset, size, size);
 }
 
 // Move functions - they set the x and y velocities
 function moveUp() {
-  velY = -MAX_SPEED;
+  velY = -speed;
 }
 
 function moveDown() {
-  velY = MAX_SPEED;
+  velY = speed;
 }
 
 function moveLeft() {
-  velX = -MAX_SPEED;
+  velX = -speed;
 }
 
 function moveRight() {
-  velX = MAX_SPEED;
+  velX = speed;  
+}
+
+function moveWalk() {
+  isRunning = false;
+}
+
+function moveRun() {
+  isRunning = true;
 }
 
 this.getName = function() {

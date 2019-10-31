@@ -72,7 +72,7 @@ function SetName() {
   // Set up the game controls
   InitialiseController();
 
-  let boardSize = 8;
+  let boardSize = 16;
   Board(boardSize, boardSize);
 
   InitialiseCanvas(boardSize);

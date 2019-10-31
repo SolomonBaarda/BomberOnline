@@ -3,8 +3,6 @@ This is the script for the main game tick.
 */
 
 myTime = null;
-// Set number of updates per second
-const TICKS_PER_SECOND = 60;
 
 // The main game clock function
 function Timer() {
