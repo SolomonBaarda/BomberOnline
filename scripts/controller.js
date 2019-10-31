@@ -41,6 +41,7 @@ function KeyDown(e) {
     // Key is shift 
     if(key == 16) {
       moveWalk();
+    }
     //key is q
     if(key == 81) {
       bombDrop();
