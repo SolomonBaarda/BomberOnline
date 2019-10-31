@@ -31,7 +31,7 @@ button {
   display: inline-block;
   color: #ffffff;
   font-family: bomberText;
-  font-size: 17px;
+  font-size: 18px;
   outline: 1px solid black;
   padding: 11px 33px;
   text-decoration: none;
@@ -181,7 +181,7 @@ footer {
   display: none;
 }
 
-/* 
+/*
 #player {
   border: 2px solid green;
   margin: 0px;
