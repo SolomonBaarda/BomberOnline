@@ -17,6 +17,7 @@ Unit tests
 
 -Solomon-
 board, player and tile rendering using canvas
+tile collision
 
 -Oliver-
 
