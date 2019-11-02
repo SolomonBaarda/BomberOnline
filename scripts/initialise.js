@@ -50,7 +50,7 @@ function SetName() {
     // If all the requirements are met then the game begins.
     default:
       console.log("Player name set to " +name+ ".");
-      Player(askForName());
+      Player(askForName(), 4 * PIXELS_PER_TILE, 4 * PIXELS_PER_TILE);
 
       function askForName() {
         return name;
@@ -72,7 +72,7 @@ function SetName() {
   // Set up the game controls
   InitialiseController();
 
-  let boardSize = 16;
+  let boardSize = 32;
   Board(boardSize, boardSize);
 
   InitialiseCanvas(boardSize);

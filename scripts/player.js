@@ -3,8 +3,8 @@ This is the script for the player class.
 */
 
 // Reference to the element image
-var image;
-const size = 3 * PIXELS_PER_TILE / 4;
+var player_image;
+const player_size = 3 * PIXELS_PER_TILE / 4;
 const offset = (PIXELS_PER_TILE / 4) / 2;
 // Maximum speed the player can move at
 const MAX_SPEED = 2;
@@ -15,15 +15,18 @@ var isRunning = true;
 // Current velocities for x and y directions
 var velX = 0, velY = 0;
 
-// x and y position of the image
+// x and y position of the image on the board
+// To get the tile pos xTile = x/PIXELS_PER_TILE;
 var x = 0, y = 0;
 
 // Initialise new player
-function Player(name) {
+function Player(name, x, y) {
   this.name = name;
   this.alive = false;
+  this.x = x;
+  this.y = y;
 
-  image = setImage();
+  player_image = setImage();
 
   function setImage() {
     let playerTag = document.getElementById('player');
@@ -46,8 +49,8 @@ function UpdatePlayer() {
   // Set player bounds ie they cannot move past these points
   let minX = 0;
   let minY = 0;
-  let maxX = $("#canvas").width() - size;
-  let maxY = $("#canvas").height() - size;
+  let maxX = boardWidth * PIXELS_PER_TILE - player_size;
+  let maxY = boardHeight * PIXELS_PER_TILE - player_size;
 
   if(isRunning) {
     speed = MAX_SPEED;
@@ -58,24 +61,17 @@ function UpdatePlayer() {
 
   // Update x position
   x += velX;
-  if(x < minX) {x = minX}
-  else if(x > maxX) {x = maxX}
+  x = Clamp(x, minX, maxX);
 
   // Update y position
   y += velY;
-  if(y < minY) {y = minY}
-  else if(y > maxY) {y = maxY}
+  y = Clamp(y, minY, maxY);
+
+  setCameraPosCentre(x + player_size/2, y + player_size/2);
 }
 
 
-function RenderPlayer(ctx) {
-  // Set positon of image on screen
-  // Old method
-  // image.style.left = getPlayerX() + "px";
-  // image.style.top = getPlayerY() + "px";
 
-  ctx.drawImage(image, x + offset, y + offset, size, size);
-}
 
 // Move functions - they set the x and y velocities
 function moveUp() {
