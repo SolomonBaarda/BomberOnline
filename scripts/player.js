@@ -52,22 +52,38 @@ function UpdatePlayer() {
   let maxX = boardWidth * PIXELS_PER_TILE - player_size;
   let maxY = boardHeight * PIXELS_PER_TILE - player_size;
 
-  if(isRunning) {
+  if (isRunning) {
     speed = MAX_SPEED;
   }
   else {
     speed = MAX_SPEED / 2;
   }
 
+  // Store old values before checking collision 
+  var oldX = x;
+  var oldY = y;
+
   // Update x position
-  x += velX;
-  x = Clamp(x, minX, maxX);
+  var newX = Clamp(x + velX, minX, maxX);
+
+  if (newX != oldX) {
+    x = newX;
+    if (!isValidMove(oldX, oldY, player_size, x, y)) {
+      x = oldX;
+    }
+  }
 
   // Update y position
-  y += velY;
-  y = Clamp(y, minY, maxY);
+  var newY = Clamp(y + velY, minY, maxY);
 
-  setCameraPosCentre(x + player_size/2, y + player_size/2);
+  if (newY != oldY) {
+    y = newY;
+    if (!isValidMove(x, oldY, player_size, x, y)) {
+      y = oldY;
+    }
+  }
+
+  setCameraPosCentre(x + player_size / 2, y + player_size / 2);
 }
 
 
@@ -87,7 +103,7 @@ function moveLeft() {
 }
 
 function moveRight() {
-  velX = speed;  
+  velX = speed;
 }
 
 function moveWalk() {
@@ -98,19 +114,19 @@ function moveRun() {
   isRunning = true;
 }
 
-this.getName = function() {
+this.getName = function () {
   return name;
 }
 
-this.isAlive = function() {
+this.isAlive = function () {
   return alive;
 }
 
-this.setAlive = function() {
+this.setAlive = function () {
   alive = true;
 }
 
-this.setDead = function() {
+this.setDead = function () {
   alive = false;
 }
 

@@ -32,12 +32,12 @@ function Board(width, height) {
         }
         else {
           var random = Math.floor(Math.random() * 10);
-          
+
           if (random == 0) {
             newBoard[x][y] = IndestructibleTile(x, y);
           }
           else if (random < 3) {
-            newBoard[x][y] = DestructableTile(x, y);            
+            newBoard[x][y] = DestructableTile(x, y);
           }
         }
       }
@@ -48,6 +48,7 @@ function Board(width, height) {
 
   function EmptyTile(x, y) {
     let tile = Tile(x, y);
+    tile.isDestructable = false;
     tile.isCollidable = false;
     tile.isEmpty = true;
 
@@ -95,7 +96,35 @@ function Board(width, height) {
 }
 
 
+function isValidMove(oldX, oldY, playerSize, newX, newY) {
+  // Get the 3x3 array of tiles around the player
+  var xTileMin = Math.floor(Clamp(getPlayerX() / PIXELS_PER_TILE, 0, boardWidth));
+  var yTileMin = Math.floor(Clamp(getPlayerY() / PIXELS_PER_TILE, 0, boardHeight));
+  var xTileMax = Math.floor(Clamp((getPlayerX() + playerSize) / PIXELS_PER_TILE + 1, 0, boardWidth));
+  var yTileMax = Math.floor(Clamp((getPlayerY() + playerSize) / PIXELS_PER_TILE + 1, 0, boardHeight));
+
+  // Loop through the nearby tiles 
+  for (var tileY = yTileMin; tileY < yTileMax; tileY++) {
+    for (var tileX = xTileMin; tileX < xTileMax; tileX++) {
+      // Check tile is collidable 
+      if (board[tileX][tileY].isCollidable) {
+        // Check player actually collides with either the new x or y pos
+        if (Intersects(newX, oldY, playerSize, playerSize, tileX * PIXELS_PER_TILE, tileY * PIXELS_PER_TILE, PIXELS_PER_TILE, PIXELS_PER_TILE)) {
+          return false;
+        }
+        if (Intersects(oldX, newY, playerSize, playerSize, tileX * PIXELS_PER_TILE, tileY * PIXELS_PER_TILE, PIXELS_PER_TILE, PIXELS_PER_TILE)) {
+          return false;
+        }
+      }
+    }
+  }
+  return true;
+}
+
+
+
 function UpdateBoard() {
 
-  console.log("Board updated.");
+
+  //console.log("Board updated.");
 }

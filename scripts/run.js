@@ -20,5 +20,8 @@ function Update() {
   // Update the player
   UpdatePlayer();
 
+  // Update the collisions on the board 
+  UpdateBoard();
+
   //console.log("Game updated");
 }
