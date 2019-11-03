@@ -2,93 +2,96 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- Set title -->
-    <title>Bomber Online</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Set title -->
+  <title>Bomber Online</title>
 
-    <!-- Load stylesheet -->
-    <link rel="stylesheet" href="stylesheet.css" type="text/css" media="all">
+  <!-- Load stylesheet -->
+  <link rel="stylesheet" href="stylesheet.css" type="text/css" media="all">
 
-    <!-- Load JQuery library. Hosted by Google. Defer until page has loaded -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js" defer></script>
+  <!-- Load JQuery library. Hosted by Google. Defer until page has loaded -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js" defer></script>
 
-    <!-- Load game constants. Defer until page has loaded -->
-    <script src="scripts/utils.js" defer></script>
-    <!-- Load game board script. Defer until page has loaded -->
-    <script src="scripts/board.js" defer></script>
-    <!-- Load game powerup script. Defer until page has loaded -->
-    <script src="scripts/powerups.js" defer></script>
-    <!-- Load Player script. Defer until page has loaded -->
-    <script src="scripts/player.js" defer></script>
-    <!-- Load game controls script. Defer until page has loaded -->
-    <script src="scripts/controller.js" defer></script>
-    <!-- Load canvas script. Defer until page has loaded -->
-    <script src="scripts/canvas.js" defer></script>
-    <!-- Initialise the game. Defer until page has loaded -->
-    <script src="scripts/initialise.js" defer></script>
-    <!-- Load the game tick. Defer until page has loaded -->
-    <script src="scripts/run.js" defer></script>
-    <!-- Load bomb script. Defer until page has loaded -->
-    <script src="scripts/bomb.js" defer></script>
-    <!-- Load sounds script. Defer until page has loaded -->
-    <script src="scripts/sounds.js" defer></script>
+  <!-- Load game constants and useful functions -->
+  <script src="scripts/utils.js" defer></script>
+  <!-- Load the main game map script -->
+  <script src="scripts/board.js" defer></script>
+  <!-- Load player scripts and items -->
+  <script src="scripts/bomb.js" defer></script>
+  <script src="scripts/powerups.js" defer></script>
+  <script src="scripts/player.js" defer></script>
+  <!-- Load game controls script -->
+  <script src="scripts/controller.js" defer></script>
+  <!-- Load canvas/rendering script -->
+  <script src="scripts/canvas.js" defer></script>
+  <!-- Load the different gamemode details -->
+  <script src="scripts/gamemodes.js" defer></script>
+  <!-- Load sounds script -->
+  <script src="scripts/sounds.js" defer></script>
+  <!-- Initialise the game -->
+  <script src="scripts/initialise.js" defer></script>
+  <!-- Load the game tick. Should be last -->
+  <script src="scripts/run.js" defer></script>
 
 </head>
 
 
 <body>
-    <!-- Header above the game -->
-    <header>
-      <a href="index.html" class="headerLogo">Bomber</a>
-      <a href="index.html" id="headerLogoRed">Online</a>
-    </header>
+  <!-- Header above the game -->
+  <header>
+    <a href="index.html" class="headerLogo">Bomber</a>
+    <a href="index.html" id="headerLogoRed">Online</a>
+  </header>
 
-    <div id="infobar">
-      <table>
-          <tr>
-            <td>NAME:</td> <td id="tableName"></td>
-            <td>TIME:</td> <td id="tableTime"></td>
-            <td>SCORE:</td> <td id="tableScore"></td>
-          </tr>
-      </table>
+  <div id="infobar">
+    <table>
+      <tr>
+        <td>NAME:</td>
+        <td id="tableName"></td>
+        <td>TIME:</td>
+        <td id="tableTime"></td>
+        <td>SCORE:</td>
+        <td id="tableScore"></td>
+      </tr>
+    </table>
+  </div>
+
+
+  <!-- Class for the main content of the game -->
+  <div class="main-content">
+
+    <!-- welcomeBox and playBox acts as a menu screen when the page is loaded.
+          After the user inputs a name the game begins-->
+    <div id="welcomeBox">
+      <div id="playBox">
+
+        <!-- Call initialise function -->
+        <button type="button" id="start-button" onclick="Initialise()">START</button>
+
+        <!-- Text box for name input and button to call SetName, which starts the game. -->
+        <div id="nameInput">
+          <p id="errorMsg">Error: name too long.</p>
+          <input type="text" placeholder="Enter name" id="playerName">
+          <button type="button" id="play-button" onclick="SetName()">PLAY</button>
+        </div>
+      </div>
     </div>
 
-
-    <!-- Class for the main content of the game -->
-    <div class="main-content">
-
-        <!-- welcomeBox and playBox acts as a menu screen when the page is loaded.
-             After the user inputs a name the game begins-->
-        <div id="welcomeBox">
-          <div id="playBox">
-
-          <!-- Call initialise function -->
-          <button type="button" id="start-button" onclick="Initialise()">START</button>
-
-          <!-- Text box for name input and button to call SetName, which starts the game. -->
-          <div id="nameInput">
-            <p id="errorMsg">Error: name too long.</p>
-            <input type="text" placeholder="Enter name" id="playerName">
-            <button type="button" id="play-button" onclick="SetName()">PLAY</button>
-          </div>
-
-          </div>
-        </div>
-
-        <div class="inputName">
-          <p id="inputNameDescription"></p>
-        </div>
-        <!-- Class for the main game content -->
-        <div class="main-game">
-
-          <!-- Player image -->
-          <img id="player" alt="player" style="display:none; position:absolute; left:0; top:0;">
-
-          <div class="board">
-            <canvas id="canvas" style="display:none;"></canvas>
-          </div>
-        </div>
+    <div class="inputName">
+      <p id="inputNameDescription"></p>
     </div>
+    <!-- Class for the main game content -->
+    <div class="main-game">
+
+      <!-- Player image -->
+      <img id="player" alt="player" style="display:none; position:absolute; left:0; top:0;">
+
+      <div class="board">
+        <canvas id="canvas" style="display:none;"></canvas>
+      </div>
+    </div>
+  </div>
 </body>
+
 </html>

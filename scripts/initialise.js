@@ -49,7 +49,7 @@ function SetName() {
       break;
     // If all the requirements are met then the game begins.
     default:
-      console.log("Player name set to " +name+ ".");
+      console.log("Player name set to " + name + ".");
       Player(askForName(), 4 * PIXELS_PER_TILE, 4 * PIXELS_PER_TILE);
 
       function askForName() {
@@ -69,15 +69,8 @@ function SetName() {
   const description = document.querySelector("#tableName");
   description.innerHTML = name;
 
-  // Set up the game controls
-  InitialiseController();
+  InitialiseGame();
 
-  let boardSize = 32;
-  Board(boardSize, boardSize);
 
-  InitialiseCanvas(boardSize);
-
-  // Call to start the game tick
-  Timer();
 
 }
