@@ -52,6 +52,7 @@ function UpdatePlayer() {
   let maxX = boardWidth * PIXELS_PER_TILE - player_size;
   let maxY = boardHeight * PIXELS_PER_TILE - player_size;
 
+  // Set current movement speed
   if (isRunning) {
     speed = MAX_SPEED;
   }
@@ -66,8 +67,10 @@ function UpdatePlayer() {
   // Update x position
   var newX = Clamp(x + velX, minX, maxX);
 
+  // Update new x position
   if (newX != oldX) {
     x = newX;
+    // Ensure it is a valid move before comitting to it
     if (!isValidMove(oldX, oldY, player_size, x, y)) {
       x = oldX;
     }
@@ -76,16 +79,23 @@ function UpdatePlayer() {
   // Update y position
   var newY = Clamp(y + velY, minY, maxY);
 
+  // Update new y position 
   if (newY != oldY) {
     y = newY;
+    // Ensure it is a valid move before comitting to it
     if (!isValidMove(x, oldY, player_size, x, y)) {
       y = oldY;
     }
   }
 
+  // This movement style works well for objects moving at a slow speed. If they 
+  // move faster, then they may appear to collide in front of the wall. In this
+  // case, movement would need to be done in smaller steps. Check out 
+  // https://jonathanwhiting.com/tutorial/collision/ for an explanation on collision.
+
+  // Update the camera position to correctly render 
   setCameraPosCentre(x + player_size / 2, y + player_size / 2);
 }
-
 
 
 

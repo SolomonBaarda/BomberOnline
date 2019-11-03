@@ -2,7 +2,6 @@ F28WP BomberOnline To Do List:
 
 ---NOT COMPLETED---
 Level layouts
-Implement destructable and indestructable tiles
 Multiplayer implementation
 Sprites and animation
 Bomb implementation
@@ -18,6 +17,7 @@ Unit tests
 -Solomon-
 board, player and tile rendering using canvas
 tile collision
+tile implementation 
 
 -Oliver-
 
