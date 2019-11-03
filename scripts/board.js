@@ -92,6 +92,12 @@ function Board(width, height) {
       tile.sprite.src = 'sprites/tileset/cropped/destructableTile4.png';
     }
 
+    tile.destroy = function() {
+      tile.isCollidable = false;
+      tile.isEmpty = true;
+      tile.sprite.src = 'sprites/tileset/cropped/destroyedTile.png';
+    }
+
     return tile;
   }
 
@@ -136,9 +142,17 @@ function isValidMove(oldX, oldY, playerSize, newX, newY) {
 }
 
 
+function destroyAllTiles() {
+  for(var y = 0; y < boardHeight; y++) {
+    for(var x = 0; x < boardWidth; x++) {
+      if(board[x][y].isDestructable) {
+        board[x][y].destroy();
+      }
+    }
+  }
+}
+
 
 function UpdateBoard() {
-
-
   //console.log("Board updated.");
 }
