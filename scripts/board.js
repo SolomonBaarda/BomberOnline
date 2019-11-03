@@ -51,6 +51,8 @@ function Board(width, height) {
     tile.isDestructable = false;
     tile.isCollidable = false;
     tile.isEmpty = true;
+    tile.sprite = new Image(16, 16);
+    tile.sprite.src = 'sprites/tileset/cropped/emptyTile.png';
 
     return tile;
   }
@@ -63,7 +65,8 @@ function Board(width, height) {
     tile.isDestructable = false;
     tile.isCollidable = true;
     tile.isEmpty = false;
-    tile.element = $('<sprites/indestructibleblock1.png>');
+    tile.sprite = new Image(16, 16);
+    tile.sprite.src = 'sprites/tileset/cropped/indestructableTile.png';
 
     return tile;
   }
@@ -76,7 +79,18 @@ function Board(width, height) {
     tile.isDestructable = true;
     tile.isCollidable = true;
     tile.isEmpty = false;
-    tile.element = $('<sprites/destructibleblock.png>');
+    tile.sprite = new Image(16, 16);
+
+    var random = Math.floor(Math.random() * 20);
+    if (random < 8) {
+      tile.sprite.src = 'sprites/tileset/cropped/destructableTile2.png';
+    }
+    else if (random < 15) {
+      tile.sprite.src = 'sprites/tileset/cropped/destructableTile1.png';
+    }
+    else {
+      tile.sprite.src = 'sprites/tileset/cropped/destructableTile4.png';
+    }
 
     return tile;
   }
@@ -88,7 +102,7 @@ function Board(width, height) {
       isDestructable: undefined,
       isCollidable: undefined,
       isEmpty: undefined,
-      element: undefined
+      sprite: undefined
     }
 
     return tile;

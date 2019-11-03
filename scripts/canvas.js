@@ -77,26 +77,29 @@ function RenderBoard() {
       var tileCanvasX = x * PIXELS_PER_TILE - cameraOffsetX;
       var tileCanvasY = y * PIXELS_PER_TILE - cameraOffsetY;
 
+      var sprite = board[x][y].sprite;
+
       // Render empty and destroyed tiles first
       if(board[x][y].isEmpty) {
-        ctx.fillStyle = "#808080";
+        //ctx.fillStyle = "#808080";
       }
       // Render destructable solid tiles next 
       else if (board[x][y].isDestructable && !board[x][y].isEmpty) {
-        ctx.fillStyle = "#585858";
+        //ctx.fillStyle = "#585858";
       }
       // Render indestructable tiles on top
       else if (!board[x][y].isDestructable) {
-        ctx.fillStyle = "#000000";
+        //ctx.fillStyle = "#000000";
       }
 
-      ctx.fillRect(tileCanvasX, tileCanvasY, PIXELS_PER_TILE, PIXELS_PER_TILE);
+      //ctx.fillRect(tileCanvasX, tileCanvasY, PIXELS_PER_TILE, PIXELS_PER_TILE);
+      ctx.drawImage(sprite, tileCanvasX, tileCanvasY, PIXELS_PER_TILE, PIXELS_PER_TILE);
 
       // Draw white border to every tile 
-      ctx.strokeStyle = "#F5F5F5";
-      ctx.beginPath();
-      ctx.rect(tileCanvasX, tileCanvasY, PIXELS_PER_TILE, PIXELS_PER_TILE);
-      ctx.stroke();
+      // ctx.strokeStyle = "#F5F5F5";
+      // ctx.beginPath();
+      // ctx.rect(tileCanvasX, tileCanvasY, PIXELS_PER_TILE, PIXELS_PER_TILE);
+      // ctx.stroke();
     }
   }
 }
