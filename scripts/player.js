@@ -98,7 +98,6 @@ function UpdatePlayer() {
 }
 
 
-
 // Move functions - they set the x and y velocities
 function moveUp() {
   velY = -speed;

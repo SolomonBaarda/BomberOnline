@@ -49,6 +49,9 @@ function Render() {
   cameraOffsetY = cameraCentreY - canvasCentreY;
 
   RenderBoard();
+
+  RenderGameObjects();
+
   RenderPlayer();
 
   //console.log("player x:"+getPlayerX()+", y:"+getPlayerY());
@@ -79,28 +82,19 @@ function RenderBoard() {
 
       var sprite = board[x][y].sprite;
 
-      // Render empty and destroyed tiles first
-      if(board[x][y].isEmpty) {
-        //ctx.fillStyle = "#808080";
-      }
-      // Render destructable solid tiles next 
-      else if (board[x][y].isDestructable && !board[x][y].isEmpty) {
-        //ctx.fillStyle = "#585858";
-      }
-      // Render indestructable tiles on top
-      else if (!board[x][y].isDestructable) {
-        //ctx.fillStyle = "#000000";
-      }
-
-      //ctx.fillRect(tileCanvasX, tileCanvasY, PIXELS_PER_TILE, PIXELS_PER_TILE);
       ctx.drawImage(sprite, tileCanvasX, tileCanvasY, PIXELS_PER_TILE, PIXELS_PER_TILE);
-
-      // Draw white border to every tile 
-      // ctx.strokeStyle = "#F5F5F5";
-      // ctx.beginPath();
-      // ctx.rect(tileCanvasX, tileCanvasY, PIXELS_PER_TILE, PIXELS_PER_TILE);
-      // ctx.stroke();
     }
+  }
+}
+
+function RenderGameObjects() {
+  // Loop through all game objects 
+  for (var i = 0; i < gameObjects.length; i++) {
+    var objectX = gameObjects[i].x - cameraOffsetX;
+    var objectY = gameObjects[i].y - cameraOffsetY;
+
+    // Render them on the screen 
+    ctx.drawImage(gameObjects[i].sprite, objectX, objectY, BOMB_SIZE, BOMB_SIZE);
   }
 }
 

@@ -44,7 +44,7 @@ function KeyDown(e) {
     }
     //key is q
     if (key == 81) {
-      bombDrop();
+      dropBomb();
     }
     //key is e
     if (key == 69) {

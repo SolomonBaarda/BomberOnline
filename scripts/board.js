@@ -6,12 +6,19 @@ var board;
 var boardHeight;
 var boardWidth;
 
+var gameObjects;
+
 function Board(width, height) {
   boardWidth = width;   // Width in tiles
   boardHeight = height;   // Height in tiles
 
   // This is the main board collection used to store the locations of objects
   board = Generate(width, height);
+
+  // Array containing all bombs, powerups etc
+  gameObjects = new Array();
+
+
 
   function Generate(width, height) {
     // Create 2-dimensional array for the board
@@ -36,7 +43,7 @@ function Board(width, height) {
           if (random == 0) {
             newBoard[x][y] = IndestructibleTile(x, y);
           }
-          else if (random < 3) {
+          else if (random < 5) {
             newBoard[x][y] = DestructableTile(x, y);
           }
         }
@@ -92,7 +99,7 @@ function Board(width, height) {
       tile.sprite.src = 'sprites/tileset/cropped/destructableTile4.png';
     }
 
-    tile.destroy = function() {
+    tile.destroy = function () {
       tile.isCollidable = false;
       tile.isEmpty = true;
       tile.sprite.src = 'sprites/tileset/cropped/destroyedTile.png';
@@ -114,6 +121,52 @@ function Board(width, height) {
     return tile;
   }
 }
+
+
+
+// this should be in the player object
+function dropBomb() {
+  // Centre of bomb should be centre of player
+  var trueX = getPlayerX() + player_size/2 - BOMB_SIZE/2;
+  var trueY = getPlayerY() + player_size/2 - BOMB_SIZE/2;
+  var bomb = Bomb(trueX, trueY, BOMB_DEFAULT_TIMER);
+
+  gameObjects.push(bomb);
+}
+
+
+function bombExplode(bomb) {
+  var tileX = Math.floor(Clamp((bomb.x + BOMB_SIZE/2) / PIXELS_PER_TILE, 0, boardWidth));
+  var tileY = Math.floor(Clamp((bomb.y + BOMB_SIZE/2) / PIXELS_PER_TILE, 0, boardHeight));
+
+  // Explode tile
+  if (board[tileX][tileY].isDestructable) {
+    board[tileX][tileY].destroy();
+  }
+  // Nearby tiles
+  if (board[Clamp(tileX - 1, 0, boardWidth)][tileY].isDestructable) {
+    board[Clamp(tileX - 1, 0, boardWidth)][tileY].destroy();
+  }
+  if (board[Clamp(tileX + 1, 0, boardWidth)][tileY].isDestructable) {
+    board[Clamp(tileX + 1, 0, boardWidth)][tileY].destroy();
+  }
+  if (board[tileX][Clamp(tileY - 1, 0, boardHeight)].isDestructable) {
+    board[tileX][Clamp(tileY - 1, 0, boardHeight)].destroy();
+  }
+  if (board[tileX][Clamp(tileY + 1, 0, boardHeight)].isDestructable) {
+    board[tileX][Clamp(tileY + 1, 0, boardHeight)].destroy();
+  }
+
+  for(var i = 0; i < gameObjects.length; i++) {
+    if(gameObjects[i].x == bomb.x && gameObjects[i].y == bomb.y) {
+      // Remove the bomb from game objects
+      gameObjects.splice(i, 1);
+    }
+  }
+
+}
+
+
 
 
 function isValidMove(oldX, oldY, playerSize, newX, newY) {
@@ -143,9 +196,9 @@ function isValidMove(oldX, oldY, playerSize, newX, newY) {
 
 
 function destroyAllTiles() {
-  for(var y = 0; y < boardHeight; y++) {
-    for(var x = 0; x < boardWidth; x++) {
-      if(board[x][y].isDestructable) {
+  for (var y = 0; y < boardHeight; y++) {
+    for (var x = 0; x < boardWidth; x++) {
+      if (board[x][y].isDestructable) {
         board[x][y].destroy();
       }
     }
@@ -153,6 +206,11 @@ function destroyAllTiles() {
 }
 
 
+
 function UpdateBoard() {
+  for (var i = 0; i < gameObjects.length; i++) {
+    gameObjects[i].update();
+  }
+
   //console.log("Board updated.");
 }
