@@ -15,40 +15,52 @@ function InitialiseController() {
 
 
 function KeyDown(e) {
-  if(e.keyCode != undefined) {
+  if (e.keyCode != undefined) {
     var key = e.keyCode;
 
     // Key is left
-    if(key == 37 || key == 65) {
+    if (key == 37 || key == 65) {
       moveLeft();
       left = true;
     }
     // Key is right
-    if(key == 39 || key == 68) {
+    if (key == 39 || key == 68) {
       moveRight();
       right = true;
     }
     // Key is up
-    if(key == 38 || key == 87) {
+    if (key == 38 || key == 87) {
       moveUp();
       up = true;
     }
     // Key is down
-    if(key == 40 || key == 83) {
+    if (key == 40 || key == 83) {
       moveDown();
       down = true;
+    }
+    // Key is shift 
+    if (key == 16) {
+      moveWalk();
+    }
+    //key is q
+    if (key == 81) {
+      bombDrop();
+    }
+    //key is e
+    if (key == 69) {
+
     }
   }
 }
 
 function KeyUp(e) {
-  if(e.keyCode != undefined) {
+  if (e.keyCode != undefined) {
     var key = e.keyCode;
 
     // Key is left
-    if(key == 37 || key == 65) {
+    if (key == 37 || key == 65) {
       left = false;
-      if(right) {
+      if (right) {
         moveRight()
       }
       else {
@@ -56,9 +68,9 @@ function KeyUp(e) {
       }
     }
     // Key is right
-    if(key == 39 || key == 68) {
+    if (key == 39 || key == 68) {
       right = false;
-      if(left) {
+      if (left) {
         moveLeft()
       }
       else {
@@ -66,9 +78,9 @@ function KeyUp(e) {
       }
     }
     // Key is up
-    if(key == 38 || key == 87) {
+    if (key == 38 || key == 87) {
       up = false;
-      if(down) {
+      if (down) {
         moveDown()
       }
       else {
@@ -76,14 +88,18 @@ function KeyUp(e) {
       }
     }
     // Key is down
-    if(key == 40 || key == 83) {
+    if (key == 40 || key == 83) {
       down = false;
-      if(up) {
+      if (up) {
         moveUp()
       }
       else {
         resetVelY();
       }
+    }
+    // Key is shift 
+    if (key == 16) {
+      moveRun();
     }
   }
 }

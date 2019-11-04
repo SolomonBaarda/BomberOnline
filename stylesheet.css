@@ -31,7 +31,7 @@ button {
   display: inline-block;
   color: #ffffff;
   font-family: bomberText;
-  font-size: 17px;
+  font-size: 18px;
   outline: 1px solid black;
   padding: 11px 33px;
   text-decoration: none;
@@ -83,11 +83,6 @@ td {
 }
 
 /* CSS BLOCKS & DIVS */
-
-#gameCanvas {
-  background-color: black;
-  border: 1px solid red;
-}
 
 header {
   align-items: center;
@@ -155,13 +150,26 @@ footer {
   margin: 5px;
 }
 
+
+.board {
+  text-align: center;
+}
+
 /* CSS ID's */
+
+#canvas {
+  padding-left: 0;
+  padding-right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  border: 5px solid red;
+}
 
 #errorMsg {
   color: #ae0000;
   font-family: monospace;
   font-size: 12px;
-  display: none;
   text-align: center;
 }
 
@@ -186,6 +194,7 @@ footer {
   display: none;
 }
 
+/*
 #player {
   border: 2px solid green;
   margin: 0px;
@@ -194,6 +203,7 @@ footer {
   left: 50%;
   top: 50%;
 }
+*/
 
 #playerName {
   display: none;
