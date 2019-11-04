@@ -12,10 +12,11 @@ $(document).ready($("#infobar").hide());
 function Initialise() {
 
   // Hide the start button and display a text box and button.
+  $("#welcomeBox").show();
   $("#start-button").hide();
   $("#playerName").show();
   $("#play-button").show();
-
+  $("#imgPreview").show();
 }
 
 /** SetName function takes in a value from the text box (playerName) and begins
@@ -47,11 +48,6 @@ function SetName() {
         return name;
       }
 
-      $("#errorMsg").hide();
-      $("#play-button").hide();
-      $("#playerName").hide();
-      $("#nameInput").hide();
-      $("#playBox").hide();
       $("#welcomeBox").hide();
       $("#infobar").show();
 
