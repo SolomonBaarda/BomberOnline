@@ -26,9 +26,7 @@ function SetName() {
 
   // Sets name to playerName's value.
   let name = document.getElementById("playerName").value;
-  // Accesses the error message in index.html.
-  var errorCase = document.getElementById('errorMsg');
-
+  
   // Accesses the error message in index.html.
     var nameInput = document.getElementById("playerName").value;
     // Name requirements (between 2 and 12 chars long, no spaces)
@@ -57,5 +55,3 @@ function SetName() {
 
       InitialiseGame();
     }
-
-}
