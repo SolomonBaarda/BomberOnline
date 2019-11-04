@@ -26,32 +26,22 @@ function SetName() {
   // Sets name to playerName's value.
   let name = document.getElementById("playerName").value;
   // Accesses the error message in index.html.
-  var errorCase = document.getElementById('#errorMsg');
 
-  // Player name requirements.
-  switch (name) {
-    case (name.Length > 12):
-      name = "";
-      console.error("Error: Username too long.");
-      errorCase.innerHTML = "Error: Name is too long!"
-      $("#errorMsg").show();
-      break;
-    case (name.Length < 1):
-      name = "";
-      console.error("Error: Username too short.");
-      errorCase.innerHTML = "Error: Name is too long!"
-      $("#errorMsg").show();
-      break;
-    case (name.includes(" ")):
-      name = "";
-      errorCase.innerHTML = "Error: Name cannot have a space."
-      $("#errorMsg").show();
-      break;
-    // If all the requirements are met then the game begins.
-    default:
+  // Accesses the error message in index.html.
+    var nameInput = document.getElementById("playerName").value;
+    // Name requirements (between 2 and 12 chars long, no spaces)
+    if (nameInput.length > 12) {
+        console.error("Error: Name too long.");
+        document.getElementById('errorMsg').innerHTML="Name too long!";
+    } else if (nameInput.length < 2) {
+        console.error("Error: Name too short.");
+        document.getElementById('errorMsg').innerHTML="Name too short!";
+    } else if (nameInput.includes(" ")) {
+        console.error("Error: Name must not contain spaces")
+        document.getElementById('errorMsg').innerHTML="Space found in name!";
+    } else { // Set name if requirements are met.
       console.log("Player name set to " + name + ".");
       Player(askForName(), 4 * PIXELS_PER_TILE, 4 * PIXELS_PER_TILE);
-
       function askForName() {
         return name;
       }
@@ -63,14 +53,10 @@ function SetName() {
       $("#playBox").hide();
       $("#welcomeBox").hide();
       $("#infobar").show();
-  }
 
-  // Displays name to the user.
-  const description = document.querySelector("#tableName");
-  description.innerHTML = name;
+      // Displays name to the user.
+      const description = document.querySelector("#tableName");
+      description.innerHTML = name;
 
-  InitialiseGame();
-
-
-
-}
+      InitialiseGame();
+    }
