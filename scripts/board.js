@@ -38,20 +38,24 @@ function Board(width, height) {
           newBoard[x][y] = IndestructibleTile(x, y);
         }
         else {
-          var random = Math.floor(Math.random() * 10);
-
-          if (random == 0) {
+          if (x % 2 == 0 && y % 2 == 0) {
             newBoard[x][y] = IndestructibleTile(x, y);
           }
-          else if (random < 5) {
-            newBoard[x][y] = DestructableTile(x, y);
+          else {
+            var random = Math.floor(Math.random() * 10);
+
+            if (random < 4) {
+              newBoard[x][y] = DestructableTile(x, y);
+            }
           }
         }
+
       }
     }
 
     return newBoard;
   }
+
 
   function EmptyTile(x, y) {
     let tile = Tile(x, y);
@@ -127,8 +131,8 @@ function Board(width, height) {
 // this should be in the player object
 function dropBomb() {
   // Centre of bomb should be centre of player
-  var trueX = getPlayerX() + player_size/2 - BOMB_SIZE/2;
-  var trueY = getPlayerY() + player_size/2 - BOMB_SIZE/2;
+  var trueX = getPlayerX() + player_size / 2 - BOMB_SIZE / 2;
+  var trueY = getPlayerY() + player_size / 2 - BOMB_SIZE / 2;
   var bomb = Bomb(trueX, trueY, BOMB_DEFAULT_TIMER);
 
   gameObjects.push(bomb);
@@ -136,8 +140,8 @@ function dropBomb() {
 
 
 function bombExplode(bomb) {
-  var tileX = Math.floor(Clamp((bomb.x + BOMB_SIZE/2) / PIXELS_PER_TILE, 0, boardWidth));
-  var tileY = Math.floor(Clamp((bomb.y + BOMB_SIZE/2) / PIXELS_PER_TILE, 0, boardHeight));
+  var tileX = Math.floor(Clamp((bomb.x + BOMB_SIZE / 2) / PIXELS_PER_TILE, 0, boardWidth));
+  var tileY = Math.floor(Clamp((bomb.y + BOMB_SIZE / 2) / PIXELS_PER_TILE, 0, boardHeight));
 
   // Explode tile
   if (board[tileX][tileY].isDestructable) {
@@ -157,8 +161,8 @@ function bombExplode(bomb) {
     board[tileX][Clamp(tileY + 1, 0, boardHeight)].destroy();
   }
 
-  for(var i = 0; i < gameObjects.length; i++) {
-    if(gameObjects[i].x == bomb.x && gameObjects[i].y == bomb.y) {
+  for (var i = 0; i < gameObjects.length; i++) {
+    if (gameObjects[i].x == bomb.x && gameObjects[i].y == bomb.y) {
       // Remove the bomb from game objects
       gameObjects.splice(i, 1);
     }

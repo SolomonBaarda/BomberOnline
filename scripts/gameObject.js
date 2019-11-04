@@ -41,7 +41,7 @@ types of powerups used and picked up in-game.
 function Powerup(x, y, seconds) {
   let powerup = GameObject(x, y, POWERUP_SIZE);
 
-  powerup.duration = seonds;
+  powerup.duration = seconds;
   powerup.sprite.src = '';
 
   return powerup;
@@ -62,12 +62,19 @@ function CollisionPowerup(x, y) {
 }
 
 
+
+
+/*
+  This is the most basic object that can exist in the game. 
+*/
 function GameObject(xPos, yPos, size) {
   // Create new bomb object
   let object = {
     // Has coordinates on the board
     x: xPos,
     y: yPos,
+    // The size of object
+    size: size,
     // A sprite to render
     sprite: undefined,
     // Update function is called once per tick

@@ -38,13 +38,17 @@ function KeyDown(e) {
       moveDown();
       down = true;
     }
+    // Key is spacebar 
+    if (key == 32) {
+      dropBomb();
+    }
     // Key is shift 
     if (key == 16) {
       moveWalk();
     }
     //key is q
     if (key == 81) {
-      dropBomb();
+
     }
     //key is e
     if (key == 69) {

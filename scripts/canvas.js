@@ -49,13 +49,8 @@ function Render() {
   cameraOffsetY = cameraCentreY - canvasCentreY;
 
   RenderBoard();
-
   RenderGameObjects();
-
   RenderPlayer();
-
-  //console.log("player x:"+getPlayerX()+", y:"+getPlayerY());
-  //console.log("Game rendered");
 }
 
 
@@ -70,8 +65,6 @@ function RenderBoard() {
   var yTileMin = Math.floor(Clamp(cameraOffsetY / PIXELS_PER_TILE, 0, boardHeight));
   var xTileMax = Math.floor(Clamp((cameraOffsetX + canvas.width) / PIXELS_PER_TILE + 1, 0, boardWidth));
   var yTileMax = Math.floor(Clamp((cameraOffsetY + canvas.height) / PIXELS_PER_TILE + 1, 0, boardHeight));
-
-  //console.log("xMin:"+xTileMin+", yMin:"+yTileMin+", xMax:"+xTileMax+", yMax:"+yTileMax);
 
   // Loop through the nearby tiles 
   for (var y = yTileMin; y < yTileMax; y++) {
@@ -90,11 +83,11 @@ function RenderBoard() {
 function RenderGameObjects() {
   // Loop through all game objects 
   for (var i = 0; i < gameObjects.length; i++) {
-    var objectX = gameObjects[i].x - cameraOffsetX;
-    var objectY = gameObjects[i].y - cameraOffsetY;
+    var objectCanvasX = gameObjects[i].x - cameraOffsetX;
+    var objectCanvasY = gameObjects[i].y - cameraOffsetY;
 
-    // Render them on the screen 
-    ctx.drawImage(gameObjects[i].sprite, objectX, objectY, BOMB_SIZE, BOMB_SIZE);
+    // Render each object 
+    ctx.drawImage(gameObjects[i].sprite, objectCanvasX, objectCanvasY, gameObjects[i].size, gameObjects[i].size);
   }
 }
 
@@ -102,13 +95,8 @@ function RenderPlayer() {
   var playerOnCanvasX = canvasCentreX - player_size / 2;
   var playerOnCanvasY = canvasCentreY - player_size / 2;
 
-  //console.log("player x:"+x+", y:"+y+", pCanvasX:"+playerOnCanvasX+", pCanvasY:"+playerOnCanvasY);
-
   ctx.drawImage(player_image, playerOnCanvasX, playerOnCanvasY, player_size, player_size);
-  ctx.fillStyle = "#ffffff";
-  //ctx.fillRect(getPlayerX(), getPlayerY(), player_size, player_size);
 }
-
 
 
 function setCameraPosCentre(x, y) {
