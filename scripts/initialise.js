@@ -26,7 +26,6 @@ function SetName() {
   // Sets name to playerName's value.
   let name = document.getElementById("playerName").value;
   // Accesses the error message in index.html.
-  var errorCase = document.getElementById('errorMsg');
 
   // Accesses the error message in index.html.
     var nameInput = document.getElementById("playerName").value;
@@ -61,5 +60,3 @@ function SetName() {
 
       InitialiseGame();
     }
-
-}
