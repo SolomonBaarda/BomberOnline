@@ -33,7 +33,7 @@ function Board(width, height) {
         // Set every tile to be empty initially
         newBoard[x][y] = EmptyTile(x, y);
 
-        // Set edge to be indestructable tiles 
+        // Set edge to be indestructable tiles
         if (x == 0 || x == width - 1 || y == 0 || y == height - 1) {
           newBoard[x][y] = IndestructibleTile(x, y);
         }
@@ -69,7 +69,7 @@ function Board(width, height) {
   }
 
   /**
-    Tile that cannot be destroyed. 
+    Tile that cannot be destroyed.
   */
   function IndestructibleTile(x, y) {
     let tile = Tile(x, y);
@@ -186,10 +186,10 @@ function isValidMove(oldX, oldY, playerSize, newX, newY) {
   var xTileMax = Math.floor(Clamp((getPlayerX() + playerSize) / PIXELS_PER_TILE + 1, 0, boardWidth));
   var yTileMax = Math.floor(Clamp((getPlayerY() + playerSize) / PIXELS_PER_TILE + 1, 0, boardHeight));
 
-  // Loop through the nearby tiles 
+  // Loop through the nearby tiles
   for (var tileY = yTileMin; tileY < yTileMax; tileY++) {
     for (var tileX = xTileMin; tileX < xTileMax; tileX++) {
-      // Check tile is collidable 
+      // Check tile is collidable
       if (board[tileX][tileY].isCollidable) {
         // Check player actually collides with either the new x or y pos
         if (Intersects(newX, oldY, playerSize, playerSize, tileX * PIXELS_PER_TILE, tileY * PIXELS_PER_TILE, PIXELS_PER_TILE, PIXELS_PER_TILE)) {
