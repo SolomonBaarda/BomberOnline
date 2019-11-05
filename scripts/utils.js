@@ -29,5 +29,13 @@ function Intersects(aX, aY, aWidth, aHeight, bX, bY, bWidth, bHeight) {
     return false;
 }
 
+// Function that stores an x and y value
+function Tile(x, y) {
+    return {
+        x: x,
+        y: y
+    }
+}
+
 
 

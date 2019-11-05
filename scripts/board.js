@@ -138,8 +138,8 @@ function getNearestTile(x, y) {
 // this should be in the player object
 function dropBomb() {
   // Centre of bomb should be centre of player
-  var trueX = getPlayerX() + player_size / 2 - BOMB_SIZE / 2;
-  var trueY = getPlayerY() + player_size / 2 - BOMB_SIZE / 2;
+  var trueX = getPlayerX() + player.size / 2 - BOMB_SIZE / 2;
+  var trueY = getPlayerY() + player.size / 2 - BOMB_SIZE / 2;
   var bomb = Bomb(trueX, trueY, BOMB_DEFAULT_TIMER);
 
   gameObjects.push(bomb);

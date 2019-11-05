@@ -17,7 +17,8 @@ function InitialiseGame(playerName) {
     var x = Math.floor(Clamp(Math.random() * boardWidth, 0, boardWidth));
     var y = Math.floor(Clamp(Math.random() * boardHeight, 0, boardHeight));
   }
-  Player(playerName, x * PIXELS_PER_TILE, y * PIXELS_PER_TILE);
+  player = Player(playerName, x * PIXELS_PER_TILE, y * PIXELS_PER_TILE);
+  player.alive = true;
 
   InitialiseCanvas(boardSize);
 

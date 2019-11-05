@@ -25,32 +25,33 @@ player. */
 function SetName() {
   // Sets name to playerName's value.
   let name = document.getElementById("playerName").value;
-  
+
   // Accesses the error message in index.html.
-    var nameInput = document.getElementById("playerName").value;
-    // Name requirements (between 2 and 12 chars long, no spaces)
-    if (nameInput.length > 12) {
-        console.error("Error: Name too long.");
-        document.getElementById('errorMsg').innerHTML="Name too long!";
-    } else if (nameInput.length < 2) {
-        console.error("Error: Name too short.");
-        document.getElementById('errorMsg').innerHTML="Name too short!";
-    } else if (nameInput.includes(" ")) {
-        console.error("Error: Name must not contain spaces")
-        document.getElementById('errorMsg').innerHTML="Space found in name!";
-    } else { // Set name if requirements are met.
-      console.log("Player name set to " + name + ".");
-      Player(askForName(), 4 * PIXELS_PER_TILE, 4 * PIXELS_PER_TILE);
-      function askForName() {
-        return name;
-      }
-
-      $("#welcomeBox").hide();
-      $("#infobar").show();
-
-      // Displays name to the user.
-      const description = document.querySelector("#tableName");
-      description.innerHTML = name;
-
-      InitialiseGame();
+  var nameInput = document.getElementById("playerName").value;
+  // Name requirements (between 2 and 12 chars long, no spaces)
+  if (nameInput.length > 12) {
+    console.error("Error: Name too long.");
+    document.getElementById('errorMsg').innerHTML = "Name too long!";
+  } else if (nameInput.length < 2) {
+    console.error("Error: Name too short.");
+    document.getElementById('errorMsg').innerHTML = "Name too short!";
+  } else if (nameInput.includes(" ")) {
+    console.error("Error: Name must not contain spaces")
+    document.getElementById('errorMsg').innerHTML = "Space found in name!";
+  } else { // Set name if requirements are met.
+    console.log("Player name set to " + name + ".");
+    Player(askForName(), 4 * PIXELS_PER_TILE, 4 * PIXELS_PER_TILE);
+    function askForName() {
+      return name;
     }
+
+    $("#welcomeBox").hide();
+    $("#infobar").show();
+
+    // Displays name to the user.
+    const description = document.querySelector("#tableName");
+    description.innerHTML = name;
+
+    InitialiseGame();
+  }
+}

@@ -2,31 +2,40 @@
 This is the script for the player class.
 */
 
-// Reference to the element image
-var player_image;
-const player_size = 3 * PIXELS_PER_TILE / 4;
+// The extra space between the player and a tile when the player is centered
+// (as player is not a whole tile in size)
 const offset = (PIXELS_PER_TILE / 4) / 2;
 // Maximum speed the player can move at
 const MAX_SPEED = 2;
-// Player's current speed 
-var speed = MAX_SPEED;
-// Boolean for slow walk
-var isRunning = true;
-// Current velocities for x and y directions
-var velX = 0, velY = 0;
 
-// x and y position of the image on the board
-// To get the tile pos xTile = x/PIXELS_PER_TILE;
-var x = 0, y = 0;
+// Reference to the player object (currently temporary as only singleplayer)
+var player;
 
 // Initialise new player
 function Player(name, x, y) {
-  this.name = name;
-  this.alive = false;
-  this.x = x;
-  this.y = y;
+  let player = {
+    // Store the players unique name 
+    name: name,
+    // x and y position of the image on the board
+    x: x,
+    y: y,
+    alive: false,
+    // Player size in pixels 
+    size: 3 * PIXELS_PER_TILE / 4,
+    // Player's current speed 
+    speed: MAX_SPEED,
+    // Current velocities for x and y directions
+    velX: 0,
+    velY: 0,
+    // Boolean for slow walk
+    isRunning: true,
+    // Reference to the element image
+    sprite: undefined
+  }
+  // Set image 
+  player.sprite = setImage();
 
-  player_image = setImage();
+  return player;
 
   function setImage() {
     let playerTag = document.getElementById('player');
@@ -49,42 +58,42 @@ function UpdatePlayer() {
   // Set player bounds ie they cannot move past these points
   let minX = 0;
   let minY = 0;
-  let maxX = boardWidth * PIXELS_PER_TILE - player_size;
-  let maxY = boardHeight * PIXELS_PER_TILE - player_size;
+  let maxX = boardWidth * PIXELS_PER_TILE - player.size;
+  let maxY = boardHeight * PIXELS_PER_TILE - player.size;
 
   // Set current movement speed
-  if (isRunning) {
-    speed = MAX_SPEED;
+  if (player.isRunning) {
+    player.speed = MAX_SPEED;
   }
   else {
-    speed = MAX_SPEED / 2;
+    player.speed = MAX_SPEED / 2;
   }
 
   // Store old values before checking collision 
-  var oldX = x;
-  var oldY = y;
+  var oldX = player.x;
+  var oldY = player.y;
 
   // Update x position
-  var newX = Clamp(x + velX, minX, maxX);
+  var newX = Clamp(player.x + player.velX, minX, maxX);
 
   // Update new x position
   if (newX != oldX) {
-    x = newX;
+    player.x = newX;
     // Ensure it is a valid move before comitting to it
-    if (!isValidMove(oldX, oldY, player_size, x, y)) {
-      x = oldX;
+    if (!isValidMove(oldX, oldY, player.size, player.x, player.y)) {
+      player.x = oldX;
     }
   }
 
   // Update y position
-  var newY = Clamp(y + velY, minY, maxY);
+  var newY = Clamp(player.y + player.velY, minY, maxY);
 
   // Update new y position 
   if (newY != oldY) {
-    y = newY;
+    player.y = newY;
     // Ensure it is a valid move before comitting to it
-    if (!isValidMove(x, oldY, player_size, x, y)) {
-      y = oldY;
+    if (!isValidMove(player.x, oldY, player.size, player.x, player.y)) {
+      player.y = oldY;
     }
   }
 
@@ -94,63 +103,63 @@ function UpdatePlayer() {
   // https://jonathanwhiting.com/tutorial/collision/ for an explanation on collision.
 
   // Update the camera position to correctly render 
-  setCameraPosCentre(x + player_size / 2, y + player_size / 2);
+  setCameraPosCentre(player.x + player.size / 2, player.y + player.size / 2);
 }
 
 
 // Move functions - they set the x and y velocities
 function moveUp() {
-  velY = -speed;
+  player.velY = -player.speed;
 }
 
 function moveDown() {
-  velY = speed;
+  player.velY = player.speed;
 }
 
 function moveLeft() {
-  velX = -speed;
+  player.velX = -player.speed;
 }
 
 function moveRight() {
-  velX = speed;
+  player.velX = player.speed;
 }
 
 function moveWalk() {
-  isRunning = false;
+  player.isRunning = false;
 }
 
 function moveRun() {
-  isRunning = true;
+  player.isRunning = true;
 }
 
 this.getName = function () {
-  return name;
+  return player.name;
 }
 
 this.isAlive = function () {
-  return alive;
+  return player.alive;
 }
 
 this.setAlive = function () {
-  alive = true;
+  player.alive = true;
 }
 
 this.setDead = function () {
-  alive = false;
+  player.alive = false;
 }
 
 function getPlayerX() {
-  return x;
+  return player.x;
 }
 
 function getPlayerY() {
-  return y;
+  return player.y;
 }
 
 function resetVelX() {
-  velX = 0;
+  player.velX = 0;
 }
 
 function resetVelY() {
-  velY = 0;
+  player.velY = 0;
 }

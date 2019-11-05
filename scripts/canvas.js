@@ -36,8 +36,8 @@ function InitialiseCanvas(boardSize) {
 
   // x,y pos of the centre of the canvas (in-game)
   // Initially set to this value, updated by setCameraPosCentre(x, y)
-  cameraCentreX = getPlayerX() + player_size / 2;
-  cameraCentreY = getPlayerY() + player_size / 2
+  cameraCentreX = getPlayerX() + player.size / 2;
+  cameraCentreY = getPlayerY() + player.size / 2;
 }
 
 function Render() {
@@ -90,10 +90,10 @@ function RenderGameObjects() {
 }
 
 function RenderPlayer() {
-  var playerOnCanvasX = canvasCentreX - player_size / 2;
-  var playerOnCanvasY = canvasCentreY - player_size / 2;
+  var playerOnCanvasX = canvasCentreX - (player.size / 2);
+  var playerOnCanvasY = canvasCentreY - (player.size / 2);
 
-  ctx.drawImage(player_image, playerOnCanvasX, playerOnCanvasY, player_size, player_size);
+  ctx.drawImage(player.sprite, playerOnCanvasX, playerOnCanvasY, player.size, player.size);
 }
 
 
