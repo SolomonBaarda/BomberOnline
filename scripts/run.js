@@ -25,3 +25,7 @@ function Update() {
 
   //console.log("Game updated");
 }
+
+function stopTimer() {
+  clearTimeout(myTime);
+}

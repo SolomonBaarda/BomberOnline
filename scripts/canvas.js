@@ -61,14 +61,12 @@ function RenderBoard() {
 
   // Get the min and max values for the tiles visible on screen (around the player)
   // This means only tiles visible on the screen are rendered 
-  var xTileMin = Math.floor(Clamp(cameraOffsetX / PIXELS_PER_TILE, 0, boardWidth));
-  var yTileMin = Math.floor(Clamp(cameraOffsetY / PIXELS_PER_TILE, 0, boardHeight));
-  var xTileMax = Math.floor(Clamp((cameraOffsetX + canvas.width) / PIXELS_PER_TILE + 1, 0, boardWidth));
-  var yTileMax = Math.floor(Clamp((cameraOffsetY + canvas.height) / PIXELS_PER_TILE + 1, 0, boardHeight));
+  var tileMin = getNearestTile(cameraOffsetX, cameraOffsetY);
+  var tileMax = getNearestTile(cameraOffsetX + canvas.width + PIXELS_PER_TILE, cameraOffsetY + canvas.height + PIXELS_PER_TILE);
 
   // Loop through the nearby tiles 
-  for (var y = yTileMin; y < yTileMax; y++) {
-    for (var x = xTileMin; x < xTileMax; x++) {
+  for (var y = tileMin.y; y < tileMax.y; y++) {
+    for (var x = tileMin.x; x < tileMax.x; x++) {
       // Calculate the x and y pos of the tile on the screen 
       var tileCanvasX = x * PIXELS_PER_TILE - cameraOffsetX;
       var tileCanvasY = y * PIXELS_PER_TILE - cameraOffsetY;

@@ -127,6 +127,13 @@ function Board(width, height) {
 }
 
 
+function getNearestTile(x, y) {
+  return {
+    x: Clamp(Math.floor(x / PIXELS_PER_TILE), 0, boardWidth),
+    y: Clamp(Math.floor(y / PIXELS_PER_TILE), 0, boardHeight)
+  };
+}
+
 
 // this should be in the player object
 function dropBomb() {
@@ -140,25 +147,24 @@ function dropBomb() {
 
 
 function bombExplode(bomb) {
-  var tileX = Math.floor(Clamp((bomb.x + BOMB_SIZE / 2) / PIXELS_PER_TILE, 0, boardWidth));
-  var tileY = Math.floor(Clamp((bomb.y + BOMB_SIZE / 2) / PIXELS_PER_TILE, 0, boardHeight));
+  var tile = getNearestTile(bomb.x + BOMB_SIZE / 2, bomb.y + BOMB_SIZE / 2);
 
   // Explode tile
-  if (board[tileX][tileY].isDestructable) {
-    board[tileX][tileY].destroy();
+  if (board[tile.x][tile.y].isDestructable) {
+    board[tile.x][tile.y].destroy();
   }
   // Nearby tiles
-  if (board[Clamp(tileX - 1, 0, boardWidth)][tileY].isDestructable) {
-    board[Clamp(tileX - 1, 0, boardWidth)][tileY].destroy();
+  if (board[Clamp(tile.x - 1, 0, boardWidth)][tile.y].isDestructable) {
+    board[Clamp(tile.x - 1, 0, boardWidth)][tile.y].destroy();
   }
-  if (board[Clamp(tileX + 1, 0, boardWidth)][tileY].isDestructable) {
-    board[Clamp(tileX + 1, 0, boardWidth)][tileY].destroy();
+  if (board[Clamp(tile.x + 1, 0, boardWidth)][tile.y].isDestructable) {
+    board[Clamp(tile.x + 1, 0, boardWidth)][tile.y].destroy();
   }
-  if (board[tileX][Clamp(tileY - 1, 0, boardHeight)].isDestructable) {
-    board[tileX][Clamp(tileY - 1, 0, boardHeight)].destroy();
+  if (board[tile.x][Clamp(tile.y - 1, 0, boardHeight)].isDestructable) {
+    board[tile.x][Clamp(tile.y - 1, 0, boardHeight)].destroy();
   }
-  if (board[tileX][Clamp(tileY + 1, 0, boardHeight)].isDestructable) {
-    board[tileX][Clamp(tileY + 1, 0, boardHeight)].destroy();
+  if (board[tile.x][Clamp(tile.y + 1, 0, boardHeight)].isDestructable) {
+    board[tile.x][Clamp(tile.y + 1, 0, boardHeight)].destroy();
   }
 
   for (var i = 0; i < gameObjects.length; i++) {

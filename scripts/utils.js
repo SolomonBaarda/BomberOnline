@@ -16,7 +16,6 @@ function Clamp(value, min, max) {
     if (value > max) {
         value = max;
     }
-
     return value;
 }
 
