@@ -10,6 +10,8 @@ when explodes destroys destructible in the vicinity
 */
 
 function bombDrop(){
-  x = getPlayerX;
-  y = getPlayerY;
+  var x = getPlayerX;
+  var y = getPlayerY;
+
+
 }
