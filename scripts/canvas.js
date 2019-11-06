@@ -2,11 +2,17 @@
 This is the script for rendering the game.
 */
 
-const MAX_CANVAS_SIZE_PIXELS = 512
+const MAX_CANVAS_SIZE_PIXELS = 512;
 
 var canvas;
 var ctx;
 var boardSize;
+
+var tilesOnCanvasX, tilesOnCanvasY;
+var cameraCentreX, cameraCentreY;
+var cameraOffsetX, cameraOffsetY;
+
+var canvasCentreX, canvasCentreY;
 
 function InitialiseCanvas(boardSize) {
   this.boardSize = boardSize
@@ -14,36 +20,89 @@ function InitialiseCanvas(boardSize) {
   // Make the canvas visible and set the size
   $("#canvas").show();
 
+  // Initialise the canvas 
   canvas = document.getElementById("canvas");
-  canvas.width = boardSize * PIXELS_PER_TILE;
-  canvas.height = boardSize * PIXELS_PER_TILE;
+  canvas.width = MAX_CANVAS_SIZE_PIXELS;
+  canvas.height = MAX_CANVAS_SIZE_PIXELS;
   ctx = canvas.getContext("2d");
+
+  // The number of tiles visible on the canvas
+  tilesOnCanvasX = canvas.width / PIXELS_PER_TILE;
+  tilesOnCanvasY = canvas.height / PIXELS_PER_TILE;
+
+  // The x and y pos for half the canvas
+  canvasCentreX = canvas.width / 2;
+  canvasCentreY = canvas.height / 2;
+
+  // x,y pos of the centre of the canvas (in-game)
+  // Initially set to this value, updated by setCameraPosCentre(x, y)
+  cameraCentreX = getPlayerX() + player.size / 2;
+  cameraCentreY = getPlayerY() + player.size / 2;
 }
 
 function Render() {
-  // Render white background 
-  RenderBoard(ctx);
-  RenderPlayer(ctx);
+  // Clear canvas before each render
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-  //console.log("Game rendered");
+  // Update the x,y pos of the top left corner of the canvas (in-game)
+  cameraOffsetX = cameraCentreX - canvasCentreX;
+  cameraOffsetY = cameraCentreY - canvasCentreY;
+
+  RenderBoard();
+  RenderGameObjects();
+  RenderPlayer();
 }
 
-function RenderBoard(ctx) {
-  ctx.canvas
-  // Draw grey background 
-  ctx.fillStyle = "#282828";
+
+function RenderBoard() {
+  // Draw black background 
+  ctx.fillStyle = "#000000";
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-  for(var y = 0; y < boardSize; y++) {
-    for(var x = 0; x < boardSize; x++) {
-      // Loop through each tile and render them 
-      ctx.fillStyle = "#00ff00";
-      ctx.fillRect(x*PIXELS_PER_TILE + 1, y*PIXELS_PER_TILE + 1, PIXELS_PER_TILE - 2, PIXELS_PER_TILE - 2);
+  // Get the min and max values for the tiles visible on screen (around the player)
+  // This means only tiles visible on the screen are rendered 
+  var tileMin = getNearestTile(cameraOffsetX, cameraOffsetY);
+  var tileMax = getNearestTile(cameraOffsetX + canvas.width + PIXELS_PER_TILE, cameraOffsetY + canvas.height + PIXELS_PER_TILE);
 
-      //$("#canvas").drawImage(board[x][y].element)
+  // Loop through the nearby tiles 
+  for (var y = tileMin.y; y < tileMax.y; y++) {
+    for (var x = tileMin.x; x < tileMax.x; x++) {
+      // Calculate the x and y pos of the tile on the screen 
+      var tileCanvasX = x * PIXELS_PER_TILE - cameraOffsetX;
+      var tileCanvasY = y * PIXELS_PER_TILE - cameraOffsetY;
+
+      var sprite = board[x][y].sprite;
+
+      ctx.drawImage(sprite, tileCanvasX, tileCanvasY, PIXELS_PER_TILE, PIXELS_PER_TILE);
     }
   }
 }
+
+function RenderGameObjects() {
+  // Loop through all game objects 
+  for (var i = 0; i < gameObjects.length; i++) {
+    var objectCanvasX = gameObjects[i].x - cameraOffsetX;
+    var objectCanvasY = gameObjects[i].y - cameraOffsetY;
+
+    // Render each object 
+    ctx.drawImage(gameObjects[i].sprite, objectCanvasX, objectCanvasY, gameObjects[i].size, gameObjects[i].size);
+  }
+}
+
+function RenderPlayer() {
+  var playerOnCanvasX = canvasCentreX - (player.size / 2);
+  var playerOnCanvasY = canvasCentreY - (player.size / 2);
+
+  ctx.drawImage(player.sprite, playerOnCanvasX, playerOnCanvasY, player.size, player.size);
+}
+
+
+function setCameraPosCentre(x, y) {
+  cameraCentreX = x;
+  cameraCentreY = y;
+}
+
+
 
 
 

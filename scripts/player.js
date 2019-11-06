@@ -2,28 +2,40 @@
 This is the script for the player class.
 */
 
-// Reference to the element image
-var image;
-const size = 3 * PIXELS_PER_TILE / 4;
+// The extra space between the player and a tile when the player is centered
+// (as player is not a whole tile in size)
 const offset = (PIXELS_PER_TILE / 4) / 2;
 // Maximum speed the player can move at
 const MAX_SPEED = 2;
-// Player's current speed 
-var speed = MAX_SPEED;
-// Boolean for slow walk
-var isRunning = true;
-// Current velocities for x and y directions
-var velX = 0, velY = 0;
 
-// x and y position of the image
-var x = 0, y = 0;
+// Reference to the player object (currently temporary as only singleplayer)
+var player;
 
 // Initialise new player
-function Player(name) {
-  this.name = name;
-  this.alive = false;
+function Player(name, x, y) {
+  let player = {
+    // Store the players unique name 
+    name: name,
+    // x and y position of the image on the board
+    x: x,
+    y: y,
+    alive: false,
+    // Player size in pixels 
+    size: 3 * PIXELS_PER_TILE / 4,
+    // Player's current speed 
+    speed: MAX_SPEED,
+    // Current velocities for x and y directions
+    velX: 0,
+    velY: 0,
+    // Boolean for slow walk
+    isRunning: true,
+    // Reference to the element image
+    sprite: undefined
+  }
+  // Set image 
+  player.sprite = setImage();
 
-  image = setImage();
+  return player;
 
   function setImage() {
     let playerTag = document.getElementById('player');
@@ -46,90 +58,108 @@ function UpdatePlayer() {
   // Set player bounds ie they cannot move past these points
   let minX = 0;
   let minY = 0;
-  let maxX = $("#canvas").width() - size;
-  let maxY = $("#canvas").height() - size;
+  let maxX = boardWidth * PIXELS_PER_TILE - player.size;
+  let maxY = boardHeight * PIXELS_PER_TILE - player.size;
 
-  if(isRunning) {
-    speed = MAX_SPEED;
+  // Set current movement speed
+  if (player.isRunning) {
+    player.speed = MAX_SPEED;
   }
   else {
-    speed = MAX_SPEED / 2;
+    player.speed = MAX_SPEED / 2;
   }
 
+  // Store old values before checking collision 
+  var oldX = player.x;
+  var oldY = player.y;
+
   // Update x position
-  x += velX;
-  if(x < minX) {x = minX}
-  else if(x > maxX) {x = maxX}
+  var newX = Clamp(player.x + player.velX, minX, maxX);
+
+  // Update new x position
+  if (newX != oldX) {
+    player.x = newX;
+    // Ensure it is a valid move before comitting to it
+    if (!isValidMove(oldX, oldY, player.size, player.x, player.y)) {
+      player.x = oldX;
+    }
+  }
 
   // Update y position
-  y += velY;
-  if(y < minY) {y = minY}
-  else if(y > maxY) {y = maxY}
+  var newY = Clamp(player.y + player.velY, minY, maxY);
+
+  // Update new y position 
+  if (newY != oldY) {
+    player.y = newY;
+    // Ensure it is a valid move before comitting to it
+    if (!isValidMove(player.x, oldY, player.size, player.x, player.y)) {
+      player.y = oldY;
+    }
+  }
+
+  // This movement style works well for objects moving at a slow speed. If they 
+  // move faster, then they may appear to collide in front of the wall. In this
+  // case, movement would need to be done in smaller steps. Check out 
+  // https://jonathanwhiting.com/tutorial/collision/ for an explanation on collision.
+
+  // Update the camera position to correctly render 
+  setCameraPosCentre(player.x + player.size / 2, player.y + player.size / 2);
 }
 
-
-function RenderPlayer(ctx) {
-  // Set positon of image on screen
-  // Old method
-  // image.style.left = getPlayerX() + "px";
-  // image.style.top = getPlayerY() + "px";
-
-  ctx.drawImage(image, x + offset, y + offset, size, size);
-}
 
 // Move functions - they set the x and y velocities
 function moveUp() {
-  velY = -speed;
+  player.velY = -player.speed;
 }
 
 function moveDown() {
-  velY = speed;
+  player.velY = player.speed;
 }
 
 function moveLeft() {
-  velX = -speed;
+  player.velX = -player.speed;
 }
 
 function moveRight() {
-  velX = speed;  
+  player.velX = player.speed;
 }
 
 function moveWalk() {
-  isRunning = false;
+  player.isRunning = false;
 }
 
 function moveRun() {
-  isRunning = true;
+  player.isRunning = true;
 }
 
-this.getName = function() {
-  return name;
+this.getName = function () {
+  return player.name;
 }
 
-this.isAlive = function() {
-  return alive;
+this.isAlive = function () {
+  return player.alive;
 }
 
-this.setAlive = function() {
-  alive = true;
+this.setAlive = function () {
+  player.alive = true;
 }
 
-this.setDead = function() {
-  alive = false;
+this.setDead = function () {
+  player.alive = false;
 }
 
 function getPlayerX() {
-  return x;
+  return player.x;
 }
 
 function getPlayerY() {
-  return y;
+  return player.y;
 }
 
 function resetVelX() {
-  velX = 0;
+  player.velX = 0;
 }
 
 function resetVelY() {
-  velY = 0;
+  player.velY = 0;
 }

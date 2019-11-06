@@ -163,14 +163,13 @@ footer {
   margin-left: auto;
   margin-right: auto;
   display: block;
-  border: 5px solid red;
+  border: 5px solid white;
 }
 
 #errorMsg {
   color: #ae0000;
   font-family: monospace;
   font-size: 12px;
-  display: none;
   text-align: center;
 }
 
@@ -182,6 +181,12 @@ footer {
   margin: 0;
   text-decoration: none;
   animation: 2s ease-out 0s 1 hdFadeIn;
+}
+
+#imgPreview {
+  display: none;
+  margin-left: 50%;
+  margin-right: 50%;
 }
 
 #main-header {

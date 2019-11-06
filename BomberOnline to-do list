@@ -2,9 +2,7 @@ F28WP BomberOnline To Do List:
 
 ---NOT COMPLETED---
 Level layouts
-Implement destructable and indestructable tiles
 Multiplayer implementation
-Sprites and animation
 Bomb implementation
 Score system
 Leaderboard system
@@ -16,24 +14,29 @@ Unit tests
 ---IN PROGRESS---
 
 -Solomon-
-board, player and tile rendering using canvas
+Allowing for multiple player objects 
 
 -Oliver-
 
 
 -Darren-
-bomb implementation
 
 -Akeil-
 Sounds
 
 -Matthew-
-Level Border
+Sprites and animation
 
 ---------------------
 
 ---COMPLETED---
 
 Redo UI
+
+board, player and tile rendering using canvas
+tile collision
+tile implementation 
+bomb implementation
+
 
 ---------------------
