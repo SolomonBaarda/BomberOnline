@@ -7,6 +7,8 @@ This is the script for the player class.
 const offset = (PIXELS_PER_TILE / 4) / 2;
 // Maximum speed the player can move at
 const MAX_SPEED = 2;
+// Maximum amount of bombs allowed 
+const DEFAULT_MAX_BOMBS = 1;
 
 // Reference to the player object (currently temporary as only singleplayer)
 var player;
@@ -29,6 +31,9 @@ function Player(name, x, y) {
     velY: 0,
     // Boolean for slow walk
     isRunning: true,
+    // Maximum bombs allowed on the field 
+    currentMaxBombs: DEFAULT_MAX_BOMBS,
+    activeBombs: 0,
     // Reference to the element image
     sprite: undefined
   }
