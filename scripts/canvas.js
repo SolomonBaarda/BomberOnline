@@ -84,8 +84,10 @@ function RenderGameObjects() {
     var objectCanvasX = gameObjects[i].x - cameraOffsetX;
     var objectCanvasY = gameObjects[i].y - cameraOffsetY;
 
-    // Render each object 
+    if (gameObjects[i].isVisible){
+      // Render each object 
     ctx.drawImage(gameObjects[i].sprite, objectCanvasX, objectCanvasY, gameObjects[i].size, gameObjects[i].size);
+    }
   }
 }
 

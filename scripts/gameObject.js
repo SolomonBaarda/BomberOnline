@@ -7,6 +7,7 @@ const BOMB_DEFAULT_TIMER = 2;
 
 // all powerups have the same constant width and height
 const POWERUP_SIZE = PIXELS_PER_TILE / 2;
+const POWERUP_DURATION = 6;
 
 /*
   Bomb constructor. Places a bomb at xPos, yPos on the board.
@@ -38,18 +39,41 @@ function Bomb(x, y, seconds) {
 This is the script used for the creation of the various
 types of powerups used and picked up in-game.
 */
-function Powerup(x, y, seconds) {
+function Powerup(x, y) {
   let powerup = GameObject(x, y, POWERUP_SIZE);
-
-  powerup.duration = seconds;
+  powerup.isPoweredUp = false;
+  powerup.duration = POWERUP_DURATION * TICKS_PER_SECOND;
   powerup.sprite.src = '';
+  
 
   return powerup;
 }
 
 // TODO 
 function SpeedPowerup(x, y) {
-  var speedPowerup = Powerup(x, y, powerupWidth, powerupHeight, 3);
+  var speedPowerup = Powerup(x, y);
+  speedPowerup.visible = true;
+  speedPowerup.sprite.src = 'sprites/player.jpg';
+  speedPowerup.update = function () {
+    if (speedPowerup.isPoweredUp) {
+      speedPowerup.timer--;
+      if (speedPowerup.timer >= 0) {
+        // Increase velocity
+        player.speed = MAX_SPEED + 1;
+      }
+
+    }
+    else {
+      if (getPlayerX(), getPlayerY(), player.size, player.size, SpeedPowerup(x), SpeedPowerup(y), POWERUP_SIZE, POWERUP_SIZE){
+        speedPowerup.isPoweredUp = true;
+        speedPowerup.isVisible = false;
+        
+      }
+      
+    }
+
+  }
+
 }
 function ExtraFlamePowerup(x, y) {
   var extraflamePowerup = Powerup;
@@ -77,6 +101,8 @@ function GameObject(xPos, yPos, size) {
     size: size,
     // A sprite to render
     sprite: undefined,
+    // Visible boolean
+    isVisible: true,
     // Update function is called once per tick
     update: function () {
     }

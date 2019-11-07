@@ -22,6 +22,9 @@ function InitialiseGame(playerName) {
 
   InitialiseCanvas(boardSize);
 
+
+  addPowerUp();
+  
   // Call to start the game tick
   Timer();
 }
