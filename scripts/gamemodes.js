@@ -20,7 +20,8 @@ function InitialiseGame(playerName) {
   player = Player(playerName, x * PIXELS_PER_TILE, y * PIXELS_PER_TILE);
   player.alive = true;
 
-  InitialiseCanvas(boardSize);
+  InitialiseCanvas();
+  InitialiseMap();
 
 
   addPowerUp();

@@ -23,8 +23,9 @@
   <script src="scripts/powerupmanager.js" defer></script>
   <!-- Load game controls script -->
   <script src="scripts/controller.js" defer></script>
-  <!-- Load canvas/rendering script -->
+  <!-- Load rendering scripts -->
   <script src="scripts/canvas.js" defer></script>
+  <script src="scripts/miniMap.js" defer></script>
   <!-- Load the different gamemode details -->
   <script src="scripts/gamemodes.js" defer></script>
   <!-- Load sounds script -->
@@ -90,8 +91,13 @@
       <!-- Player image -->
       <img id="player" alt="player" style="display:none; position:absolute; left:0; top:0;">
 
-      <div class="board">
+      <div class="game">
+        <!-- Canvas for left panel - health etc? -->
+        <canvas id="stats" style="display:none;"></canvas>
+        <!-- Main canvas for game -->
         <canvas id="canvas" style="display:none;"></canvas>
+        <!-- Canvas for rendering map -->
+        <canvas id="minimap" style="display:none;"></canvas>
       </div>
     </div>
   </div>

@@ -150,21 +150,30 @@ footer {
   margin: 5px;
 }
 
-
-.board {
+.game {
+  width: 100%;
   text-align: center;
+  vertical-align: top;
 }
+
 
 /* CSS ID's */
 
+/* Main game canvas */
 #canvas {
-  padding-left: 0;
-  padding-right: 0;
-  margin-left: auto;
-  margin-right: auto;
-  display: block;
   border: 5px solid white;
 }
+
+/* Minimap canvas */
+#minimap {
+  /* Nothing here for now */
+}
+
+/* Scoreboard canvas */
+#stats {
+
+}
+
 
 #errorMsg {
   color: #ae0000;

@@ -23,13 +23,13 @@ function Bomb(x, y, seconds) {
   bomb.update = function () {
     bomb.timer--;
     if (bomb.timer <= 0) {
-      // Call explode function in board 
+      // Call explode function in board
       bombExplode(this);
     }
   }
 
-  // Set source of sprite 
-  bomb.sprite.src = 'sprites/player.jpg';
+  // Set source of sprite
+  bomb.sprite.src = 'sprites/bomb.png';
 
   return bomb;
 }
@@ -49,7 +49,7 @@ function Powerup(x, y) {
   return powerup;
 }
 
-// TODO 
+// TODO
 function SpeedPowerup(x, y) {
   var speedPowerup = Powerup(x, y);
   speedPowerup.visible = true;
@@ -89,7 +89,7 @@ function CollisionPowerup(x, y) {
 
 
 /*
-  This is the most basic object that can exist in the game. 
+  This is the most basic object that can exist in the game.
 */
 function GameObject(xPos, yPos, size) {
   // Create new bomb object
@@ -107,11 +107,8 @@ function GameObject(xPos, yPos, size) {
     update: function () {
     }
   }
-  // Set source of sprite 
+  // Set source of sprite
   object.sprite = new Image(size, size);
 
   return object;
 }
-
-
-
