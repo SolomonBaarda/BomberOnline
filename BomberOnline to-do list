@@ -6,7 +6,6 @@ Bomb implementation
 Score system
 Leaderboard system
 Powerups
-Sounds
 Unit tests
 Sprites and animation
 ---------------------
@@ -27,6 +26,7 @@ Sounds
 
 -Matthew-
 Multiplayer implementation
+CSS fixes
 
 ---------------------
 
