@@ -23,6 +23,9 @@ function InitialiseGame(playerName) {
   InitialiseCanvas();
   InitialiseMap();
 
+
+  addPowerUp();
+  
   // Call to start the game tick
   Timer();
 }
