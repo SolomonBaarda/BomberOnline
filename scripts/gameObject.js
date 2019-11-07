@@ -12,12 +12,15 @@ const POWERUP_DURATION = 6;
 /*
   Bomb constructor. Places a bomb at xPos, yPos on the board.
 */
-function Bomb(x, y, seconds) {
+function Bomb(x, y, seconds, owner) {
   // Create new bomb object
   let bomb = GameObject(x, y, BOMB_SIZE);
 
   // Timer that decreases each tick
   bomb.timer = TICKS_PER_SECOND * seconds;
+
+  // Set reference to the owner of the bomb
+  bomb.owner = owner;
 
   // Update function is called once per tick
   bomb.update = function () {

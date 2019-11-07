@@ -40,7 +40,8 @@ function KeyDown(e) {
     }
     // Key is spacebar 
     if (key == 32) {
-      dropBomb();
+      console.log(player);
+      dropBomb(player);
     }
     // Key is shift 
     if (key == 16) {

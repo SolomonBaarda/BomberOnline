@@ -136,13 +136,18 @@ function getNearestTile(x, y) {
 
 
 // this should be in the player object
-function dropBomb() {
-  // Centre of bomb should be centre of player
-  var trueX = getPlayerX() + player.size / 2 - BOMB_SIZE / 2;
-  var trueY = getPlayerY() + player.size / 2 - BOMB_SIZE / 2;
-  var bomb = Bomb(trueX, trueY, BOMB_DEFAULT_TIMER);
+function dropBomb(player) {
+  if (player.activeBombs < player.currentMaxBombs) {
+    // Centre of bomb should be centre of player
+    var trueX = getPlayerX() + player.size / 2 - BOMB_SIZE / 2;
+    var trueY = getPlayerY() + player.size / 2 - BOMB_SIZE / 2;
+    var bomb = Bomb(trueX, trueY, BOMB_DEFAULT_TIMER, player.name);
 
-  gameObjects.push(bomb);
+    player.activeBombs++;
+
+    gameObjects.push(bomb);
+  }
+
 }
 
 
@@ -166,6 +171,10 @@ function bombExplode(bomb) {
   if (board[tile.x][Clamp(tile.y + 1, 0, boardHeight)].isDestructable) {
     board[tile.x][Clamp(tile.y + 1, 0, boardHeight)].destroy();
   }
+
+  console.log(bomb);
+  
+  bomb.owner.activeBombs--;
 
   for (var i = 0; i < gameObjects.length; i++) {
     if (gameObjects[i].x == bomb.x && gameObjects[i].y == bomb.y) {

@@ -8,6 +8,8 @@ This is the script for initialising the game.
 $(document).ready($("#start-button").show());
 $(document).ready($("#infobar").hide());
 
+var playerName;
+
 // Proceeds to name selection menu.
 function Initialise() {
 
@@ -51,6 +53,8 @@ function SetName() {
     // Displays name to the user.
     const description = document.querySelector("#tableName");
     description.innerHTML = name;
+
+    playerName = name;
 
     InitialiseGame();
   }
