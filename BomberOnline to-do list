@@ -2,13 +2,13 @@ F28WP BomberOnline To Do List:
 
 ---NOT COMPLETED---
 Level layouts
-Multiplayer implementation
 Bomb implementation
 Score system
 Leaderboard system
 Powerups
 Sounds
 Unit tests
+Sprites and animation
 ---------------------
 
 ---IN PROGRESS---
@@ -21,11 +21,12 @@ Allowing for multiple player objects
 
 -Darren-
 
+
 -Akeil-
 Sounds
 
 -Matthew-
-Sprites and animation
+Multiplayer implementation
 
 ---------------------
 
