@@ -2,16 +2,17 @@
 This is the script for rendering the game.
 */
 
+
 const MAX_CANVAS_SIZE_PIXELS = 512;
 
-var canvas;
-var ctx;
+var playerCanvas;
+var playerCtx;
+
 var boardSize;
 
 var tilesOnCanvasX, tilesOnCanvasY;
 var cameraCentreX, cameraCentreY;
 var cameraOffsetX, cameraOffsetY;
-
 var canvasCentreX, canvasCentreY;
 
 function InitialiseCanvas(boardSize) {
@@ -20,7 +21,7 @@ function InitialiseCanvas(boardSize) {
   // Make the canvas visible and set the size
   $("#canvas").show();
 
-  // Initialise the canvas 
+  // Initialise the canvas
   canvas = document.getElementById("canvas");
   canvas.width = MAX_CANVAS_SIZE_PIXELS;
   canvas.height = MAX_CANVAS_SIZE_PIXELS;
@@ -37,7 +38,7 @@ function InitialiseCanvas(boardSize) {
   // x,y pos of the centre of the canvas (in-game)
   // Initially set to this value, updated by setCameraPosCentre(x, y)
   cameraCentreX = getPlayerX() + player_size / 2;
-  cameraCentreY = getPlayerY() + player_size / 2
+  cameraCentreY = getPlayerY() + player_size / 2;
 }
 
 function Render() {
@@ -57,12 +58,12 @@ function Render() {
 
 
 function RenderBoard() {
-  // Draw black background 
+  // Draw black background
   ctx.fillStyle = "#000000";
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
   // Get the min and max values for the tiles visible on screen (around the player)
-  // This means only tiles visible on the screen are rendered 
+  // This means only tiles visible on the screen are rendered
   var xTileMin = Math.floor(Clamp(cameraOffsetX / PIXELS_PER_TILE, 0, boardWidth));
   var yTileMin = Math.floor(Clamp(cameraOffsetY / PIXELS_PER_TILE, 0, boardHeight));
   var xTileMax = Math.floor(Clamp((cameraOffsetX + canvas.width) / PIXELS_PER_TILE + 1, 0, boardWidth));
@@ -70,10 +71,10 @@ function RenderBoard() {
 
   //console.log("xMin:"+xTileMin+", yMin:"+yTileMin+", xMax:"+xTileMax+", yMax:"+yTileMax);
 
-  // Loop through the nearby tiles 
+  // Loop through the nearby tiles
   for (var y = yTileMin; y < yTileMax; y++) {
     for (var x = xTileMin; x < xTileMax; x++) {
-      // Calculate the x and y pos of the tile on the screen 
+      // Calculate the x and y pos of the tile on the screen
       var tileCanvasX = x * PIXELS_PER_TILE - cameraOffsetX;
       var tileCanvasY = y * PIXELS_PER_TILE - cameraOffsetY;
 
@@ -83,7 +84,7 @@ function RenderBoard() {
       if(board[x][y].isEmpty) {
         //ctx.fillStyle = "#808080";
       }
-      // Render destructable solid tiles next 
+      // Render destructable solid tiles next
       else if (board[x][y].isDestructable && !board[x][y].isEmpty) {
         //ctx.fillStyle = "#585858";
       }
@@ -95,7 +96,7 @@ function RenderBoard() {
       //ctx.fillRect(tileCanvasX, tileCanvasY, PIXELS_PER_TILE, PIXELS_PER_TILE);
       ctx.drawImage(sprite, tileCanvasX, tileCanvasY, PIXELS_PER_TILE, PIXELS_PER_TILE);
 
-      // Draw white border to every tile 
+      // Draw white border to every tile
       // ctx.strokeStyle = "#F5F5F5";
       // ctx.beginPath();
       // ctx.rect(tileCanvasX, tileCanvasY, PIXELS_PER_TILE, PIXELS_PER_TILE);
@@ -105,25 +106,19 @@ function RenderBoard() {
 }
 
 function RenderPlayer() {
+
   var playerOnCanvasX = canvasCentreX - player_size / 2;
   var playerOnCanvasY = canvasCentreY - player_size / 2;
 
-  //console.log("player x:"+x+", y:"+y+", pCanvasX:"+playerOnCanvasX+", pCanvasY:"+playerOnCanvasY);
+  var playerCanvas = document.getElementById("canvas");
+  var playerCtx = playerCanvas.getContext("2d");
+  var playerImage = document.getElementById("player");
 
-  ctx.drawImage(player_image, playerOnCanvasX, playerOnCanvasY, player_size, player_size);
-  ctx.fillStyle = "#ffffff";
-  //ctx.fillRect(getPlayerX(), getPlayerY(), player_size, player_size);
+  playerCtx.drawImage(playerImage, playerOnCanvasX, playerOnCanvasY, player_size, player_size);
+  playerCtx.filter = 'hue-rotate('+hue+')';
 }
-
-
 
 function setCameraPosCentre(x, y) {
   cameraCentreX = x;
   cameraCentreY = y;
 }
-
-
-
-
-
-

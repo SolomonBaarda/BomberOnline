@@ -2,13 +2,11 @@
 This is the script for the player class.
 */
 
-// Reference to the element image
-var player_image;
 const player_size = 3 * PIXELS_PER_TILE / 4;
 const offset = (PIXELS_PER_TILE / 4) / 2;
 // Maximum speed the player can move at
 const MAX_SPEED = 2;
-// Player's current speed 
+// Player's current speed
 var speed = MAX_SPEED;
 // Boolean for slow walk
 var isRunning = true;
@@ -25,21 +23,6 @@ function Player(name, x, y) {
   this.alive = false;
   this.x = x;
   this.y = y;
-
-  player_image = setImage();
-
-  function setImage() {
-    let playerTag = document.getElementById('player');
-    // Set the image source
-    playerTag.src = "sprites/player.jpg";
-    playerTag.position = "absolute";
-
-    // Use canvas to render image now
-    $("#player").hide();
-
-    console.log("Player image has been set.");
-    return playerTag;
-  }
 
   // End of player
 }
@@ -60,7 +43,7 @@ function UpdatePlayer() {
     speed = MAX_SPEED / 2;
   }
 
-  // Store old values before checking collision 
+  // Store old values before checking collision
   var oldX = x;
   var oldY = y;
 
@@ -79,7 +62,7 @@ function UpdatePlayer() {
   // Update y position
   var newY = Clamp(y + velY, minY, maxY);
 
-  // Update new y position 
+  // Update new y position
   if (newY != oldY) {
     y = newY;
     // Ensure it is a valid move before comitting to it
@@ -88,12 +71,12 @@ function UpdatePlayer() {
     }
   }
 
-  // This movement style works well for objects moving at a slow speed. If they 
+  // This movement style works well for objects moving at a slow speed. If they
   // move faster, then they may appear to collide in front of the wall. In this
-  // case, movement would need to be done in smaller steps. Check out 
+  // case, movement would need to be done in smaller steps. Check out
   // https://jonathanwhiting.com/tutorial/collision/ for an explanation on collision.
 
-  // Update the camera position to correctly render 
+  // Update the camera position to correctly render
   setCameraPosCentre(x + player_size / 2, y + player_size / 2);
 }
 
@@ -146,6 +129,10 @@ function getPlayerX() {
 
 function getPlayerY() {
   return y;
+}
+
+function getPlayerHue() {
+  return playerHue;
 }
 
 function resetVelX() {
