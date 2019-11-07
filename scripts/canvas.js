@@ -57,7 +57,6 @@ function Render() {
     RenderMap();
     tickCount = 0;
   }
-
 }
 
 

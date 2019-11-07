@@ -151,28 +151,27 @@ footer {
 }
 
 .game {
+  width: 100%;
   text-align: center;
-  overflow: auto;
-  display: inline-block;
   vertical-align: top;
 }
 
 
 /* CSS ID's */
 
-#canvas, #map, #left {
-  float: left;
-  margin: auto;
-  display: block;
-  padding: 0px 10px 0px 10px;
-}
-
+/* Main game canvas */
 #canvas {
   border: 5px solid white;
 }
 
-#map {
-  /* nothing for now */
+/* Minimap canvas */
+#minimap {
+  /* Nothing here for now */
+}
+
+/* Scoreboard canvas */
+#stats {
+
 }
 
 
