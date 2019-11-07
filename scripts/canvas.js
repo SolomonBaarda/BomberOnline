@@ -1,12 +1,12 @@
 /*
 This is the script for rendering the game.
 */
+var tickCount = 0;
 
 const MAX_CANVAS_SIZE_PIXELS = 512;
 
 var canvas;
-var ctx;
-var boardSize;
+var canvas_ctx;
 
 var tilesOnCanvasX, tilesOnCanvasY;
 var cameraCentreX, cameraCentreY;
@@ -14,9 +14,7 @@ var cameraOffsetX, cameraOffsetY;
 
 var canvasCentreX, canvasCentreY;
 
-function InitialiseCanvas(boardSize) {
-  this.boardSize = boardSize
-
+function InitialiseCanvas() {
   // Make the canvas visible and set the size
   $("#canvas").show();
 
@@ -24,7 +22,7 @@ function InitialiseCanvas(boardSize) {
   canvas = document.getElementById("canvas");
   canvas.width = MAX_CANVAS_SIZE_PIXELS;
   canvas.height = MAX_CANVAS_SIZE_PIXELS;
-  ctx = canvas.getContext("2d");
+  canvas_ctx = canvas.getContext("2d");
 
   // The number of tiles visible on the canvas
   tilesOnCanvasX = canvas.width / PIXELS_PER_TILE;
@@ -41,39 +39,46 @@ function InitialiseCanvas(boardSize) {
 }
 
 function Render() {
+  tickCount++;
   // Clear canvas before each render
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  canvas_ctx.clearRect(0, 0, canvas.width, canvas.height);
 
   // Update the x,y pos of the top left corner of the canvas (in-game)
   cameraOffsetX = cameraCentreX - canvasCentreX;
   cameraOffsetY = cameraCentreY - canvasCentreY;
 
+  // Render game
   RenderBoard();
   RenderGameObjects();
   RenderPlayer();
+
+  // Render map twice per second as its pretty laggy 
+  if (tickCount % (TICKS_PER_SECOND / 2) == 0) {
+    RenderMap();
+    tickCount = 0;
+  }
+
 }
 
 
 function RenderBoard() {
   // Draw black background 
-  ctx.fillStyle = "#000000";
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  canvas_ctx.fillStyle = "#000000";
+  canvas_ctx.fillRect(0, 0, canvas.width, canvas.height);
 
   // Get the min and max values for the tiles visible on screen (around the player)
   // This means only tiles visible on the screen are rendered 
-  var tileMin = getNearestTile(cameraOffsetX, cameraOffsetY);
-  var tileMax = getNearestTile(cameraOffsetX + canvas.width + PIXELS_PER_TILE, cameraOffsetY + canvas.height + PIXELS_PER_TILE);
+  let tileMin = getNearestTile(cameraOffsetX, cameraOffsetY);
+  let tileMax = getNearestTile(cameraOffsetX + canvas.width + PIXELS_PER_TILE, cameraOffsetY + canvas.height + PIXELS_PER_TILE);
 
   // Loop through the nearby tiles 
-  for (var y = tileMin.y; y < tileMax.y; y++) {
-    for (var x = tileMin.x; x < tileMax.x; x++) {
+  for (let y = tileMin.y; y < tileMax.y; y++) {
+    for (let x = tileMin.x; x < tileMax.x; x++) {
       // Calculate the x and y pos of the tile on the screen 
-      var tileCanvasX = x * PIXELS_PER_TILE - cameraOffsetX;
-      var tileCanvasY = y * PIXELS_PER_TILE - cameraOffsetY;
+      let tileCanvasX = x * PIXELS_PER_TILE - cameraOffsetX;
+      let tileCanvasY = y * PIXELS_PER_TILE - cameraOffsetY;
 
-      var sprite = board[x][y].sprite;
-
-      ctx.drawImage(sprite, tileCanvasX, tileCanvasY, PIXELS_PER_TILE, PIXELS_PER_TILE);
+      canvas_ctx.drawImage(board[x][y].sprite, tileCanvasX, tileCanvasY, PIXELS_PER_TILE, PIXELS_PER_TILE);
     }
   }
 }
@@ -81,19 +86,19 @@ function RenderBoard() {
 function RenderGameObjects() {
   // Loop through all game objects 
   for (var i = 0; i < gameObjects.length; i++) {
-    var objectCanvasX = gameObjects[i].x - cameraOffsetX;
-    var objectCanvasY = gameObjects[i].y - cameraOffsetY;
+    let objectCanvasX = gameObjects[i].x - cameraOffsetX;
+    let objectCanvasY = gameObjects[i].y - cameraOffsetY;
 
     // Render each object 
-    ctx.drawImage(gameObjects[i].sprite, objectCanvasX, objectCanvasY, gameObjects[i].size, gameObjects[i].size);
+    canvas_ctx.drawImage(gameObjects[i].sprite, objectCanvasX, objectCanvasY, gameObjects[i].size, gameObjects[i].size);
   }
 }
 
 function RenderPlayer() {
-  var playerOnCanvasX = canvasCentreX - (player.size / 2);
-  var playerOnCanvasY = canvasCentreY - (player.size / 2);
+  let playerOnCanvasX = canvasCentreX - (player.size / 2);
+  let playerOnCanvasY = canvasCentreY - (player.size / 2);
 
-  ctx.drawImage(player.sprite, playerOnCanvasX, playerOnCanvasY, player.size, player.size);
+  canvas_ctx.drawImage(player.sprite, playerOnCanvasX, playerOnCanvasY, player.size, player.size);
 }
 
 

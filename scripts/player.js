@@ -34,6 +34,8 @@ function Player(name, x, y) {
   }
   // Set image 
   player.sprite = setImage();
+  console.log("Player image has been set.");
+  
 
   return player;
 
@@ -46,7 +48,6 @@ function Player(name, x, y) {
     // Use canvas to render image now
     $("#player").hide();
 
-    console.log("Player image has been set.");
     return playerTag;
   }
 
