@@ -91,7 +91,7 @@ function RenderGameObjects() {
 
     if (gameObjects[i].isVisible) {
       // Render each object 
-      ctx.drawImage(gameObjects[i].sprite, objectCanvasX, objectCanvasY, gameObjects[i].size, gameObjects[i].size);
+      canvas_ctx.drawImage(gameObjects[i].sprite, objectCanvasX, objectCanvasY, gameObjects[i].size, gameObjects[i].size);
     }
 
   }

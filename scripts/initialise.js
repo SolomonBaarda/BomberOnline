@@ -8,8 +8,6 @@ This is the script for initialising the game.
 $(document).ready($("#start-button").show());
 $(document).ready($("#infobar").hide());
 
-var playerName;
-
 // Proceeds to name selection menu.
 function Initialise() {
 
@@ -42,10 +40,6 @@ function SetName() {
     document.getElementById('errorMsg').innerHTML = "Space found in name!";
   } else { // Set name if requirements are met.
     console.log("Player name set to " + name + ".");
-    Player(askForName(), 4 * PIXELS_PER_TILE, 4 * PIXELS_PER_TILE);
-    function askForName() {
-      return name;
-    }
 
     $("#welcomeBox").hide();
     $("#infobar").show();
@@ -54,8 +48,6 @@ function SetName() {
     const description = document.querySelector("#tableName");
     description.innerHTML = name;
 
-    playerName = name;
-
-    InitialiseGame();
+    InitialiseGame(name);
   }
 }

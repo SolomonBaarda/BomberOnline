@@ -171,10 +171,9 @@ function bombExplode(bomb) {
   if (board[tile.x][Clamp(tile.y + 1, 0, boardHeight)].isDestructable) {
     board[tile.x][Clamp(tile.y + 1, 0, boardHeight)].destroy();
   }
-
-  console.log(bomb);
   
-  bomb.owner.activeBombs--;
+  //bomb.owner.activeBombs--;
+  player.activeBombs--;
 
   for (var i = 0; i < gameObjects.length; i++) {
     if (gameObjects[i].x == bomb.x && gameObjects[i].y == bomb.y) {
