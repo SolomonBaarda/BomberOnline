@@ -113,6 +113,7 @@ footer {
 
 #nameInput {
   display: grid;
+  padding-bottom: 30px;
 }
 
 #playBox {
@@ -120,7 +121,7 @@ footer {
   background-color: #000000;
   border: 6px solid white;
   display: flex;
-  height: 300px;
+  height: 200px;
   justify-content: center;
   width: 250px;
 }
@@ -179,6 +180,7 @@ footer {
   color: #ae0000;
   font-family: monospace;
   font-size: 12px;
+  padding: 0;
   text-align: center;
 }
 
@@ -194,8 +196,6 @@ footer {
 
 #imgPreview {
   display: none;
-  margin-left: 50%;
-  margin-right: 50%;
 }
 
 #main-header {
@@ -209,20 +209,9 @@ footer {
   display: none;
 }
 
-/*
-#player {
-  border: 2px solid green;
-  margin: 0px;
-  display: none;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-}
-*/
-
 #playerName {
   display: none;
-  font-size: 28px;
+  font-size: 20px;
   margin-bottom: 10%;
   width: 160px;
 }
