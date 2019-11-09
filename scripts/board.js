@@ -126,12 +126,20 @@ function Board(width, height) {
   }
 }
 
-
+// Function that calculates the x and y tile position of the coordinates given 
 function getNearestTile(x, y) {
   return {
     x: Clamp(Math.floor(x / PIXELS_PER_TILE), 0, boardWidth),
     y: Clamp(Math.floor(y / PIXELS_PER_TILE), 0, boardHeight)
   };
+}
+
+// Function that calculates all of the possible tiles that the objects is on
+function getAllConnectingTiles(x, y, width, height) {
+  var tileMin = getNearestTile(x, y);
+  var tileMax = getNearestTile(x + width, y + height);
+
+  return [tileMin, tileMax];
 }
 
 
@@ -158,6 +166,7 @@ function bombExplode(bomb) {
   if (board[tile.x][tile.y].isDestructable) {
     board[tile.x][tile.y].destroy();
   }
+
   // Nearby tiles
   if (board[Clamp(tile.x - 1, 0, boardWidth)][tile.y].isDestructable) {
     board[Clamp(tile.x - 1, 0, boardWidth)][tile.y].destroy();
@@ -171,7 +180,11 @@ function bombExplode(bomb) {
   if (board[tile.x][Clamp(tile.y + 1, 0, boardHeight)].isDestructable) {
     board[tile.x][Clamp(tile.y + 1, 0, boardHeight)].destroy();
   }
-  
+
+
+
+
+
   //bomb.owner.activeBombs--;
   player.activeBombs--;
 

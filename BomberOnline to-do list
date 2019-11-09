@@ -2,26 +2,24 @@ F28WP BomberOnline To Do List:
 
 ---NOT COMPLETED---
 **Important**
-Bomb implementation
-Powerups
-Score + leaderboard
 Level layouts
 
 *Additional features*
 Gamemodes
 Unit tests
 Sprites and animation
-In-game chat
+
 
 ---------------------
 
 ---IN PROGRESS---
 
 -Solomon-
-Allowing for multiple player objects 
+Allowing for multiple player objects.
+Score + leaderboard + In-game chat (Using the left canvas)
 
 -Oliver-
-
+Powerups + powerup manager
 
 -Darren-
 
