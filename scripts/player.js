@@ -6,18 +6,22 @@ This is the script for the player class.
 const MAX_SPEED = 2;
 // Maximum amount of bombs allowed 
 const DEFAULT_MAX_BOMBS = 1;
+// Strength of bombs by default 
+const DEFAULT_BOMB_POWER = 1;
 
 // Initialise new player
 function Player(name, x, y) {
   let player = {
     // Store the players unique name 
     name: name,
+
     // x and y position of the image on the board
     x: x,
     y: y,
     isAlive: false,
     // Player size in pixels 
     size: 3 * PIXELS_PER_TILE / 4,
+
     // Player's current speed 
     speed: MAX_SPEED,
     // Current velocities for x and y directions
@@ -25,9 +29,12 @@ function Player(name, x, y) {
     velY: 0,
     // Boolean for slow walk
     isRunning: true,
+
     // Maximum bombs allowed on the field 
     currentMaxBombs: DEFAULT_MAX_BOMBS,
     activeBombs: 0,
+    currentBombPower: DEFAULT_BOMB_POWER,
+
     // Reference to the element image
     sprite: undefined,
 
