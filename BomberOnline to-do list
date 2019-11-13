@@ -22,7 +22,7 @@ Score + leaderboard + In-game chat (Using the left canvas)
 Powerups + powerup manager
 
 -Darren-
-
+Animation - not started yet still reading up 
 
 -Akeil-
 Sounds
@@ -39,7 +39,7 @@ Redo UI
 
 board, player and tile rendering using canvas
 tile collision
-tile implementation 
+tile implementation
 bomb implementation
 
 
