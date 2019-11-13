@@ -62,7 +62,6 @@ function Board(width, height) {
     tile.isDestructable = false;
     tile.isCollidable = false;
     tile.isEmpty = true;
-    tile.isDamaging = false;
     tile.sprite = new Image(16, 16);
     tile.sprite.src = 'sprites/tileset/cropped/emptyTile.png';
 
@@ -77,7 +76,6 @@ function Board(width, height) {
     tile.isDestructable = false;
     tile.isCollidable = true;
     tile.isEmpty = false;
-    tile.isDamaging = false;
     tile.sprite = new Image(16, 16);
     tile.sprite.src = 'sprites/tileset/cropped/indestructableTile.png';
 
@@ -92,10 +90,8 @@ function Board(width, height) {
     tile.isDestructable = true;
     tile.isCollidable = true;
     tile.isEmpty = false;
-    tile.isDamaging = false;
     tile.sprite = new Image(16, 16);
 
-    // Set sprite to be random 
     var random = Math.floor(Math.random() * 20);
     if (random < 8) {
       tile.sprite.src = 'sprites/tileset/cropped/destructableTile2.png';
@@ -123,7 +119,6 @@ function Board(width, height) {
       isDestructable: undefined,
       isCollidable: undefined,
       isEmpty: undefined,
-      isDamaging: undefined,
       sprite: undefined
     }
 
@@ -131,20 +126,12 @@ function Board(width, height) {
   }
 }
 
-// Function that calculates the x and y tile position of the coordinates given 
+
 function getNearestTile(x, y) {
   return {
     x: Clamp(Math.floor(x / PIXELS_PER_TILE), 0, boardWidth),
     y: Clamp(Math.floor(y / PIXELS_PER_TILE), 0, boardHeight)
   };
-}
-
-// Function that calculates all of the possible tiles that the objects is on
-function getAllConnectingTiles(x, y, width, height) {
-  var tileMin = getNearestTile(x, y);
-  var tileMax = getNearestTile(x + width, y + height);
-
-  return [tileMin, tileMax];
 }
 
 
@@ -154,56 +141,42 @@ function dropBomb(player) {
     // Centre of bomb should be centre of player
     var trueX = getPlayerX() + player.size / 2 - BOMB_SIZE / 2;
     var trueY = getPlayerY() + player.size / 2 - BOMB_SIZE / 2;
-
-    var bomb = Bomb(trueX, trueY, BOMB_DEFAULT_TIMER, player);
+    var bomb = Bomb(trueX, trueY, BOMB_DEFAULT_TIMER, player.name);
 
     player.activeBombs++;
 
     gameObjects.push(bomb);
   }
+
 }
 
 
 function bombExplode(bomb) {
-  // Gets the tile on the centre of the bomb sprite 
   var tile = getNearestTile(bomb.x + BOMB_SIZE / 2, bomb.y + BOMB_SIZE / 2);
 
   // Explode tile
   if (board[tile.x][tile.y].isDestructable) {
     board[tile.x][tile.y].destroy();
   }
-
-  let power = bomb.power;
-  
-  for (var i = DEFAULT_BOMB_POWER; i <= power; i++) {
-    // Nearby tiles
-    let left = Tile(Clamp(tile.x - i, 0, boardWidth), tile.y);
-    if (board[left.x][left.y].isDestructable) {
-      board[left.x][left.y].destroy();
-    }
-
-    let right = Tile(Clamp(tile.x + i, 0, boardWidth), tile.y);
-    if (board[right.x][right.y].isDestructable) {
-      board[right.x][right.y].destroy();
-    }
-
-    let up = Tile(tile.x, Clamp(tile.y - i, 0, boardHeight));
-    if (board[up.x][up.y].isDestructable) {
-      board[up.x][up.y].destroy();
-    }
-
-    let down = Tile(tile.x, Clamp(tile.y + i, 0, boardHeight));
-    if (board[down.x][down.y].isDestructable) {
-      board[down.x][down.y].destroy();
-    }
+  // Nearby tiles
+  if (board[Clamp(tile.x - 1, 0, boardWidth)][tile.y].isDestructable) {
+    board[Clamp(tile.x - 1, 0, boardWidth)][tile.y].destroy();
   }
-
-
+  if (board[Clamp(tile.x + 1, 0, boardWidth)][tile.y].isDestructable) {
+    board[Clamp(tile.x + 1, 0, boardWidth)][tile.y].destroy();
+  }
+  if (board[tile.x][Clamp(tile.y - 1, 0, boardHeight)].isDestructable) {
+    board[tile.x][Clamp(tile.y - 1, 0, boardHeight)].destroy();
+  }
+  if (board[tile.x][Clamp(tile.y + 1, 0, boardHeight)].isDestructable) {
+    board[tile.x][Clamp(tile.y + 1, 0, boardHeight)].destroy();
+  }
+  
   //bomb.owner.activeBombs--;
   player.activeBombs--;
 
   for (var i = 0; i < gameObjects.length; i++) {
-    if (gameObjects[i] === bomb) {
+    if (gameObjects[i].x == bomb.x && gameObjects[i].y == bomb.y) {
       // Remove the bomb from game objects
       gameObjects.splice(i, 1);
     }

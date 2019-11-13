@@ -1,6 +1,7 @@
 /*
 This is the script for rendering the game.
 */
+var tickCount = 0;
 
 const MAX_CANVAS_SIZE_PIXELS = 512;
 
@@ -37,7 +38,8 @@ function InitialiseCanvas() {
   cameraCentreY = getPlayerY() + player.size / 2;
 }
 
-function RenderCanvas() {
+function Render() {
+  tickCount++;
   // Clear canvas before each render
   canvas_ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -45,9 +47,16 @@ function RenderCanvas() {
   cameraOffsetX = cameraCentreX - canvasCentreX;
   cameraOffsetY = cameraCentreY - canvasCentreY;
 
+  // Render game
   RenderBoard();
   RenderGameObjects();
-  RenderPlayers();
+  RenderPlayer();
+
+  // Render map twice per second as its pretty laggy 
+  if (tickCount % (TICKS_PER_SECOND / 2) == 0) {
+    RenderMap();
+    tickCount = 0;
+  }
 }
 
 
@@ -79,6 +88,7 @@ function RenderGameObjects() {
     let objectCanvasX = gameObjects[i].x - cameraOffsetX;
     let objectCanvasY = gameObjects[i].y - cameraOffsetY;
 
+
     if (gameObjects[i].isVisible) {
       // Render each object 
       canvas_ctx.drawImage(gameObjects[i].sprite, objectCanvasX, objectCanvasY, gameObjects[i].size, gameObjects[i].size);
@@ -87,14 +97,11 @@ function RenderGameObjects() {
   }
 }
 
-function RenderPlayers() {
-  for (var i = 0; i < players.length; i++) {
-    let playerOnCanvasX = canvasCentreX - (players[i].size / 2);
-    let playerOnCanvasY = canvasCentreY - (players[i].size / 2);
-  
-    canvas_ctx.drawImage(players[i].sprite, playerOnCanvasX, playerOnCanvasY, players[i].size, players[i].size);
-  }
+function RenderPlayer() {
+  let playerOnCanvasX = canvasCentreX - (player.size / 2);
+  let playerOnCanvasY = canvasCentreY - (player.size / 2);
 
+  canvas_ctx.drawImage(player.sprite, playerOnCanvasX, playerOnCanvasY, player.size, player.size);
 }
 
 

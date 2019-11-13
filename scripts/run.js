@@ -3,7 +3,6 @@ This is the script for the main game tick.
 */
 
 myTime = null;
-var tickCount = 0;
 
 // The main game clock function
 function Timer() {
@@ -13,32 +12,18 @@ function Timer() {
   Render();
 
   // Call timer again in 1 tick
-  myTime = setTimeout('Timer()', 1000 / TICKS_PER_SECOND);
+  myTime = setTimeout('Timer()', 1000/TICKS_PER_SECOND);
 }
 
 // The main update function will call all others
 function Update() {
   // Update the player
-  UpdatePlayers();
+  UpdatePlayer();
 
   // Update the collisions on the board 
   UpdateBoard();
 
   //console.log("Game updated");
-}
-
-// The main render function 
-function Render() {
-  tickCount++;
-
-  // Render the main canvas
-  RenderCanvas()
-
-  // Render map twice per second as its pretty laggy 
-  if (tickCount % (TICKS_PER_SECOND / 2) == 0) {
-    RenderMap();
-    tickCount = 0;
-  }
 }
 
 function stopTimer() {
