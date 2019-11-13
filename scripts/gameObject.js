@@ -22,6 +22,9 @@ function Bomb(x, y, seconds, owner) {
   // Set reference to the owner of the bomb
   bomb.owner = owner;
 
+  // Set how strong the bomb should be when it explodes 
+  bomb.power = owner.currentBombPower;
+
   // Update function is called once per tick
   bomb.update = function () {
     bomb.timer--;
