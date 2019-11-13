@@ -3,20 +3,56 @@ This is the script for initialising the game.
 */
 
 
-// When the document is ready, make the click to play button visible.
-// This ensures that the page is fully loaded befoere allowing the player to start the game.
+// Ensure page is fully loaded before showing the start button
 $(document).ready($("#start-button").show());
 $(document).ready($("#infobar").hide());
 
-// Proceeds to name selection menu.
+// Proceed to name selection menu when start is clicked
 function Initialise() {
 
-  // Hide the start button and display a text box and button.
+    name = null;
+    hue = null;
+    console.log("Name: "+name+" | Hue: "+hue);
+
+  // Display fields relevant to the name selection page.
   $("#welcomeBox").show();
   $("#start-button").hide();
   $("#playerName").show();
   $("#play-button").show();
   $("#imgPreview").show();
+  $("#hueSelect").show();
+
+  // Set initial attributes for newly displayed elements.
+  document.getElementById("player").src = "sprites/player.jpg";
+  document.getElementById("playBox").style.display = "grid";
+  document.getElementById("imgPreview").style.display = "grid";
+  document.getElementById("pBoxHeader").innerHTML="Select your colour and enter a name";
+  document.getElementById("playBox").style.border="6px solid white";
+
+  // Create a canvas that displays a preview of the player sprite
+  var previewCanvas = document.getElementById("imgPreview");
+  previewCanvas.border = "6px solid #ffffff";
+  previewCanvas.width = 32;
+  previewCanvas.height = 32;
+  var previewCtx = previewCanvas.getContext("2d");
+
+  // Create an image and fetch the source;
+  var image = new Image();
+  image.src = "sprites/playerPreview.jpg";
+  // Draw the image on the canvas when loaded.
+  image.onload = function() {
+    previewCtx.drawImage(image, 0, 0, 32, 32);
+  }
+
+  // Refresh the image preview 20x a second.
+  var hueRefresh = setInterval(imgTimer, 50);
+  function imgTimer () {
+    previewCtx.drawImage(image, 0, 0, 32, 32);
+    image = document.getElementById("imgPreview");
+    let hueValue = document.getElementById("hueSelect").value;
+    image.style.WebkitFilter = "hue-rotate("+hueValue+"deg)";
+    image.style.filter = "hue-rotate("+hueValue+"deg)";
+  }
 }
 
 /** SetName function takes in a value from the text box (playerName) and begins

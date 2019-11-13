@@ -116,6 +116,12 @@ footer {
   padding-bottom: 30px;
 }
 
+#pBoxHeader {
+  text-align: center;
+  margin-left: 10%;
+  margin-right: 10%;
+}
+
 #playBox {
   align-items: center;
   background-color: #000000;
@@ -123,7 +129,8 @@ footer {
   display: flex;
   height: 200px;
   justify-content: center;
-  width: 250px;
+  text-align: center;
+  width: 300px;
 }
 
 #welcomeBox {
@@ -194,7 +201,41 @@ footer {
   animation: 2s ease-out 0s 1 hdFadeIn;
 }
 
+#hueSelect {
+  -webkit-appearance: none;
+  background: white;
+  border: 3px solid black;
+  display: none;
+  height: 6px;
+  margin: 10px auto;
+  padding: 0px;
+  vertical-align: middle;
+  width: 180px;
+}
+/* Used with Chrome, edge, safari, opera */
+#hueSelect::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  background: black;
+  border: 4px solid white;
+  border-radius: 0px;
+  cursor: pointer;
+  height: 16px;
+  width: 16px;
+}
+/* Used with Firefox */
+#hueSelect::-moz-range-thumb {
+  background: black;
+  border: 4px solid white;
+  border-radius: 0px;
+  cursor: pointer;
+  height: 16px;
+  width: 16px;
+}
+
 #imgPreview {
+  -webkit-filter: hue-rotate(0deg);
+  border: 3px solid white;
   display: none;
 }
 
@@ -205,15 +246,28 @@ footer {
   width: 100%;
 }
 
+#picUpdate {
+  display: none;
+  height: 40px;
+  padding: 0;
+  text-align: center;
+  width: 40px;
+}
+
 #play-button {
   display: none;
+  margin-bottom: 10%;
+  margin: 10px auto;
+  width: 160px;
 }
 
 #playerName {
   display: none;
   font-size: 20px;
   margin-bottom: 10%;
-  width: 160px;
+  margin: 0px auto;
+  text-align: center;
+  width: 220px;
 }
 
 #start-button {
@@ -223,7 +277,7 @@ footer {
   color: #ffffff;
   font-family: bomberText;
   font-size: 17px;
-  outline: 1px solid black;
+  margin: 50%;
   padding: 11px 33px;
   text-decoration: none;
   transition: 0.33s;

@@ -65,7 +65,8 @@
     <!-- welcomeBox and playBox acts as a menu screen when the page is loaded.
           After the user inputs a name the game begins-->
     <div id="welcomeBox">
-      <div id="playBox">
+      <!-- Call initialise function -->
+      <button type="button" id="start-button" onclick="Initialise()">START</button>
 
         <!-- Call initialise function -->
         <button type="button" id="start-button" onclick="Initialise()">START</button>
@@ -86,7 +87,7 @@
     <div class="main-game">
 
       <!-- Player image -->
-      <img id="player" alt="player" style="display:none; position:absolute; left:0; top:0;">
+      <img src="sprites/player.jpg" id="player" alt="player" style="height: 0px; width: 1px; display:grid; position:absolute; left:0; top:0;">
 
       <div class="game">
         <!-- Canvas for left panel - health etc? -->
