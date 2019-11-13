@@ -124,7 +124,6 @@ function Player(name, x, y) {
 
   return player;
 
-
   function setImage() {
     let playerTag = document.getElementById('player');
     // Set the image source
@@ -140,7 +139,6 @@ function Player(name, x, y) {
   // End of player
 }
 
-
 function getPlayerX() {
   return player.x;
 }
@@ -148,5 +146,3 @@ function getPlayerX() {
 function getPlayerY() {
   return player.y;
 }
-
-
