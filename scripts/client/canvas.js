@@ -2,6 +2,7 @@
 This is the script for rendering the game.
 */
 
+
 const MAX_CANVAS_SIZE_PIXELS = 512;
 
 var canvas;
@@ -10,14 +11,13 @@ var canvas_ctx;
 var tilesOnCanvasX, tilesOnCanvasY;
 var cameraCentreX, cameraCentreY;
 var cameraOffsetX, cameraOffsetY;
-
 var canvasCentreX, canvasCentreY;
 
 function InitialiseCanvas() {
   // Make the canvas visible and set the size
   $("#canvas").show();
 
-  // Initialise the canvas 
+  // Initialise the canvas
   canvas = document.getElementById("canvas");
   canvas.width = MAX_CANVAS_SIZE_PIXELS;
   canvas.height = MAX_CANVAS_SIZE_PIXELS;
@@ -97,14 +97,7 @@ function RenderPlayers() {
 
 }
 
-
 function setCameraPosCentre(x, y) {
   cameraCentreX = x;
   cameraCentreY = y;
 }
-
-
-
-
-
-
