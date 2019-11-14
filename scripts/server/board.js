@@ -252,7 +252,6 @@ function destroyAllTiles() {
 
 
 
-
 function UpdateBoard() {
   // Update all gameObjects 
   for (var i = 0; i < gameObjects.length; i++) {
