@@ -31,6 +31,7 @@
   <!-- Load sounds script -->
   <script src="scripts/sounds.js" defer></script>
   <!-- Initialise the game -->
+  <script src="scripts/validateUsername.js" defer></script>
   <script src="scripts/initialise.js" defer></script>
   <!-- Load the game tick. Should be last -->
   <script src="scripts/run.js" defer></script>
@@ -74,10 +75,15 @@
         <div id="nameInput">
           <p id="errorMsg">&nbsp</p>
 
+          <!--
           <img id="imgPreview" src="sprites/player.jpg" height="32" width="32">
-          <input type="text" placeholder="Enter name" id="playerName">
+          -->
+          <input type="text" placeholder="Enter username" id="player-username" style="display:none;">
+          <input type="text" placeholder="Enter password" id="player-password" style="display:none;">
+          <input type="text" placeholder="Re-type password" id="player-password2" style="display:none;">
 
-          <button type="button" id="play-button" onclick="SetName()">PLAY</button>
+          <button type="button" id="create-account-button" style="display:none;" onclick="CreateAccount()">CREATE ACCOUNT</button>
+          <button type="button" id="play-button" onclick="LogIn()">PLAY</button>
         </div>
       </div>
     </div>

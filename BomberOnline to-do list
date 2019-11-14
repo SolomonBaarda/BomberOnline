@@ -4,11 +4,12 @@ F28WP BomberOnline To Do List:
 **Important**
 Level layouts
 
+Score + leaderboard + In-game chat (Using the left canvas)
+
 *Additional features*
 Gamemodes
 Unit tests
 Sprites and animation
-
 
 ---------------------
 
@@ -16,7 +17,7 @@ Sprites and animation
 
 -Solomon-
 Allowing for multiple player objects.
-Score + leaderboard + In-game chat (Using the left canvas)
+Passwords + accounts 
 
 -Oliver-
 Powerups + powerup manager
