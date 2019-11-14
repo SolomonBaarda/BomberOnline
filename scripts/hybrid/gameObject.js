@@ -2,7 +2,7 @@
 This is the script for the all game objects
 */
 
-const BOMB_SIZE = PIXELS_PER_TILE / 2;
+const BOMB_SIZE = PIXELS_PER_TILE;
 const BOMB_DEFAULT_TIMER = 2;
 
 // all powerups have the same constant width and height
@@ -21,6 +21,9 @@ function Bomb(x, y, seconds, owner) {
 
   // Set reference to the owner of the bomb
   bomb.owner = owner;
+
+  // Set how strong the bomb should be when it explodes 
+  bomb.power = owner.currentBombPower;
 
   // Update function is called once per tick
   bomb.update = function () {

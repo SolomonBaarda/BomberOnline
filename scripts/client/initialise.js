@@ -3,22 +3,28 @@ This is the script for initialising the game.
 */
 
 
-// When the document is ready, make the click to play button visible.
-// This ensures that the page is fully loaded befoere allowing the player to start the game.
+// Ensure page is fully loaded before showing the start button
 $(document).ready($("#start-button").show());
 $(document).ready($("#infobar").hide());
 
-var playerName;
-
-// Proceeds to name selection menu.
+// Proceed to name selection menu when start is clicked
 function Initialise() {
+    name = null;
+    console.log("Name: "+name);
 
-  // Hide the start button and display a text box and button.
+  // Display fields relevant to the name selection page.
   $("#welcomeBox").show();
   $("#start-button").hide();
   $("#playerName").show();
   $("#play-button").show();
   $("#imgPreview").show();
+  $("#hueSelect").show();
+
+  // Set initial attributes for newly displayed elements.
+  document.getElementById("player").src = "sprites/player.jpg";
+  document.getElementById("playBox").style.display = "grid";
+  document.getElementById("pBoxHeader").innerHTML="Select your colour and enter a name";
+  document.getElementById("playBox").style.border="6px solid white";
 }
 
 /** SetName function takes in a value from the text box (playerName) and begins
@@ -32,20 +38,19 @@ function SetName() {
   var nameInput = document.getElementById("playerName").value;
   // Name requirements (between 2 and 12 chars long, no spaces)
   if (nameInput.length > 12) {
+    document.getElementById('errorMsg').style.display = 'block';
     console.error("Error: Name too long.");
     document.getElementById('errorMsg').innerHTML = "Name too long!";
   } else if (nameInput.length < 2) {
+    document.getElementById('errorMsg').style.display = 'block';
     console.error("Error: Name too short.");
     document.getElementById('errorMsg').innerHTML = "Name too short!";
   } else if (nameInput.includes(" ")) {
+    document.getElementById('errorMsg').style.display = 'block';
     console.error("Error: Name must not contain spaces")
     document.getElementById('errorMsg').innerHTML = "Space found in name!";
   } else { // Set name if requirements are met.
     console.log("Player name set to " + name + ".");
-    Player(askForName(), 4 * PIXELS_PER_TILE, 4 * PIXELS_PER_TILE);
-    function askForName() {
-      return name;
-    }
 
     $("#welcomeBox").hide();
     $("#infobar").show();
@@ -54,8 +59,6 @@ function SetName() {
     const description = document.querySelector("#tableName");
     description.innerHTML = name;
 
-    playerName = name;
-
-    InitialiseGame();
+    InitialiseGame(name);
   }
 }
