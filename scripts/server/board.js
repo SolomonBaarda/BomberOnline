@@ -123,7 +123,7 @@ function Board(width, height) {
       isDestructable: undefined,
       isCollidable: undefined,
       isEmpty: undefined,
-      isDamaging: undefined,
+      setDamaging: undefined,
       sprite: undefined
     }
 
@@ -163,45 +163,83 @@ function dropBomb(player) {
   }
 }
 
+/**
+ * Function that calculates which tiles are affected by a bomb when it explodes.
+ * @param {*} bomb 
+ */
+function getBombTiles(bomb) {
+  // Store all the tiles that have been damaged 
+  let affectedTiles = [];
 
-function bombExplode(bomb) {
   // Gets the tile on the centre of the bomb sprite 
-  var tile = getNearestTile(bomb.x + BOMB_SIZE / 2, bomb.y + BOMB_SIZE / 2);
+  let tile = getNearestTile(bomb.x + BOMB_SIZE / 2, bomb.y + BOMB_SIZE / 2);
+  affectedTiles.push(board[tile.x][tile.y]);
 
-  // Explode tile
-  if (board[tile.x][tile.y].isDestructable) {
-    board[tile.x][tile.y].destroy();
-  }
-
+  // Find out how many tiles should be damaged 
   let power = bomb.power;
-  
+
+  // Loop through tiles N E S W from tile by the power 
   for (var i = DEFAULT_BOMB_POWER; i <= power; i++) {
-    // Nearby tiles
-    let left = Tile(Clamp(tile.x - i, 0, boardWidth), tile.y);
-    if (board[left.x][left.y].isDestructable) {
-      board[left.x][left.y].destroy();
-    }
+    // For each tile add it to the list of tiles affected 
+    // Tile to the left
+    let left = Tile(Clamp(tile.x - i, 0, boardWidth-1), tile.y);
+    affectedTiles.push(board[left.x][left.y]);
 
-    let right = Tile(Clamp(tile.x + i, 0, boardWidth), tile.y);
-    if (board[right.x][right.y].isDestructable) {
-      board[right.x][right.y].destroy();
-    }
+    // Tile to the right
+    let right = Tile(Clamp(tile.x + i, 0, boardWidth-1), tile.y);
+    affectedTiles.push(board[right.x][right.y]);
 
-    let up = Tile(tile.x, Clamp(tile.y - i, 0, boardHeight));
-    if (board[up.x][up.y].isDestructable) {
-      board[up.x][up.y].destroy();
-    }
+    // Tile up
+    let up = Tile(tile.x, Clamp(tile.y - i, 0, boardHeight-1));
+    affectedTiles.push(board[up.x][up.y]);
 
-    let down = Tile(tile.x, Clamp(tile.y + i, 0, boardHeight));
-    if (board[down.x][down.y].isDestructable) {
-      board[down.x][down.y].destroy();
+    // Tile down 
+    let down = Tile(tile.x, Clamp(tile.y + i, 0, boardHeight-1));
+    affectedTiles.push(board[down.x][down.y]);
+  }
+
+  return affectedTiles;
+}
+
+
+/**
+ * Function that is called by the bomb when it explodes.
+ * @param {*} affectedTiles 
+ */
+function BombExplode(affectedTiles) {
+  let currentTile;
+
+  // Loop through all the affected tiles.
+  for (let i = 0; i < affectedTiles.length; i++) {
+    currentTile = Tile(affectedTiles[i].x, affectedTiles[i].y);
+
+    // Destroy only destructable tiles 
+    if (board[currentTile.x][currentTile.y].isDestructable) {
+      board[currentTile.x][currentTile.y].destroy();
+    }
+    // Set empty tiles to damaging
+    if (board[currentTile.x][currentTile.y].isEmpty) {
+      board[currentTile.x][currentTile.y].isDamaging = true;
     }
   }
 
+}
 
-  //bomb.owner.activeBombs--;
-  player.activeBombs--;
 
+function bombExplodeFinish(bomb) {
+  let affectedTiles = bomb.affected_tiles;
+
+  // Loop through all the affected tiles.
+  for (let i = 0; i < affectedTiles.length; i++) {
+    currentTile = Tile(affectedTiles[i].x, affectedTiles[i].y);
+
+    // Set all damaging to be false now 
+    if (board[currentTile.x][currentTile.y].isDamaging) {
+      board[currentTile.x][currentTile.y].isDamaging = false;;
+    }
+  }
+
+  // Remove the bomb game object 
   for (var i = 0; i < gameObjects.length; i++) {
     if (gameObjects[i] === bomb) {
       // Remove the bomb from game objects
@@ -213,7 +251,14 @@ function bombExplode(bomb) {
 
 
 
-
+/**
+ * Function that checks if the players next move is valid or not.
+ * @param {*} oldX 
+ * @param {*} oldY 
+ * @param {*} playerSize 
+ * @param {*} newX 
+ * @param {*} newY 
+ */
 function isValidMove(oldX, oldY, playerSize, newX, newY) {
   // Get the 3x3 array of tiles around the player
   var xTileMin = Math.floor(Clamp(getPlayerX() / PIXELS_PER_TILE, 0, boardWidth));
@@ -258,5 +303,4 @@ function UpdateBoard() {
     gameObjects[i].update();
   }
 
-  //console.log("Board updated.");
 }

@@ -76,8 +76,7 @@ function validInput(input) {
   }
   // If the input contains only letters and numbers 
   if (input.match("^[A-Za-z0-9]+$")) {
-
-    console.log("Input " + input + " is valid.");
+    //console.log("Input " + input + " is valid.");
     return true;
   }
   // Not a valid input 

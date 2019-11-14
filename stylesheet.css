@@ -128,10 +128,12 @@ footer {
   background-color: #000000;
   border: 6px solid white;
   display: flex;
-  height: 200px;
+  height: auto;
   justify-content: center;
   text-align: center;
-  width: 300px;
+  width: auto;
+  margin-left: 20%;
+  margin-right: 20%;
 }
 
 #welcomeBox {
