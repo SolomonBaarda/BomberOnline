@@ -4,25 +4,25 @@ This is the script for the player class.
 
 // Maximum speed the player can move at
 const MAX_SPEED = 2;
-// Maximum amount of bombs allowed 
+// Maximum amount of bombs allowed
 const DEFAULT_MAX_BOMBS = 1;
-// Strength of bombs by default 
+// Strength of bombs by default
 const DEFAULT_BOMB_POWER = 1;
 
 // Initialise new player
 function Player(name, x, y) {
   let player = {
-    // Store the players unique name 
+    // Store the players unique name
     name: name,
 
     // x and y position of the image on the board
     x: x,
     y: y,
     isAlive: false,
-    // Player size in pixels 
+    // Player size in pixels
     size: 3 * PIXELS_PER_TILE / 4,
 
-    // Player's current speed 
+    // Player's current speed
     speed: MAX_SPEED,
     // Current velocities for x and y directions
     velX: 0,
@@ -30,7 +30,7 @@ function Player(name, x, y) {
     // Boolean for slow walk
     isRunning: true,
 
-    // Maximum bombs allowed on the field 
+    // Maximum bombs allowed on the field
     currentMaxBombs: DEFAULT_MAX_BOMBS,
     activeBombs: 0,
     currentBombPower: DEFAULT_BOMB_POWER,
@@ -80,7 +80,7 @@ function Player(name, x, y) {
         this.speed = MAX_SPEED / 2;
       }
 
-      // Store old values before checking collision 
+      // Store old values before checking collision
       let oldX = this.x;
       let oldY = this.y;
 
@@ -99,7 +99,7 @@ function Player(name, x, y) {
       // Update y position
       var newY = Clamp(this.y + this.velY, minY, maxY);
 
-      // Update new y position 
+      // Update new y position
       if (newY != oldY) {
         this.y = newY;
         // Ensure it is a valid move before comitting to it
@@ -108,17 +108,17 @@ function Player(name, x, y) {
         }
       }
 
-      // This movement style works well for objects moving at a slow speed. If they 
+      // This movement style works well for objects moving at a slow speed. If they
       // move faster, then they may appear to collide in front of the wall. In this
-      // case, movement would need to be done in smaller steps. Check out 
+      // case, movement would need to be done in smaller steps. Check out
       // https://jonathanwhiting.com/tutorial/collision/ for an explanation on collision.
 
-      // Update the camera position to correctly render 
+      // Update the camera position to correctly render
       setCameraPosCentre(this.x + this.size / 2, this.y + this.size / 2);
     }
 
   }
-  // Set image 
+  // Set image
   player.sprite = setImage();
   console.log("Player has been set.");
 
