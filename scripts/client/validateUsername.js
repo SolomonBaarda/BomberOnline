@@ -3,6 +3,7 @@ This is the script for ensuring the players username input is valid.
 */
 
 
+
 /** 
  * SetName function takes in a value from the text box (playerName) and begins the 
  * game if the requirements are met. If not, an error message is shown to the player. 
@@ -12,23 +13,16 @@ function SetName() {
   let name = document.getElementById("player-username").value;
 
   if (validInput(name)) {
-    $("#welcomeBox").hide();
-    $("#infobar").show();
-
     // Displays name to the user.
     const description = document.querySelector("#tableName");
     description.innerHTML = name;
 
-    InitialiseGame(name);
+    selectGamemode();
+    saveUsername(name);
   }
 
 }
 
-
-
-function Play() {
-  SetName();
-}
 
 function LogIn() {
   let userName = document.getElementById("player-username").value;
@@ -36,8 +30,8 @@ function LogIn() {
 
   if (validInput(userName) && validInput(password)) {
     // Need to check account is in the database and if not get the user to create an account 
-    document.getElementById('errorMsg').innerHTML = "Account is valid!";
-    Play();
+    document.getElementById('errorMsg').innerHTML = "Welcome " +userName+ ".";
+    SetName();
   }
 }
 
@@ -53,7 +47,7 @@ function CreateAccount() {
     if (password == password2) {
       // Need to check that the new account isnt already in the database and if so add it 
       document.getElementById('errorMsg').innerHTML = "Account is valid!";
-      Play();
+      SetName();
     }
     else {
       console.error("Error: Passwords must match.");
