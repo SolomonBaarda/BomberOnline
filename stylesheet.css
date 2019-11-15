@@ -74,12 +74,12 @@ td {
 /* CSS TEXT & FONTS */
 
 @font-face {
-  font-family: bomberText;
+  font-family: "bomberText";
   src: url("fonts/FORCED SQUARE.ttf");
 }
 
 @font-face {
-  font-family: bomberHeader;
+  font-family: "bomberHeader";
   src: url("fonts/unlearn2.ttf");
 }
 

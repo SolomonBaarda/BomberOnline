@@ -25,7 +25,7 @@ function Clamp(value, min, max) {
 }
 
 /**
- * Function that returns true if two rectangles are colliding 
+ * Function that returns true if two rectangles are colliding.
  * @param {*} aX 
  * @param {*} aY 
  * @param {*} aWidth 
@@ -45,7 +45,7 @@ function Intersects(aX, aY, aWidth, aHeight, bX, bY, bWidth, bHeight) {
 }
 
 /**
- * Function that stores an x and y value
+ * Function that stores an x and y value.
  * @param {*} x 
  * @param {*} y 
  */
@@ -53,6 +53,23 @@ function Tile(x, y) {
     return {
         x: x,
         y: y
+    }
+}
+
+/**
+ * Function that returns the smallest of two values.
+ * @param {*} a 
+ * @param {*} b 
+ */
+function Smallest(a, b) {
+    if (a < b) {
+        return a;
+    }
+    else if (b < a) {
+        return b;
+    }
+    else {
+        return false;
     }
 }
 

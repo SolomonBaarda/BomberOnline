@@ -3,31 +3,8 @@ This is the script containing the launch options for different gamemodes.
 */
 
 var players;
-var playerName;
 
-
-function saveUsername(name) {
-  playerName = name;
-}
-
-
-function BattleRoyale() {
-  hideWelcomeBox();
-  showGame();
-
-  loadBattleRoyale(playerName);
-}
-
-function Tutorial() {
-  hideWelcomeBox();
-  showGame();
-
-}
-
-
-
-
-function loadBattleRoyale(playerName) {
+function InitialiseGame(playerName) {
 
   let boardSize = 64;
   Board(boardSize, boardSize);
@@ -56,13 +33,6 @@ function loadBattleRoyale(playerName) {
   // Call to start the game tick
   Timer();
 }
-
-// Function that is called when the player dies 
-function GameOver() {
-  RemoveController();
-}
-
-
 
 function UpdatePlayers() {
   for (var i = 0; i < players.length; i++) {

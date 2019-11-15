@@ -13,15 +13,14 @@ Team members:
 
 ## Feature Checklist
 
-###Incomplete
+### Incomplete
 - Level layouts
 - Gamemodes
 - Unit tests
 - Sprites and animation
 
-###In Progress
-**Solomon***
-- Allowing for multiple player objects.
+### In Progress
+**Solomon**
 - Score + leaderboard + In-game chat (Using the left canvas)
 
 **Oliver**
@@ -34,7 +33,7 @@ Team members:
 - Multiplayer/server
 - CSS Fixes
 
-###Completed
+### Completed
 - UI
 - Board, player and tile rendering using canvas
 - Tile collision
@@ -43,13 +42,14 @@ Team members:
 
 
 
-##Bugs & Fixes
+## Bugs & Fixes
 
-###Bugs
+### Bugs
 
-1.
+1. Dropping bombs now freeze the game.
+2. Appearance of menu is off.
 
-###Patches
+### Patches
 
 - Name requirements now work, switch cases replaced by if statements.
 - Start button appears correctly
