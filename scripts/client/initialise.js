@@ -31,11 +31,8 @@ function Initialise() {
 the game if the requirements are met. If not, an error message is shown to the
 player. */
 function SetName() {
-  // Sets name to playerName's value.
-  let name = document.getElementById("playerName").value;
-
   // Accesses the error message in index.html.
-  var nameInput = document.getElementById("playerName").value;
+  var nameInput = document.getElementById("player-username").value;
   // Name requirements (between 2 and 12 chars long, no spaces)
   if (nameInput.length > 12) {
     document.getElementById('errorMsg').style.display = 'block';
@@ -49,7 +46,9 @@ function SetName() {
     document.getElementById('errorMsg').style.display = 'block';
     console.error("Error: Name must not contain spaces")
     document.getElementById('errorMsg').innerHTML = "Space found in name!";
-  } else { // Set name if requirements are met.
+  } else {
+    // Sets name to playerName's valu, if requirements are met.
+    let name = document.getElementById("player-username").value;
     console.log("Player name set to " + name + ".");
 
     $("#welcomeBox").hide();
