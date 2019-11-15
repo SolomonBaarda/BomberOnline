@@ -63,6 +63,7 @@ function Board(width, height) {
     tile.isCollidable = false;
     tile.isEmpty = true;
     tile.isDamaging = false;
+    tile.sprite = new Image(16, 16);
     tile.sprite.src = 'sprites/tileset/cropped/emptyTile.png';
 
     return tile;
@@ -77,6 +78,7 @@ function Board(width, height) {
     tile.isCollidable = true;
     tile.isEmpty = false;
     tile.isDamaging = false;
+    tile.sprite = new Image(16, 16);
     tile.sprite.src = 'sprites/tileset/cropped/indestructableTile.png';
 
     return tile;
@@ -91,8 +93,9 @@ function Board(width, height) {
     tile.isCollidable = true;
     tile.isEmpty = false;
     tile.isDamaging = false;
+    tile.sprite = new Image(16, 16);
 
-    // Set sprite to be random 
+    // Set sprite to be random
     var random = Math.floor(Math.random() * 20);
     if (random < 8) {
       tile.sprite.src = 'sprites/tileset/cropped/destructableTile2.png';
@@ -124,13 +127,11 @@ function Board(width, height) {
       sprite: undefined
     }
 
-    tile.sprite = new Image(16, 16);
-
     return tile;
   }
 }
 
-// Function that calculates the x and y tile position of the coordinates given 
+// Function that calculates the x and y tile position of the coordinates given
 function getNearestTile(x, y) {
   return {
     x: Clamp(Math.floor(x / PIXELS_PER_TILE), 0, boardWidth),
@@ -140,7 +141,10 @@ function getNearestTile(x, y) {
 
 // Function that calculates all of the possible tiles that the objects is on
 function getAllConnectingTiles(x, y, width, height) {
-  return [getNearestTile(x, y), getNearestTile(x + width, y), getNearestTile(x, y + height), getNearestTile(x + width, y + height)];
+  var tileMin = getNearestTile(x, y);
+  var tileMax = getNearestTile(x + width, y + height);
+
+  return [tileMin, tileMax];
 }
 
 
@@ -159,83 +163,45 @@ function dropBomb(player) {
   }
 }
 
-/**
- * Function that calculates which tiles are affected by a bomb when it explodes.
- * @param {*} bomb 
- */
-function getBombTiles(bomb) {
-  // Store all the tiles that have been damaged 
-  let affectedTiles = [];
 
-  // Gets the tile on the centre of the bomb sprite 
-  let tile = getNearestTile(bomb.x + BOMB_SIZE / 2, bomb.y + BOMB_SIZE / 2);
-  affectedTiles.push(board[tile.x][tile.y]);
+function bombExplode(bomb) {
+  // Gets the tile on the centre of the bomb sprite
+  var tile = getNearestTile(bomb.x + BOMB_SIZE / 2, bomb.y + BOMB_SIZE / 2);
 
-  // Find out how many tiles should be damaged 
+  // Explode tile
+  if (board[tile.x][tile.y].isDestructable) {
+    board[tile.x][tile.y].destroy();
+  }
+
   let power = bomb.power;
 
-  // Loop through tiles N E S W from tile by the power 
   for (var i = DEFAULT_BOMB_POWER; i <= power; i++) {
-    // For each tile add it to the list of tiles affected 
-    // Tile to the left
-    let left = Tile(Clamp(tile.x - i, 0, boardWidth - 1), tile.y);
-    affectedTiles.push(board[left.x][left.y]);
-
-    // Tile to the right
-    let right = Tile(Clamp(tile.x + i, 0, boardWidth - 1), tile.y);
-    affectedTiles.push(board[right.x][right.y]);
-
-    // Tile up
-    let up = Tile(tile.x, Clamp(tile.y - i, 0, boardHeight - 1));
-    affectedTiles.push(board[up.x][up.y]);
-
-    // Tile down 
-    let down = Tile(tile.x, Clamp(tile.y + i, 0, boardHeight - 1));
-    affectedTiles.push(board[down.x][down.y]);
-  }
-
-  return affectedTiles;
-}
-
-
-/**
- * Function that is called by the bomb when it explodes.
- * @param {*} affectedTiles 
- */
-function BombExplode(affectedTiles) {
-  let currentTile;
-
-  // Loop through all the affected tiles.
-  for (let i = 0; i < affectedTiles.length; i++) {
-    currentTile = Tile(affectedTiles[i].x, affectedTiles[i].y);
-
-    // Destroy only destructable tiles 
-    if (board[currentTile.x][currentTile.y].isDestructable) {
-      board[currentTile.x][currentTile.y].destroy();
+    // Nearby tiles
+    let left = Tile(Clamp(tile.x - i, 0, boardWidth), tile.y);
+    if (board[left.x][left.y].isDestructable) {
+      board[left.x][left.y].destroy();
     }
-    // Set empty tiles to damaging
-    if (board[currentTile.x][currentTile.y].isEmpty) {
-      board[currentTile.x][currentTile.y].isDamaging = true;
+
+    let right = Tile(Clamp(tile.x + i, 0, boardWidth), tile.y);
+    if (board[right.x][right.y].isDestructable) {
+      board[right.x][right.y].destroy();
+    }
+
+    let up = Tile(tile.x, Clamp(tile.y - i, 0, boardHeight));
+    if (board[up.x][up.y].isDestructable) {
+      board[up.x][up.y].destroy();
+    }
+
+    let down = Tile(tile.x, Clamp(tile.y + i, 0, boardHeight));
+    if (board[down.x][down.y].isDestructable) {
+      board[down.x][down.y].destroy();
     }
   }
 
-}
 
+  //bomb.owner.activeBombs--;
+  player.activeBombs--;
 
-function bombExplodeFinish(bomb) {
-  let affectedTiles = bomb.affected_tiles;
-
-  // Loop through all the affected tiles.
-  for (let i = 0; i < affectedTiles.length; i++) {
-    currentTile = Tile(affectedTiles[i].x, affectedTiles[i].y);
-
-    // Set all damaging to be false now 
-    if (board[currentTile.x][currentTile.y].isDamaging) {
-      board[currentTile.x][currentTile.y].isDamaging = false;;
-    }
-  }
-
-  // Remove the bomb game object 
   for (var i = 0; i < gameObjects.length; i++) {
     if (gameObjects[i] === bomb) {
       // Remove the bomb from game objects
@@ -246,35 +212,8 @@ function bombExplodeFinish(bomb) {
 }
 
 
-function isInsideExplosion(x, y, size) {
-  let nearbyTiles = getAllConnectingTiles(x, y, size, size);
-
-  for (let i = 0; i < nearbyTiles.length; i++) {
-    let tile = Tile(nearbyTiles[i].x, nearbyTiles[i].y);    
-
-    if (board[tile.x][tile.y].isDamaging) {
-      
-      if (Intersects(x, y, size, size, tile.x * PIXELS_PER_TILE, tile.y * PIXELS_PER_TILE, PIXELS_PER_TILE, PIXELS_PER_TILE)) {
-                
-        return true;
-      }
-    }
-  }
-
-  return false;
-}
 
 
-
-
-/**
- * Function that checks if the players next move is valid or not.
- * @param {*} oldX 
- * @param {*} oldY 
- * @param {*} playerSize 
- * @param {*} newX 
- * @param {*} newY 
- */
 function isValidMove(oldX, oldY, playerSize, newX, newY) {
   // Get the 3x3 array of tiles around the player
   var xTileMin = Math.floor(Clamp(getPlayerX() / PIXELS_PER_TILE, 0, boardWidth));
@@ -313,10 +252,12 @@ function destroyAllTiles() {
 
 
 
+
 function UpdateBoard() {
-  // Update all gameObjects 
+  // Update all gameObjects
   for (var i = 0; i < gameObjects.length; i++) {
     gameObjects[i].update();
   }
 
+  //console.log("Board updated.");
 }
