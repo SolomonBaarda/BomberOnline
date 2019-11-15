@@ -8,129 +8,178 @@ var boardWidth;
 
 var gameObjects;
 
-function Board(width, height) {
+/**
+ * Function that generates and returns an empty board.
+ * @param {*} width 
+ * @param {*} height 
+ */
+function createBoard(width, height) {
   boardWidth = width;   // Width in tiles
   boardHeight = height;   // Height in tiles
-
-  // This is the main board collection used to store the locations of objects
-  board = Generate(width, height);
 
   // Array containing all bombs, powerups etc
   gameObjects = new Array();
 
+  // Create 2-dimensional array for the board
+  let newBoard = new Array(width);
+  for (let i = 0; i < width; i++) {
+    newBoard[i] = new Array(height);
+  }
 
+  
 
-  function Generate(width, height) {
-    // Create 2-dimensional array for the board
-    var newBoard = new Array(width);
-    for (let i = 0; i < height; i++) {
-      newBoard[i] = new Array(height);
+  // Initialise elements
+  for (let y = 0; y < height; y++) {
+    for (let x = 0; x < width; x++) {
+      // Set edge to be indestructable tiles
+      if (x == 0 || x == width - 1 || y == 0 || y == height - 1) {
+        newBoard[x][y] = IndestructibleTile(x, y);
+      }
+      else {
+        // Set every tile to be empty
+        newBoard[x][y] = EmptyTile(x, y);
+      }
     }
+  }
+  return newBoard;
+}
+
+
+function generateTutorial(width, height) {
+  board = createBoard(width, height);
+}
+
+
+
+function generateBattleRoyale(width, height) {
+  // This is the main board collection used to store the locations of objects
+  board = createBoard(width, height);
+  board = Generate(board);
+
+  // Battle royale's generate function 
+  function Generate(board) {
 
     // Initialise elements
     for (let y = 0; y < height; y++) {
       for (let x = 0; x < width; x++) {
-        // Set every tile to be empty initially
-        newBoard[x][y] = EmptyTile(x, y);
-
         // Set edge to be indestructable tiles
         if (x == 0 || x == width - 1 || y == 0 || y == height - 1) {
-          newBoard[x][y] = IndestructibleTile(x, y);
+          board[x][y] = IndestructibleTile(x, y);
         }
         else {
-          if (x % 2 == 0 && y % 2 == 0) {
-            newBoard[x][y] = IndestructibleTile(x, y);
+          // Set indestructable tiles 
+          if (isValidIndestructble(x, y)) {
+            board[x][y] = IndestructibleTile(x, y);
           }
+          // Set destructable tiles randomly for now
           else {
             var random = Math.floor(Math.random() * 10);
 
             if (random < 4) {
-              newBoard[x][y] = DestructableTile(x, y);
+              board[x][y] = DestructableTile(x, y);
             }
           }
         }
-
       }
     }
 
-    return newBoard;
+    return board;
   }
 
-
-  function EmptyTile(x, y) {
-    let tile = Tile(x, y);
-    tile.isDestructable = false;
-    tile.isCollidable = false;
-    tile.isEmpty = true;
-    tile.isDamaging = false;
-    tile.sprite.src = 'sprites/tileset/cropped/emptyTile.png';
-
-    return tile;
-  }
-
-  /**
-    Tile that cannot be destroyed.
-  */
-  function IndestructibleTile(x, y) {
-    let tile = Tile(x, y);
-    tile.isDestructable = false;
-    tile.isCollidable = true;
-    tile.isEmpty = false;
-    tile.isDamaging = false;
-    tile.sprite.src = 'sprites/tileset/cropped/indestructableTile.png';
-
-    return tile;
-  }
-
-  /**
-    Tile that can be destroyed.
-  */
-  function DestructableTile(x, y) {
-    let tile = Tile(x, y);
-    tile.isDestructable = true;
-    tile.isCollidable = true;
-    tile.isEmpty = false;
-    tile.isDamaging = false;
-
-    // Set sprite to be random 
-    var random = Math.floor(Math.random() * 20);
-    if (random < 8) {
-      tile.sprite.src = 'sprites/tileset/cropped/destructableTile2.png';
-    }
-    else if (random < 15) {
-      tile.sprite.src = 'sprites/tileset/cropped/destructableTile1.png';
-    }
-    else {
-      tile.sprite.src = 'sprites/tileset/cropped/destructableTile4.png';
-    }
-
-    tile.destroy = function () {
-      tile.isCollidable = false;
-      tile.isEmpty = true;
-      tile.sprite.src = 'sprites/tileset/cropped/destroyedTile.png';
-    }
-
-    return tile;
-  }
-
-  function Tile(xPosition, yPosition) {
-    let tile = {
-      x: xPosition,
-      y: yPosition,
-      isDestructable: undefined,
-      isCollidable: undefined,
-      isEmpty: undefined,
-      isDamaging: undefined,
-      sprite: undefined
-    }
-
-    tile.sprite = new Image(16, 16);
-
-    return tile;
+  function isValidIndestructble(x, y) {
+    return (x % 4 == 0 && y % 4 == 0 || x % 4 == 2 && y % 2 == 1);
   }
 }
 
-// Function that calculates the x and y tile position of the coordinates given 
+
+
+/**
+ * Tile that is empty.
+ * @param {*} x 
+ * @param {*} y 
+ */
+function EmptyTile(x, y) {
+  let tile = Tile(x, y);
+  tile.isDestructable = false;
+  tile.isCollidable = false;
+  tile.isEmpty = true;
+  tile.isDamaging = false;
+  tile.sprite.src = 'sprites/tileset/cropped/emptyTile.png';
+
+  return tile;
+}
+
+/**
+ * Tile that cannot be destroyed.
+ * @param {*} x 
+ * @param {*} y 
+ */
+function IndestructibleTile(x, y) {
+  let tile = Tile(x, y);
+  tile.isDestructable = false;
+  tile.isCollidable = true;
+  tile.isEmpty = false;
+  tile.isDamaging = false;
+  tile.sprite.src = 'sprites/tileset/cropped/indestructableTile.png';
+
+  return tile;
+}
+
+/**
+ * Tile that can be destroyed.
+ * @param {*} x 
+ * @param {*} y 
+ */
+function DestructableTile(x, y) {
+  let tile = Tile(x, y);
+  tile.isDestructable = true;
+  tile.isCollidable = true;
+  tile.isEmpty = false;
+  tile.isDamaging = false;
+
+  // Set sprite to be random 
+  var random = Math.floor(Math.random() * 20);
+  if (random < 8) {
+    tile.sprite.src = 'sprites/tileset/cropped/destructableTile2.png';
+  }
+  else if (random < 15) {
+    tile.sprite.src = 'sprites/tileset/cropped/destructableTile1.png';
+  }
+  else {
+    tile.sprite.src = 'sprites/tileset/cropped/destructableTile4.png';
+  }
+
+  tile.destroy = function () {
+    tile.isCollidable = false;
+    tile.isEmpty = true;
+    tile.sprite.src = 'sprites/tileset/cropped/destroyedTile.png';
+  }
+
+  return tile;
+}
+
+function Tile(xPosition, yPosition) {
+  let tile = {
+    x: xPosition,
+    y: yPosition,
+    isDestructable: undefined,
+    isCollidable: undefined,
+    isEmpty: undefined,
+    isDamaging: undefined,
+    sprite: undefined
+  }
+
+  tile.sprite = new Image(16, 16);
+
+  return tile;
+}
+
+
+/**
+ * Function that calculates the closest x and y tile position of the coordinates given.
+ * @param {*} x 
+ * @param {*} y 
+ */
 function getNearestTile(x, y) {
   return {
     x: Clamp(Math.floor(x / PIXELS_PER_TILE), 0, boardWidth),
@@ -138,7 +187,13 @@ function getNearestTile(x, y) {
   };
 }
 
-// Function that calculates all of the possible tiles that the objects is on
+/**
+ * Function that calculates all of the possible tiles that the objects is on top of.
+ * @param {*} x 
+ * @param {*} y 
+ * @param {*} width 
+ * @param {*} height 
+ */
 function getAllConnectingTiles(x, y, width, height) {
   return [getNearestTile(x, y), getNearestTile(x + width, y), getNearestTile(x, y + height), getNearestTile(x + width, y + height)];
 }
@@ -221,7 +276,10 @@ function BombExplode(affectedTiles) {
 
 }
 
-
+/**
+ * Function that is called when a bomb has finished exploding.
+ * @param {*} bomb 
+ */
 function bombExplodeFinish(bomb) {
   let affectedTiles = bomb.affected_tiles;
 
@@ -245,17 +303,22 @@ function bombExplodeFinish(bomb) {
 
 }
 
-
+/**
+ * Function that returns true if an object is inside of a bomb explosion. 
+ * @param {*} x 
+ * @param {*} y 
+ * @param {*} size 
+ */
 function isInsideExplosion(x, y, size) {
   let nearbyTiles = getAllConnectingTiles(x, y, size, size);
 
   for (let i = 0; i < nearbyTiles.length; i++) {
-    let tile = Tile(nearbyTiles[i].x, nearbyTiles[i].y);    
+    let tile = Tile(nearbyTiles[i].x, nearbyTiles[i].y);
 
     if (board[tile.x][tile.y].isDamaging) {
-      
+
       if (Intersects(x, y, size, size, tile.x * PIXELS_PER_TILE, tile.y * PIXELS_PER_TILE, PIXELS_PER_TILE, PIXELS_PER_TILE)) {
-                
+
         return true;
       }
     }
@@ -320,3 +383,4 @@ function UpdateBoard() {
   }
 
 }
+
