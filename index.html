@@ -31,6 +31,8 @@
   <!-- Load sounds script -->
   <script src="scripts/client/sounds.js" defer></script>
   <!-- Initialise the game -->
+  <script src="scripts/client/validateUsername.js" defer></script>
+  <script src="scripts/client/mainMenu.js" defer></script>
   <script src="scripts/client/initialise.js" defer></script>
   <!-- Load the game tick. Should be last -->
   <script src="scripts/server/run.js" defer></script>
@@ -67,27 +69,34 @@
     <div id="welcomeBox">
       <div id="playBox">
 
-
         <!-- Call initialise function -->
-        <button type="button" id="start-button" onclick="Initialise()">START</button>
+        <button type="button" id="start-button" onclick="showNameSelection()">START</button>
 
         <!-- Text box for name input and button to call SetName, which starts the game. -->
         <div id="nameInput">
           <p id="errorMsg">&nbsp</p>
-          <input type="text" placeholder="Enter name" id="playerName">
-          <button type="button" id="play-button" onclick="SetName()">PLAY</button>
+
+          <!--
+          <img id="imgPreview" src="sprites/player.jpg" height="32" width="32">
+          -->
+          <input type="text" placeholder="Enter username" id="player-username" style="display:none;">
+          <input type="text" placeholder="Enter password" id="player-password" style="display:none;">
+          <input type="text" placeholder="Re-type password" id="player-password2" style="display:none;">
+
+          <button type="button" id="create-account-button" style="display:none;" onclick="CreateAccount()">CREATE
+            ACCOUNT</button>
+          <button type="button" id="play-button" onclick="LogIn()">PLAY</button>
+        </div>
+
+        <div id="selectGamemode">
+          <button type="button" id="tutorial" style="display:none;" onclick="Tutorial()">TUTORIAL</button>
+          <button type="button" id="battle_royale" style="display:none;" onclick="BattleRoyale()">BATTLE ROYALE</button>
         </div>
       </div>
     </div>
 
-    <div class="inputName">
-      <p id="inputNameDescription"></p>
-    </div>
     <!-- Class for the main game content -->
     <div class="main-game">
-
-      <!-- Player image -->
-      <img id="player" alt="player" style="display:none; position:absolute; left:0; top:0;">
 
       <div class="game">
         <!-- Canvas for left panel - health etc? -->

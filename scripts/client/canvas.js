@@ -68,10 +68,18 @@ function RenderBoard() {
       let tileCanvasX = x * PIXELS_PER_TILE - cameraOffsetX;
       let tileCanvasY = y * PIXELS_PER_TILE - cameraOffsetY;
 
+      // Draw the tile
       canvas_ctx.drawImage(board[x][y].sprite, tileCanvasX, tileCanvasY, PIXELS_PER_TILE, PIXELS_PER_TILE);
+
+      // Draw an explosion sprite on top
+      if (board[x][y].isDamaging) {
+        canvas_ctx.drawImage(EXPLOSION_SPRITE, tileCanvasX, tileCanvasY, PIXELS_PER_TILE, PIXELS_PER_TILE);
+      }
+
     }
   }
 }
+
 
 function RenderGameObjects() {
   // Loop through all game objects 
@@ -89,10 +97,12 @@ function RenderGameObjects() {
 
 function RenderPlayers() {
   for (var i = 0; i < players.length; i++) {
-    let playerOnCanvasX = canvasCentreX - (players[i].size / 2);
-    let playerOnCanvasY = canvasCentreY - (players[i].size / 2);
-  
-    canvas_ctx.drawImage(players[i].sprite, playerOnCanvasX, playerOnCanvasY, players[i].size, players[i].size);
+    if (players[i].isAlive) {
+      let playerOnCanvasX = canvasCentreX - (players[i].size / 2);
+      let playerOnCanvasY = canvasCentreY - (players[i].size / 2);
+
+      canvas_ctx.drawImage(players[i].sprite, playerOnCanvasX, playerOnCanvasY, players[i].size, players[i].size);
+    }
   }
 
 }

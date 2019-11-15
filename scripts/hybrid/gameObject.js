@@ -9,6 +9,9 @@ const BOMB_DEFAULT_TIMER = 2;
 const POWERUP_SIZE = PIXELS_PER_TILE / 2;
 const POWERUP_DURATION = 6;
 
+var EXPLOSION_SPRITE = new Image()
+EXPLOSION_SPRITE.src = 'sprites/bomb/explosion.png';
+
 /*
   Bomb constructor. Places a bomb at xPos, yPos on the board.
 */
@@ -18,6 +21,14 @@ function Bomb(x, y, seconds, owner) {
 
   // Timer that decreases each tick
   bomb.timer = TICKS_PER_SECOND * seconds;
+  // Timer that damages the tiles around it when it has exploded
+  bomb.explosion_timer = bomb.timer;
+
+  bomb.hasExploded = false;
+
+  // Get a list of the tiles that this bomb will affect 
+  bomb.affected_tiles = undefined;
+  bomb.hasGotAffectedTiles = false;
 
   // Set reference to the owner of the bomb
   bomb.owner = owner;
@@ -27,18 +38,42 @@ function Bomb(x, y, seconds, owner) {
 
   // Update function is called once per tick
   bomb.update = function () {
-    bomb.timer--;
-    if (bomb.timer <= 0) {
-      // Call explode function in board
-      bombExplode(this);
+    // Reduce timer by one
+    if (bomb.timer > 0) {
+      bomb.timer--;
+      // Get affected tiles when the bomb has been properly created 
+      if(!bomb.hasGotAffectedTiles) {
+        bomb.affected_tiles = getBombTiles(this);
+        bomb.hasGotAffectedTiles = true;
+      }
     }
-  }
-
+    else {
+      if (!bomb.hasExploded) {
+        // Call explode function in board when timer has finished
+        BombExplode(bomb.affected_tiles);
+        bomb.owner.activeBombs--;
+        bomb.hasExploded = true;
+        bomb.isVisible = false;
+      }
+      else {
+        // Reduce the post explosion timer by 1
+        if (bomb.explosion_timer > 0) {
+          bomb.explosion_timer--;
+        }
+        else {
+          // Set all tiles back to normal
+          bombExplodeFinish(this);
+        }
+      }
+    }
+  },
+  
   // Set source of sprite
-  bomb.sprite.src = 'sprites/bomb.png';
+  bomb.sprite.src = 'sprites/bomb/bomb.png';
 
   return bomb;
 }
+
 
 
 /*
@@ -50,7 +85,7 @@ function Powerup(x, y) {
   powerup.isPoweredUp = false;
   powerup.duration = POWERUP_DURATION * TICKS_PER_SECOND;
   powerup.sprite.src = '';
-  
+
 
   return powerup;
 }
@@ -70,12 +105,12 @@ function SpeedPowerup(x, y) {
 
     }
     else {
-      if (getPlayerX(), getPlayerY(), player.size, player.size, SpeedPowerup(x), SpeedPowerup(y), POWERUP_SIZE, POWERUP_SIZE){
+      if (getPlayerX(), getPlayerY(), player.size, player.size, SpeedPowerup(x), SpeedPowerup(y), POWERUP_SIZE, POWERUP_SIZE) {
         speedPowerup.isPoweredUp = true;
         speedPowerup.isVisible = false;
-        
+
       }
-      
+
     }
 
   }
