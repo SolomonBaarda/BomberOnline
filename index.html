@@ -31,7 +31,7 @@
   <!-- Load sounds script -->
   <script src="scripts/client/sounds.js" defer></script>
   <!-- Initialise the game -->
-  <script src="scripts/client/validateUsername.js" de fer></script>
+  <script src="scripts/client/validateUsername.js" defer></script>
   <script src="scripts/client/initialise.js" defer></script>
   <!-- Load the game tick. Should be last -->
   <script src="scripts/server/run.js" defer></script>
@@ -86,14 +86,16 @@
             ACCOUNT</button>
           <button type="button" id="play-button" onclick="LogIn()">PLAY</button>
         </div>
+
+        <div id="selectGamemode">
+          <button type="button" id="tutorial" style="display:none;" onclick="">TUTORIAL</button>
+          <button type="button" id="battle_royale" style="display:none;" onclick="">TUTORIAL</button>
+        </div>
       </div>
     </div>
 
     <!-- Class for the main game content -->
     <div class="main-game">
-
-      <!-- Player image -->
-      <img id="player" alt="player" style="display:none; position:absolute; left:0; top:0;">
 
       <div class="game">
         <!-- Canvas for left panel - health etc? -->

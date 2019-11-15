@@ -97,10 +97,12 @@ function RenderGameObjects() {
 
 function RenderPlayers() {
   for (var i = 0; i < players.length; i++) {
-    let playerOnCanvasX = canvasCentreX - (players[i].size / 2);
-    let playerOnCanvasY = canvasCentreY - (players[i].size / 2);
+    if (players[i].isAlive) {
+      let playerOnCanvasX = canvasCentreX - (players[i].size / 2);
+      let playerOnCanvasY = canvasCentreY - (players[i].size / 2);
 
-    canvas_ctx.drawImage(players[i].sprite, playerOnCanvasX, playerOnCanvasY, players[i].size, players[i].size);
+      canvas_ctx.drawImage(players[i].sprite, playerOnCanvasX, playerOnCanvasY, players[i].size, players[i].size);
+    }
   }
 
 }

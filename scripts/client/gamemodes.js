@@ -34,6 +34,11 @@ function InitialiseGame(playerName) {
   Timer();
 }
 
+// Function that is called when the player dies 
+function GameOver() {
+  RemoveController();
+}
+
 function UpdatePlayers() {
   for (var i = 0; i < players.length; i++) {
     players[i].update();

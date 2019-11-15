@@ -63,7 +63,6 @@ function Board(width, height) {
     tile.isCollidable = false;
     tile.isEmpty = true;
     tile.isDamaging = false;
-    tile.sprite = new Image(16, 16);
     tile.sprite.src = 'sprites/tileset/cropped/emptyTile.png';
 
     return tile;
@@ -78,7 +77,6 @@ function Board(width, height) {
     tile.isCollidable = true;
     tile.isEmpty = false;
     tile.isDamaging = false;
-    tile.sprite = new Image(16, 16);
     tile.sprite.src = 'sprites/tileset/cropped/indestructableTile.png';
 
     return tile;
@@ -93,7 +91,6 @@ function Board(width, height) {
     tile.isCollidable = true;
     tile.isEmpty = false;
     tile.isDamaging = false;
-    tile.sprite = new Image(16, 16);
 
     // Set sprite to be random 
     var random = Math.floor(Math.random() * 20);
@@ -123,9 +120,11 @@ function Board(width, height) {
       isDestructable: undefined,
       isCollidable: undefined,
       isEmpty: undefined,
-      setDamaging: undefined,
+      isDamaging: undefined,
       sprite: undefined
     }
+
+    tile.sprite = new Image(16, 16);
 
     return tile;
   }
@@ -141,10 +140,7 @@ function getNearestTile(x, y) {
 
 // Function that calculates all of the possible tiles that the objects is on
 function getAllConnectingTiles(x, y, width, height) {
-  var tileMin = getNearestTile(x, y);
-  var tileMax = getNearestTile(x + width, y + height);
-
-  return [tileMin, tileMax];
+  return [getNearestTile(x, y), getNearestTile(x + width, y), getNearestTile(x, y + height), getNearestTile(x + width, y + height)];
 }
 
 
@@ -182,19 +178,19 @@ function getBombTiles(bomb) {
   for (var i = DEFAULT_BOMB_POWER; i <= power; i++) {
     // For each tile add it to the list of tiles affected 
     // Tile to the left
-    let left = Tile(Clamp(tile.x - i, 0, boardWidth-1), tile.y);
+    let left = Tile(Clamp(tile.x - i, 0, boardWidth - 1), tile.y);
     affectedTiles.push(board[left.x][left.y]);
 
     // Tile to the right
-    let right = Tile(Clamp(tile.x + i, 0, boardWidth-1), tile.y);
+    let right = Tile(Clamp(tile.x + i, 0, boardWidth - 1), tile.y);
     affectedTiles.push(board[right.x][right.y]);
 
     // Tile up
-    let up = Tile(tile.x, Clamp(tile.y - i, 0, boardHeight-1));
+    let up = Tile(tile.x, Clamp(tile.y - i, 0, boardHeight - 1));
     affectedTiles.push(board[up.x][up.y]);
 
     // Tile down 
-    let down = Tile(tile.x, Clamp(tile.y + i, 0, boardHeight-1));
+    let down = Tile(tile.x, Clamp(tile.y + i, 0, boardHeight - 1));
     affectedTiles.push(board[down.x][down.y]);
   }
 
@@ -248,6 +244,26 @@ function bombExplodeFinish(bomb) {
   }
 
 }
+
+
+function isInsideExplosion(x, y, size) {
+  let nearbyTiles = getAllConnectingTiles(x, y, size, size);
+
+  for (let i = 0; i < nearbyTiles.length; i++) {
+    let tile = Tile(nearbyTiles[i].x, nearbyTiles[i].y);    
+
+    if (board[tile.x][tile.y].isDamaging) {
+      
+      if (Intersects(x, y, size, size, tile.x * PIXELS_PER_TILE, tile.y * PIXELS_PER_TILE, PIXELS_PER_TILE, PIXELS_PER_TILE)) {
+                
+        return true;
+      }
+    }
+  }
+
+  return false;
+}
+
 
 
 

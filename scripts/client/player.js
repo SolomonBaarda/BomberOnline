@@ -18,7 +18,7 @@ function Player(name, x, y) {
     // x and y position of the image on the board
     x: x,
     y: y,
-    isAlive: false,
+    isAlive: true,
     // Player size in pixels 
     size: 3 * PIXELS_PER_TILE / 4,
 
@@ -66,76 +66,72 @@ function Player(name, x, y) {
 
     // Function for updating the players position
     update: function () {
-      // Set player bounds ie they cannot move past these points
-      let minX = 0;
-      let minY = 0;
-      let maxX = boardWidth * PIXELS_PER_TILE - this.size;
-      let maxY = boardHeight * PIXELS_PER_TILE - this.size;
+      if (this.isAlive) {
+        // Set player bounds ie they cannot move past these points
+        let minX = 0;
+        let minY = 0;
+        let maxX = boardWidth * PIXELS_PER_TILE - this.size;
+        let maxY = boardHeight * PIXELS_PER_TILE - this.size;
 
-      // Set current movement speed
-      if (this.isRunning) {
-        this.speed = MAX_SPEED;
-      }
-      else {
-        this.speed = MAX_SPEED / 2;
-      }
-
-      // Store old values before checking collision 
-      let oldX = this.x;
-      let oldY = this.y;
-
-      // Update x position
-      let newX = Clamp(this.x + this.velX, minX, maxX);
-
-      // Update new x position
-      if (newX != oldX) {
-        this.x = newX;
-        // Ensure it is a valid move before comitting to it
-        if (!isValidMove(oldX, oldY, this.size, this.x, this.y)) {
-          this.x = oldX;
+        // Set current movement speed
+        if (this.isRunning) {
+          this.speed = MAX_SPEED;
         }
-      }
-
-      // Update y position
-      var newY = Clamp(this.y + this.velY, minY, maxY);
-
-      // Update new y position 
-      if (newY != oldY) {
-        this.y = newY;
-        // Ensure it is a valid move before comitting to it
-        if (!isValidMove(this.x, oldY, this.size, this.x, this.y)) {
-          this.y = oldY;
+        else {
+          this.speed = MAX_SPEED / 2;
         }
+
+        // Store old values before checking collision 
+        let oldX = this.x;
+        let oldY = this.y;
+
+        // Update x position
+        let newX = Clamp(this.x + this.velX, minX, maxX);
+
+        // Update new x position
+        if (newX != oldX) {
+          this.x = newX;
+          // Ensure it is a valid move before comitting to it
+          if (!isValidMove(oldX, oldY, this.size, this.x, this.y)) {
+            this.x = oldX;
+          }
+        }
+
+        // Update y position
+        var newY = Clamp(this.y + this.velY, minY, maxY);
+
+        // Update new y position 
+        if (newY != oldY) {
+          this.y = newY;
+          // Ensure it is a valid move before comitting to it
+          if (!isValidMove(this.x, oldY, this.size, this.x, this.y)) {
+            this.y = oldY;
+          }
+        }
+        // This movement style works well for objects moving at a slow speed. If they 
+        // move faster, then they may appear to collide in front of the wall. In this
+        // case, movement would need to be done in smaller steps. Check out 
+        // https://jonathanwhiting.com/tutorial/collision/ for an explanation on collision.
+
+        // Check that the new position isn't inside of an explosion 
+        if (isInsideExplosion(this.x, this.y, this.size)) {
+          // If it is, set the player to be dead
+          this.isAlive = false;
+          GameOver();
+        }
+
+        // Update the camera position to correctly render 
+        setCameraPosCentre(this.x + this.size / 2, this.y + this.size / 2);
       }
-
-      // This movement style works well for objects moving at a slow speed. If they 
-      // move faster, then they may appear to collide in front of the wall. In this
-      // case, movement would need to be done in smaller steps. Check out 
-      // https://jonathanwhiting.com/tutorial/collision/ for an explanation on collision.
-
-      // Update the camera position to correctly render 
-      setCameraPosCentre(this.x + this.size / 2, this.y + this.size / 2);
     }
-
   }
   // Set image 
-  player.sprite = setImage();
+  player.sprite = new Image();
+  player.sprite.src = "sprites/player.jpg"
+
   console.log("Player has been set.");
 
   return player;
-
-  function setImage() {
-    let playerTag = document.getElementById('player');
-    // Set the image source
-    playerTag.src = "sprites/player.jpg";
-    playerTag.position = "absolute";
-
-    // Use canvas to render image now
-    $("#player").hide();
-
-    return playerTag;
-  }
-
   // End of player
 }
 
