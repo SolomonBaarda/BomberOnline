@@ -30,7 +30,7 @@ function LogIn() {
 
   if (validInput(userName) && validInput(password)) {
     // Need to check account is in the database and if not get the user to create an account 
-    document.getElementById('errorMsg').innerHTML = "Welcome " +userName+ ".";
+    document.getElementById('errorMsg').innerHTML = "Welcome " + userName + ".";
     SetName();
   }
 }

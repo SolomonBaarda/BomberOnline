@@ -9,6 +9,8 @@ const DEFAULT_MAX_BOMBS = 1;
 // Strength of bombs by default
 const DEFAULT_BOMB_POWER = 1;
 
+const DEFAULT_PLAYER_SIZE = 3 * PIXELS_PER_TILE / 4;
+
 // Initialise new player
 function Player(name, x, y) {
   let player = {
@@ -20,7 +22,7 @@ function Player(name, x, y) {
     y: y,
     isAlive: true,
     // Player size in pixels
-    size: 3 * PIXELS_PER_TILE / 4,
+    size: DEFAULT_PLAYER_SIZE,
 
     // Player's current speed
     speed: MAX_SPEED,
@@ -118,6 +120,10 @@ function Player(name, x, y) {
           // If it is, set the player to be dead
           this.isAlive = false;
           GameOver();
+        }
+
+        if (isMessageAt(this.x + (this.size / 2), this.y + (this.size / 2))) {
+          DisplayAlert(returnMessageAt(this.x + (this.size / 2), this.y + (this.size / 2)), 0.1);
         }
 
         // Update the camera position to correctly render
