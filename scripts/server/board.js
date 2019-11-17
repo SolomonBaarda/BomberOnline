@@ -8,130 +8,209 @@ var boardWidth;
 
 var gameObjects;
 
-function Board(width, height) {
+/**
+ * Function that generates and returns an empty board.
+ * @param {*} width 
+ * @param {*} height 
+ */
+function createBoard(width, height) {
   boardWidth = width;   // Width in tiles
   boardHeight = height;   // Height in tiles
-
-  // This is the main board collection used to store the locations of objects
-  board = Generate(width, height);
 
   // Array containing all bombs, powerups etc
   gameObjects = new Array();
 
+  // Create 2-dimensional array for the board
+  let newBoard = new Array(width);
+  for (let i = 0; i < width; i++) {
+    newBoard[i] = new Array(height);
+  }
 
 
-  function Generate(width, height) {
-    // Create 2-dimensional array for the board
-    var newBoard = new Array(width);
-    for (let i = 0; i < height; i++) {
-      newBoard[i] = new Array(height);
+
+  // Initialise elements
+  for (let y = 0; y < height; y++) {
+    for (let x = 0; x < width; x++) {
+      // Set edge to be indestructable tiles
+      if (x == 0 || x == width - 1 || y == 0 || y == height - 1) {
+        newBoard[x][y] = IndestructibleTile(x, y);
+      }
+      else {
+        // Set every tile to be empty
+        newBoard[x][y] = EmptyTile(x, y);
+      }
     }
+  }
+  return newBoard;
+}
+
+
+function generateTutorial(width, height) {
+  board = createBoard(width, height);
+
+  // Initialise elements
+  for (let y = 0; y < height; y++) {
+    for (let x = 0; x < width; x++) {
+      // Set edge to be indestructable tiles
+      if (x == 0 || x == width - 1 || y == 0 || y == height - 1) {
+        board[x][y] = IndestructibleTile(x, y);
+      }
+      else {
+        if (x == 6 && y < height - 2) {
+          board[x][y] = IndestructibleTile(x, y);
+        }
+        else if (x == 8 && y > 1) {
+          board[x][y] = IndestructibleTile(x, y);
+        }
+        else if(x > 11 && x < 14) {
+          board[x][y] = DestructableTile(x, y);
+        }
+
+        if (x < 8) {
+          board[x][y].message = "use WSAD to move";
+        }
+        else if (x < 14) {
+          board[x][y].message = "press \"space\" for bomb";
+        }
+      }
+    }
+  }
+
+}
+
+
+
+function generateBattleRoyale(width, height) {
+  // This is the main board collection used to store the locations of objects
+  board = createBoard(width, height);
+  board = Generate(board);
+
+  // Battle royale's generate function 
+  function Generate(board) {
 
     // Initialise elements
     for (let y = 0; y < height; y++) {
       for (let x = 0; x < width; x++) {
-        // Set every tile to be empty initially
-        newBoard[x][y] = EmptyTile(x, y);
-
         // Set edge to be indestructable tiles
         if (x == 0 || x == width - 1 || y == 0 || y == height - 1) {
-          newBoard[x][y] = IndestructibleTile(x, y);
+          board[x][y] = IndestructibleTile(x, y);
         }
         else {
-          if (x % 2 == 0 && y % 2 == 0) {
-            newBoard[x][y] = IndestructibleTile(x, y);
+          // Set indestructable tiles 
+          if (isValidIndestructble(x, y)) {
+            board[x][y] = IndestructibleTile(x, y);
           }
+          // Set destructable tiles randomly for now
           else {
             var random = Math.floor(Math.random() * 10);
 
             if (random < 4) {
-              newBoard[x][y] = DestructableTile(x, y);
+              board[x][y] = DestructableTile(x, y);
             }
           }
         }
-
       }
     }
 
-    return newBoard;
+    return board;
   }
 
-
-  function EmptyTile(x, y) {
-    let tile = Tile(x, y);
-    tile.isDestructable = false;
-    tile.isCollidable = false;
-    tile.isEmpty = true;
-    tile.isDamaging = false;
-    tile.sprite = new Image(16, 16);
-    tile.sprite.src = 'sprites/tileset/cropped/emptyTile.png';
-
-    return tile;
-  }
-
-  /**
-    Tile that cannot be destroyed.
-  */
-  function IndestructibleTile(x, y) {
-    let tile = Tile(x, y);
-    tile.isDestructable = false;
-    tile.isCollidable = true;
-    tile.isEmpty = false;
-    tile.isDamaging = false;
-    tile.sprite = new Image(16, 16);
-    tile.sprite.src = 'sprites/tileset/cropped/indestructableTile.png';
-
-    return tile;
-  }
-
-  /**
-    Tile that can be destroyed.
-  */
-  function DestructableTile(x, y) {
-    let tile = Tile(x, y);
-    tile.isDestructable = true;
-    tile.isCollidable = true;
-    tile.isEmpty = false;
-    tile.isDamaging = false;
-    tile.sprite = new Image(16, 16);
-
-    // Set sprite to be random
-    var random = Math.floor(Math.random() * 20);
-    if (random < 8) {
-      tile.sprite.src = 'sprites/tileset/cropped/destructableTile2.png';
-    }
-    else if (random < 15) {
-      tile.sprite.src = 'sprites/tileset/cropped/destructableTile1.png';
-    }
-    else {
-      tile.sprite.src = 'sprites/tileset/cropped/destructableTile4.png';
-    }
-
-    tile.destroy = function () {
-      tile.isCollidable = false;
-      tile.isEmpty = true;
-      tile.sprite.src = 'sprites/tileset/cropped/destroyedTile.png';
-    }
-
-    return tile;
-  }
-
-  function Tile(xPosition, yPosition) {
-    let tile = {
-      x: xPosition,
-      y: yPosition,
-      isDestructable: undefined,
-      isCollidable: undefined,
-      isEmpty: undefined,
-      isDamaging: undefined,
-      sprite: undefined
-    }
-
-    return tile;
+  function isValidIndestructble(x, y) {
+    return (x % 4 == 0 && y % 4 == 0 || x % 4 == 2 && y % 2 == 1);
   }
 }
 
-// Function that calculates the x and y tile position of the coordinates given
+
+
+/**
+ * Tile that is empty.
+ * @param {*} x 
+ * @param {*} y 
+ */
+function EmptyTile(x, y) {
+  let tile = Tile(x, y);
+  tile.isDestructable = false;
+  tile.isCollidable = false;
+  tile.isEmpty = true;
+  tile.isDamaging = false;
+  tile.sprite.src = 'sprites/tileset/cropped/emptyTile.png';
+
+  return tile;
+}
+
+/**
+ * Tile that cannot be destroyed.
+ * @param {*} x 
+ * @param {*} y 
+ */
+function IndestructibleTile(x, y) {
+  let tile = Tile(x, y);
+  tile.isDestructable = false;
+  tile.isCollidable = true;
+  tile.isEmpty = false;
+  tile.isDamaging = false;
+  tile.sprite.src = 'sprites/tileset/cropped/indestructableTile.png';
+
+  return tile;
+}
+
+/**
+ * Tile that can be destroyed.
+ * @param {*} x 
+ * @param {*} y 
+ */
+function DestructableTile(x, y) {
+  let tile = Tile(x, y);
+  tile.isDestructable = true;
+  tile.isCollidable = true;
+  tile.isEmpty = false;
+  tile.isDamaging = false;
+
+  // Set sprite to be random 
+  var random = Math.floor(Math.random() * 20);
+  if (random < 8) {
+    tile.sprite.src = 'sprites/tileset/cropped/destructableTile2.png';
+  }
+  else if (random < 15) {
+    tile.sprite.src = 'sprites/tileset/cropped/destructableTile1.png';
+  }
+  else {
+    tile.sprite.src = 'sprites/tileset/cropped/destructableTile4.png';
+  }
+
+  tile.destroy = function () {
+    tile.isCollidable = false;
+    tile.isEmpty = true;
+    tile.sprite.src = 'sprites/tileset/cropped/destroyedTile.png';
+  }
+
+  return tile;
+}
+
+function Tile(xPosition, yPosition) {
+  let tile = {
+    x: xPosition,
+    y: yPosition,
+    isDestructable: undefined,
+    isCollidable: undefined,
+    isEmpty: undefined,
+    isDamaging: undefined,
+    // Message usef for the tutorial level. This is where the string is stored.
+    message: undefined,
+    sprite: undefined
+  }
+
+  tile.sprite = new Image(16, 16);
+
+  return tile;
+}
+
+
+/**
+ * Function that calculates the closest x and y tile position of the coordinates given.
+ * @param {*} x 
+ * @param {*} y 
+ */
 function getNearestTile(x, y) {
   return {
     x: Clamp(Math.floor(x / PIXELS_PER_TILE), 0, boardWidth),
@@ -139,12 +218,15 @@ function getNearestTile(x, y) {
   };
 }
 
-// Function that calculates all of the possible tiles that the objects is on
+/**
+ * Function that calculates all of the possible tiles that the objects is on top of.
+ * @param {*} x 
+ * @param {*} y 
+ * @param {*} width 
+ * @param {*} height 
+ */
 function getAllConnectingTiles(x, y, width, height) {
-  var tileMin = getNearestTile(x, y);
-  var tileMax = getNearestTile(x + width, y + height);
-
-  return [tileMin, tileMax];
+  return [getNearestTile(x, y), getNearestTile(x + width, y), getNearestTile(x, y + height), getNearestTile(x + width, y + height)];
 }
 
 
@@ -163,45 +245,86 @@ function dropBomb(player) {
   }
 }
 
+/**
+ * Function that calculates which tiles are affected by a bomb when it explodes.
+ * @param {*} bomb 
+ */
+function getBombTiles(bomb) {
+  // Store all the tiles that have been damaged 
+  let affectedTiles = [];
 
-function bombExplode(bomb) {
-  // Gets the tile on the centre of the bomb sprite
-  var tile = getNearestTile(bomb.x + BOMB_SIZE / 2, bomb.y + BOMB_SIZE / 2);
+  // Gets the tile on the centre of the bomb sprite 
+  let tile = getNearestTile(bomb.x + BOMB_SIZE / 2, bomb.y + BOMB_SIZE / 2);
+  affectedTiles.push(board[tile.x][tile.y]);
 
-  // Explode tile
-  if (board[tile.x][tile.y].isDestructable) {
-    board[tile.x][tile.y].destroy();
-  }
-
+  // Find out how many tiles should be damaged 
   let power = bomb.power;
 
+  // Loop through tiles N E S W from tile by the power 
   for (var i = DEFAULT_BOMB_POWER; i <= power; i++) {
-    // Nearby tiles
-    let left = Tile(Clamp(tile.x - i, 0, boardWidth), tile.y);
-    if (board[left.x][left.y].isDestructable) {
-      board[left.x][left.y].destroy();
-    }
+    // For each tile add it to the list of tiles affected 
+    // Tile to the left
+    let left = Tile(Clamp(tile.x - i, 0, boardWidth - 1), tile.y);
+    affectedTiles.push(board[left.x][left.y]);
 
-    let right = Tile(Clamp(tile.x + i, 0, boardWidth), tile.y);
-    if (board[right.x][right.y].isDestructable) {
-      board[right.x][right.y].destroy();
-    }
+    // Tile to the right
+    let right = Tile(Clamp(tile.x + i, 0, boardWidth - 1), tile.y);
+    affectedTiles.push(board[right.x][right.y]);
 
-    let up = Tile(tile.x, Clamp(tile.y - i, 0, boardHeight));
-    if (board[up.x][up.y].isDestructable) {
-      board[up.x][up.y].destroy();
-    }
+    // Tile up
+    let up = Tile(tile.x, Clamp(tile.y - i, 0, boardHeight - 1));
+    affectedTiles.push(board[up.x][up.y]);
 
-    let down = Tile(tile.x, Clamp(tile.y + i, 0, boardHeight));
-    if (board[down.x][down.y].isDestructable) {
-      board[down.x][down.y].destroy();
+    // Tile down 
+    let down = Tile(tile.x, Clamp(tile.y + i, 0, boardHeight - 1));
+    affectedTiles.push(board[down.x][down.y]);
+  }
+
+  return affectedTiles;
+}
+
+
+/**
+ * Function that is called by the bomb when it explodes.
+ * @param {*} affectedTiles 
+ */
+function BombExplode(affectedTiles) {
+  let currentTile;
+
+  // Loop through all the affected tiles.
+  for (let i = 0; i < affectedTiles.length; i++) {
+    currentTile = Tile(affectedTiles[i].x, affectedTiles[i].y);
+
+    // Destroy only destructable tiles 
+    if (board[currentTile.x][currentTile.y].isDestructable) {
+      board[currentTile.x][currentTile.y].destroy();
+    }
+    // Set empty tiles to damaging
+    if (board[currentTile.x][currentTile.y].isEmpty) {
+      board[currentTile.x][currentTile.y].isDamaging = true;
     }
   }
 
+}
 
-  //bomb.owner.activeBombs--;
-  player.activeBombs--;
+/**
+ * Function that is called when a bomb has finished exploding.
+ * @param {*} bomb 
+ */
+function bombExplodeFinish(bomb) {
+  let affectedTiles = bomb.affected_tiles;
 
+  // Loop through all the affected tiles.
+  for (let i = 0; i < affectedTiles.length; i++) {
+    currentTile = Tile(affectedTiles[i].x, affectedTiles[i].y);
+
+    // Set all damaging to be false now 
+    if (board[currentTile.x][currentTile.y].isDamaging) {
+      board[currentTile.x][currentTile.y].isDamaging = false;;
+    }
+  }
+
+  // Remove the bomb game object 
   for (var i = 0; i < gameObjects.length; i++) {
     if (gameObjects[i] === bomb) {
       // Remove the bomb from game objects
@@ -211,9 +334,70 @@ function bombExplode(bomb) {
 
 }
 
+/**
+ * Function that returns true if an object is inside of a bomb explosion. 
+ * @param {*} x 
+ * @param {*} y 
+ * @param {*} size 
+ */
+function isInsideExplosion(x, y, size) {
+  let nearbyTiles = getAllConnectingTiles(x, y, size, size);
+
+  // Check the nearby tiles to see if the player is inside an explosion 
+  for (let i = 0; i < nearbyTiles.length; i++) {
+    let tile = Tile(nearbyTiles[i].x, nearbyTiles[i].y);
+
+    if (board[tile.x][tile.y].isDamaging) {
+      // Check the player is intersecting with the damage
+      if (Intersects(x, y, size, size, tile.x * PIXELS_PER_TILE, tile.y * PIXELS_PER_TILE, PIXELS_PER_TILE, PIXELS_PER_TILE)) {
+        return true;
+      }
+    }
+  }
+
+  return false;
+}
 
 
 
+/**
+ * Function that checks if there is a message attached to the block at the coordinates x, y.
+ * @param {*} x 
+ * @param {*} y 
+ */
+function isMessageAt(x, y) {
+  let tile = getNearestTile(x, y);
+
+  if (board[tile.x][tile.y].message != undefined) {
+    return true;
+  }
+  else {
+    return false;
+  }
+}
+/**
+ * Function that returns the message attached to the block at the coordinates x, y.
+ * @param {*} x 
+ * @param {*} y 
+ */
+function returnMessageAt(x, y) {
+  let tile = getNearestTile(x, y);
+
+  if (board[tile.x][tile.y].message != undefined) {
+    return board[tile.x][tile.y].message;
+  }
+}
+
+
+
+/**
+ * Function that checks if the players next move is valid or not.
+ * @param {*} oldX 
+ * @param {*} oldY 
+ * @param {*} playerSize 
+ * @param {*} newX 
+ * @param {*} newY 
+ */
 function isValidMove(oldX, oldY, playerSize, newX, newY) {
   // Get the 3x3 array of tiles around the player
   var xTileMin = Math.floor(Clamp(getPlayerX() / PIXELS_PER_TILE, 0, boardWidth));
@@ -252,12 +436,10 @@ function destroyAllTiles() {
 
 
 
-
 function UpdateBoard() {
-  // Update all gameObjects
+  // Update all gameObjects 
   for (var i = 0; i < gameObjects.length; i++) {
     gameObjects[i].update();
   }
 
-  //console.log("Board updated.");
 }
