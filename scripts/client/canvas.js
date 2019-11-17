@@ -14,13 +14,10 @@ var cameraOffsetX, cameraOffsetY;
 var canvasCentreX, canvasCentreY;
 
 var messageTimer = 0;
-
 var message;
-var currentMessageMeasure;
-var currentMessageOffset;
+var currentMessageMeasure = 0;
 const MESSAGE_DEFAULT_FONT_SIZE = 48;
 var currentMessageFontSize = MESSAGE_DEFAULT_FONT_SIZE;
-messageReady;
 var messageToLong;
 
 function InitialiseCanvas() {
@@ -107,21 +104,17 @@ function RenderBoard() {
  * @param {*} seconds 
  */
 function DisplayAlert(message, seconds) {
-  ClearAlert()
-
-  this.message = message.split("  ");
+  this.message = message;
   messageTimer = seconds * TICKS_PER_SECOND;
+
+  messageToLong = false;
+
+  currentMessageFontSize = MESSAGE_DEFAULT_FONT_SIZE;
 }
 
 function ClearAlert() {
-  message = [];
-  currentMessageMeasure = [];
-  currentMessageOffset = []
-  currentMessageFontSize = MESSAGE_DEFAULT_FONT_SIZE;
+  message = "";
   messageTimer = 0;
-
-  messageReady = false;
-  messageToLong = false;
 }
 
 
@@ -129,70 +122,28 @@ function RenderMessage() {
   // Set message coulour to white
   canvas_ctx.fillStyle = "#ffffff";
 
-  if (messageReady) {
-    canvas_ctx.font = currentMessageFontSize + "px bomberText"
-
-    // Iterate over each message
-    for (let i = 0; i < message.length; i++) {
-      if(currentMessageMeasure[i] != undefined) {
-        currentMessageOffset[i] = (canvas.width - currentMessageMeasure[i].width) / 2
-      }
-      else {
-        currentMessageOffset[i] = (canvas.width) / 2
-      }
-
-      let heightOfPreviousRows = 0;
-      for (let j = 0; j < i; j++) {
-        heightOfPreviousRows += currentMessageMeasure[i].height;
-      }
-
-      canvas_ctx.fillText(message[i], textOffset[i], 100 + heightOfPreviousRows + 50);
-
-    }
-  }
-  else {
-    initialiseMessage();
-  }
-}
-
-
-
-function initialiseMessage() {
-  currentMessageMeasure = Array(message.length);
-  currentMessageOffset = Array(message.length);
-
   do {
     canvas_ctx.font = currentMessageFontSize + "px bomberText"
+    let textOffset = (canvas.width - currentMessageMeasure.width) / 2
 
-    // Iterate over each message
-    for (let i = 0; i < message.length; i++) {
-      currentMessageOffset[i] = (canvas.width - currentMessageMeasure[i].width) / 2
+    canvas_ctx.fillText(message, textOffset, 100);
+    currentMessageMeasure = canvas_ctx.measureText(message);
 
-      let heightOfPreviousRows = 0;
-      for (let j = 0; j < i; j++) {
-        heightOfPreviousRows += currentMessageMeasure[i].height;
+    // If the text is too large to fit on the screen, decrease the font size and try again
+    if (currentMessageMeasure.width > canvas.width) {
+      if (currentMessageFontSize > 16) {
+        currentMessageFontSize -= 4;
       }
-
-      canvas_ctx.fillText(message[i], textOffset[i], 100 + heightOfPreviousRows + 50);
-      currentMessageMeasure[i] = canvas_ctx.measureText(message[i]);
-
-      // If the text is too large to fit on the screen, decrease the font size and try again
-      if (currentMessageMeasure[i].width > canvas.width) {
-        if (currentMessageFontSize > 16) {
-          currentMessageFontSize -= 4;
-        }
-        else {
-          messageToLong = true;
-          console.error("Message " + message + " could not be displayed as it is too long.")
-          return;
-        }
+      else {
+        messageToLong = true;
+        console.error("Message "+message+ " could not be displayed as it is too long.")
+        return;
       }
     }
   }
   // Try again 
   while (currentMessageMeasure.width > canvas.width)
 }
-
 
 
 function RenderGameObjects() {
