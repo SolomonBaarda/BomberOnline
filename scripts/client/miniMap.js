@@ -21,6 +21,7 @@ function InitialiseMap() {
   mapPixelsPerTile = Smallest(map.width / boardWidth, map.height / boardHeight);
 }
 
+
 function RenderMap() {
   map_ctx.clearRect(0, 0, map.width, map.height);
 
@@ -28,18 +29,28 @@ function RenderMap() {
   map_ctx.fillStyle = "#000000";
   map_ctx.fillRect(0, 0, map.width, map.height);
 
-
   for (let tileY = 0; tileY < boardHeight; tileY++) {
     for (let tileX = 0; tileX < boardWidth; tileX++) {
+
       if (board[tileX][tileY].isEmpty) {
-        map_ctx.fillStyle = "#282828";
+        // Set explosion colour
+        if (board[tileX][tileY].isDamaging) {
+          map_ctx.fillStyle = "#FFA500";
+        }
+        // Empty tile colour
+        else {
+          map_ctx.fillStyle = "#282828";
+        }
       }
+      // Indestructable tile
       else if (!board[tileX][tileY].isDestructable) {
         map_ctx.fillStyle = "#D3D3D3";
       }
+      // Destructable, not destroyed tile 
       else if (board[tileX][tileY].isDestructable) {
         map_ctx.fillStyle = "#808080";
       }
+
       map_ctx.fillRect(tileX * mapPixelsPerTile, tileY * mapPixelsPerTile, mapPixelsPerTile, mapPixelsPerTile);
     }
   }

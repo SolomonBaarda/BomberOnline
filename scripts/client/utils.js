@@ -69,7 +69,8 @@ function Smallest(a, b) {
         return b;
     }
     else {
-        return false;
+        // If the same just return one 
+        return a;
     }
 }
 

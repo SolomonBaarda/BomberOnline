@@ -39,7 +39,8 @@ function SpawnPlayer(playerName, x, y) {
 
 
 function loadBattleRoyale(playerName) {
-  generateBattleRoyale(BATTLE_ROYALE_BOARD_SIZE, BATTLE_ROYALE_BOARD_SIZE);
+  // Add one to the size so that a  player can stand in the very centre
+  generateBattleRoyale(BATTLE_ROYALE_BOARD_SIZE, BATTLE_ROYALE_BOARD_SIZE, 15);
 
   // For now, just spawn the player at a random, empty tile
   let x = Math.floor(Clamp(Math.random() * BATTLE_ROYALE_BOARD_SIZE, 0, BATTLE_ROYALE_BOARD_SIZE));

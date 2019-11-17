@@ -6,6 +6,15 @@ var board;
 var boardHeight;
 var boardWidth;
 
+var isBattleRoyale;
+
+var initialBoardTimer;
+var secondaryBoardTimer;
+var DEFAULT_SECONDARY_BOARD_TIMER = 5 * TICKS_PER_SECOND;
+var currentWallPosition = 0;
+
+var toldInitialMessage;
+
 var gameObjects;
 
 /**
@@ -27,7 +36,6 @@ function createBoard(width, height) {
   }
 
 
-
   // Initialise elements
   for (let y = 0; y < height; y++) {
     for (let x = 0; x < width; x++) {
@@ -46,6 +54,7 @@ function createBoard(width, height) {
 
 
 function generateTutorial(width, height) {
+  isBattleRoyale = false;
   board = createBoard(width, height);
 
   // Initialise elements
@@ -62,7 +71,7 @@ function generateTutorial(width, height) {
         else if (x == 8 && y > 1) {
           board[x][y] = IndestructibleTile(x, y);
         }
-        else if(x > 11 && x < 14) {
+        else if (x > 11 && x < 14) {
           board[x][y] = DestructableTile(x, y);
         }
 
@@ -72,22 +81,34 @@ function generateTutorial(width, height) {
         else if (x < 14) {
           board[x][y].message = "press \"space\" for bomb";
         }
+        else if (x < 21) {
+          board[x][y].message = "pick up powerups";
+        }
       }
     }
   }
-
 }
 
 
+/**
+ * 
+ * @param {*} width 
+ * @param {*} height 
+ * @param {*} warmupSeconds 
+ */
+function generateBattleRoyale(width, height, warmupSeconds) {
+  isBattleRoyale = true;
+  initialBoardTimer = warmupSeconds * TICKS_PER_SECOND;
+  secondaryBoardTimer = DEFAULT_SECONDARY_BOARD_TIMER;
+  toldInitialMessage = false;
 
-function generateBattleRoyale(width, height) {
   // This is the main board collection used to store the locations of objects
   board = createBoard(width, height);
   board = Generate(board);
 
+
   // Battle royale's generate function 
   function Generate(board) {
-
     // Initialise elements
     for (let y = 0; y < height; y++) {
       for (let x = 0; x < width; x++) {
@@ -435,11 +456,80 @@ function destroyAllTiles() {
 }
 
 
+function UpdateWallPosition(pos) {
+  if (pos > 0) {
+    allPositions = CalculateWallPositions(pos, pos);
+
+    // Loop through all positions 
+    for (let i = 0; i < allPositions.length; i++) {
+      // Destroy the block
+      if (board[allPositions[i].x][allPositions[i].y].isDestructable) {
+        board[allPositions[i].x][allPositions[i].y].destroy();
+      }
+      // Set it to destructable 
+      if (board[allPositions[i].x][allPositions[i].y].isEmpty) {
+        board[allPositions[i].x][allPositions[i].y].isDamaging = true;
+      }
+    }
+
+
+  }
+}
+
+
+function CalculateWallPositions(width, height) {
+  allPositions = [];
+
+  // Set left wall
+  for (let h = height; h < boardHeight - height; h++) {
+    allPositions.push(board[width][h]);
+  }
+  // Set right wall
+  for (let h = height; h < boardHeight - height; h++) {
+    allPositions.push(board[boardWidth - 1 - width][h]);
+  }
+  // Set top wall
+  for (let w = width; w < boardWidth - width; w++) {
+    allPositions.push(board[w][height]);
+  }
+  // Set bottom wall
+  for (let w = width; w < boardWidth - width; w++) {
+    allPositions.push(board[w][boardHeight - 1 - height]);
+  }
+
+  return allPositions;
+}
+
+
 
 function UpdateBoard() {
   // Update all gameObjects 
   for (var i = 0; i < gameObjects.length; i++) {
     gameObjects[i].update();
+  }
+
+  // Only execute in battle royale mode
+  if (isBattleRoyale) {
+    // Initial timer for time before barrier comes in
+    if (initialBoardTimer > 0) {
+      initialBoardTimer--;
+    }
+    else {
+      if(!toldInitialMessage) {
+        DisplayAlert("Warning! The wall is now closing in!", 5);
+        toldInitialMessage = true;
+      }
+      // Secondary timer for time between each block moving 
+      if (secondaryBoardTimer > 0) {
+        secondaryBoardTimer--;
+      }
+      else {
+        // Reset timer update wall position
+        secondaryBoardTimer = DEFAULT_SECONDARY_BOARD_TIMER;
+        currentWallPosition++;
+        UpdateWallPosition(currentWallPosition);
+      }
+    }
   }
 
 }
