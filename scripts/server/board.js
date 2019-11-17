@@ -26,7 +26,7 @@ function createBoard(width, height) {
     newBoard[i] = new Array(height);
   }
 
-  
+
 
   // Initialise elements
   for (let y = 0; y < height; y++) {
@@ -47,6 +47,35 @@ function createBoard(width, height) {
 
 function generateTutorial(width, height) {
   board = createBoard(width, height);
+
+  // Initialise elements
+  for (let y = 0; y < height; y++) {
+    for (let x = 0; x < width; x++) {
+      // Set edge to be indestructable tiles
+      if (x == 0 || x == width - 1 || y == 0 || y == height - 1) {
+        board[x][y] = IndestructibleTile(x, y);
+      }
+      else {
+        if (x == 6 && y < height - 2) {
+          board[x][y] = IndestructibleTile(x, y);
+        }
+        else if (x == 8 && y > 1) {
+          board[x][y] = IndestructibleTile(x, y);
+        }
+        else if(x > 11 && x < 14) {
+          board[x][y] = DestructableTile(x, y);
+        }
+
+        if (x < 8) {
+          board[x][y].message = "use WSAD to move";
+        }
+        else if (x < 14) {
+          board[x][y].message = "press \"space\" for bomb";
+        }
+      }
+    }
+  }
+
 }
 
 
@@ -166,6 +195,8 @@ function Tile(xPosition, yPosition) {
     isCollidable: undefined,
     isEmpty: undefined,
     isDamaging: undefined,
+    // Message usef for the tutorial level. This is where the string is stored.
+    message: undefined,
     sprite: undefined
   }
 
@@ -312,13 +343,13 @@ function bombExplodeFinish(bomb) {
 function isInsideExplosion(x, y, size) {
   let nearbyTiles = getAllConnectingTiles(x, y, size, size);
 
+  // Check the nearby tiles to see if the player is inside an explosion 
   for (let i = 0; i < nearbyTiles.length; i++) {
     let tile = Tile(nearbyTiles[i].x, nearbyTiles[i].y);
 
     if (board[tile.x][tile.y].isDamaging) {
-
+      // Check the player is intersecting with the damage
       if (Intersects(x, y, size, size, tile.x * PIXELS_PER_TILE, tile.y * PIXELS_PER_TILE, PIXELS_PER_TILE, PIXELS_PER_TILE)) {
-
         return true;
       }
     }
@@ -327,6 +358,35 @@ function isInsideExplosion(x, y, size) {
   return false;
 }
 
+
+
+/**
+ * Function that checks if there is a message attached to the block at the coordinates x, y.
+ * @param {*} x 
+ * @param {*} y 
+ */
+function isMessageAt(x, y) {
+  let tile = getNearestTile(x, y);
+
+  if (board[tile.x][tile.y].message != undefined) {
+    return true;
+  }
+  else {
+    return false;
+  }
+}
+/**
+ * Function that returns the message attached to the block at the coordinates x, y.
+ * @param {*} x 
+ * @param {*} y 
+ */
+function returnMessageAt(x, y) {
+  let tile = getNearestTile(x, y);
+
+  if (board[tile.x][tile.y].message != undefined) {
+    return board[tile.x][tile.y].message;
+  }
+}
 
 
 
@@ -383,3 +443,4 @@ function UpdateBoard() {
   }
 
 }
+

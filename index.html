@@ -75,6 +75,10 @@
         <!-- Text box for name input and button to call SetName, which starts the game. -->
         <div id="nameInput">
           <p id="errorMsg">&nbsp</p>
+
+          <!--
+          <img id="imgPreview" src="sprites/player.jpg" height="32" width="32">
+          -->
           <input type="text" placeholder="Enter username" id="player-username" style="display:none;">
           <input type="text" placeholder="Enter password" id="player-password" style="display:none;">
           <input type="text" placeholder="Re-type password" id="player-password2" style="display:none;">
@@ -94,8 +98,6 @@
     <!-- Class for the main game content -->
     <div class="main-game">
 
-      <img id="player" alt="player" style="display:none; position:absolute; left:0; top:0;">
-      
       <div class="game">
         <!-- Canvas for left panel - health etc? -->
         <canvas id="stats" style="display:none;"></canvas>
