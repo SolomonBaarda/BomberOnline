@@ -108,7 +108,6 @@ function Player(name, x, y) {
         }
       }
 
-<<<<<<< HEAD
       // This movement style works well for objects moving at a slow speed. If they
       // move faster, then they may appear to collide in front of the wall. In this
       // case, movement would need to be done in smaller steps. Check out
@@ -116,11 +115,6 @@ function Player(name, x, y) {
 
       // Update the camera position to correctly render
       setCameraPosCentre(this.x + this.size / 2, this.y + this.size / 2);
-=======
-        // Update the camera position to correctly render
-        setCameraPosCentre(this.x + this.size / 2, this.y + this.size / 2);
-      }
->>>>>>> parent of a93b8b5... Partially implemented tutorial level.
     }
 
   }
