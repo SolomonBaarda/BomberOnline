@@ -13,13 +13,6 @@ var cameraCentreX, cameraCentreY;
 var cameraOffsetX, cameraOffsetY;
 var canvasCentreX, canvasCentreY;
 
-var messageTimer = 0;
-var message;
-var currentMessageMeasure = 0;
-const MESSAGE_DEFAULT_FONT_SIZE = 48;
-var currentMessageFontSize = MESSAGE_DEFAULT_FONT_SIZE;
-var messageToLong;
-
 function InitialiseCanvas() {
   // Make the canvas visible and set the size
   $("#canvas").show();
@@ -44,8 +37,6 @@ function InitialiseCanvas() {
   cameraCentreY = getPlayerY() + player.size / 2;
 }
 
-
-
 function RenderCanvas() {
   // Clear canvas before each render
   canvas_ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -57,15 +48,6 @@ function RenderCanvas() {
   RenderBoard();
   RenderGameObjects();
   RenderPlayers();
-
-  // Render message if time hasn't finished 
-  if (messageTimer > 0) {
-    messageTimer--;
-    if (!messageToLong) {
-      RenderMessage();
-    }
-  }
-
 }
 
 
@@ -96,53 +78,6 @@ function RenderBoard() {
 
     }
   }
-}
-
-/**
- * Function that renders the text message on the main game canvas for seconds.
- * @param {*} message 
- * @param {*} seconds 
- */
-function DisplayAlert(message, seconds) {
-  this.message = message;
-  messageTimer = seconds * TICKS_PER_SECOND;
-
-  messageToLong = false;
-
-  currentMessageFontSize = MESSAGE_DEFAULT_FONT_SIZE;
-}
-
-function ClearAlert() {
-  message = "";
-  messageTimer = 0;
-}
-
-
-function RenderMessage() {
-  // Set message coulour to white
-  canvas_ctx.fillStyle = "#ffffff";
-
-  do {
-    canvas_ctx.font = currentMessageFontSize + "px bomberText"
-    let textOffset = (canvas.width - currentMessageMeasure.width) / 2
-
-    canvas_ctx.fillText(message, textOffset, 100);
-    currentMessageMeasure = canvas_ctx.measureText(message);
-
-    // If the text is too large to fit on the screen, decrease the font size and try again
-    if (currentMessageMeasure.width > canvas.width) {
-      if (currentMessageFontSize > 16) {
-        currentMessageFontSize -= 4;
-      }
-      else {
-        messageToLong = true;
-        console.error("Message "+message+ " could not be displayed as it is too long.")
-        return;
-      }
-    }
-  }
-  // Try again 
-  while (currentMessageMeasure.width > canvas.width)
 }
 
 

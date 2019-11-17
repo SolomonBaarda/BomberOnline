@@ -29,7 +29,7 @@ function Tutorial() {
 
 
 function SpawnPlayer(playerName, x, y) {
-  player = Player(playerName, (x * PIXELS_PER_TILE) + ((PIXELS_PER_TILE - DEFAULT_PLAYER_SIZE)/2), (y * PIXELS_PER_TILE) + ((PIXELS_PER_TILE - DEFAULT_PLAYER_SIZE)/2));
+  player = Player(playerName, x * PIXELS_PER_TILE, y * PIXELS_PER_TILE);
 
   // Set up the game controls
   InitialiseController(player);
@@ -54,12 +54,9 @@ function loadBattleRoyale(playerName) {
 }
 
 function loadTutorial(playerName) {
-  let width = 24;
-  let height = 7;
+  generateTutorial(24, 8);
 
-  generateTutorial(width, height);
-
-  SpawnPlayer(playerName, 3, 3);
+  SpawnPlayer(playerName, 4, 4);
 
   StartGame()
 }
