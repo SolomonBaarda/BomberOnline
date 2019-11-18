@@ -5,7 +5,7 @@ This is the script containing the launch options for different gamemodes.
 var players = [];
 var playerName;
 
-const BATTLE_ROYALE_BOARD_SIZE = 64;
+const BATTLE_ROYALE_BOARD_SIZE = 16;
 
 
 function saveUsername(name) {
@@ -75,7 +75,7 @@ function StartGame() {
   Timer();
 }
 
-// Function that is called when the player dies 
+// Function that is called when the player dies
 function GameOver() {
   RemoveController();
 }
