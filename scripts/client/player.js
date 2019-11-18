@@ -2,6 +2,11 @@
 This is the script for the player class.
 */
 
+module.exports = {
+  x: getPlayerX(),
+  y: getPlayerY()
+}
+
 // Maximum speed the player can move at
 const MAX_SPEED = 2;
 // Maximum amount of bombs allowed

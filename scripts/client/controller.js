@@ -2,8 +2,19 @@
 This is the script for controlling the player movement.
 */
 
+var socket = io();
+socket.on('message', function(data) {
+  console.log(data);
+});
+
 // Boolean values for the active direction
-var up, down, left, right;
+var movement = {
+  up: false,
+  down: false,
+  left: false,
+  right: false
+}
+
 var player;
 
 function InitialiseController(player) {
@@ -30,28 +41,28 @@ function KeyDown(e) {
     // Key is left
     if (key == 37 || key == 65) {
       player.moveLeft();
-      left = true;
+      movement.left = true;
     }
     // Key is right
     if (key == 39 || key == 68) {
       player.moveRight();
-      right = true;
+      movement.right = true;
     }
     // Key is up
     if (key == 38 || key == 87) {
       player.moveUp();
-      up = true;
+      movement.up = true;
     }
     // Key is down
     if (key == 40 || key == 83) {
       player.moveDown();
-      down = true;
+      movement.down = true;
     }
-    // Key is spacebar 
+    // Key is spacebar
     if (key == 32) {
       dropBomb(player);
     }
-    // Key is shift 
+    // Key is shift
     if (key == 16) {
       player.moveWalk();
     }
@@ -72,8 +83,8 @@ function KeyUp(e) {
 
     // Key is left
     if (key == 37 || key == 65) {
-      left = false;
-      if (right) {
+      movement.left = false;
+      if (movement.right) {
         player.moveRight()
       }
       else {
@@ -82,8 +93,8 @@ function KeyUp(e) {
     }
     // Key is right
     if (key == 39 || key == 68) {
-      right = false;
-      if (left) {
+      movement.right = false;
+      if (movement.left) {
         player.moveLeft()
       }
       else {
@@ -92,8 +103,8 @@ function KeyUp(e) {
     }
     // Key is up
     if (key == 38 || key == 87) {
-      up = false;
-      if (down) {
+      movement.up = false;
+      if (movement.down) {
         player.moveDown()
       }
       else {
@@ -102,17 +113,27 @@ function KeyUp(e) {
     }
     // Key is down
     if (key == 40 || key == 83) {
-      down = false;
-      if (up) {
+      movement.down = false;
+      if (movement.up) {
         player.moveUp()
       }
       else {
         player.resetVelY();
       }
     }
-    // Key is shift 
+    // Key is shift
     if (key == 16) {
       player.moveRun();
     }
   }
 }
+
+// Calls InitialiseController on the server
+socket.emit('new player');
+socket.emit('initController', InitialiseController());
+socket.emit('KeyDown', KeyDown());
+socket.emit('KeyUp', KeyUp());
+//Sends the keyboard inputs of the client to the server 60x a second
+setInterval(function() {
+  socket.emit('movement', movement);
+}, 1000 / 60);

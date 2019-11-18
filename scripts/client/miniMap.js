@@ -12,7 +12,7 @@ function InitialiseMap() {
   // Make the canvas visible and set the size
   $("#minimap").show();
 
-  // Initialise the canvas 
+  // Initialise the canvas
   map = document.getElementById("minimap");
   map.width = MAX_MINIMAP_SIZE_PIXELS;
   map.height = MAX_MINIMAP_SIZE_PIXELS;
@@ -25,7 +25,7 @@ function InitialiseMap() {
 function RenderMap() {
   map_ctx.clearRect(0, 0, map.width, map.height);
 
-  // Draw black background 
+  // Draw black background
   map_ctx.fillStyle = "#000000";
   map_ctx.fillRect(0, 0, map.width, map.height);
 
@@ -46,7 +46,7 @@ function RenderMap() {
       else if (!board[tileX][tileY].isDestructable) {
         map_ctx.fillStyle = "#D3D3D3";
       }
-      // Destructable, not destroyed tile 
+      // Destructable, not destroyed tile
       else if (board[tileX][tileY].isDestructable) {
         map_ctx.fillStyle = "#808080";
       }
@@ -61,4 +61,3 @@ function RenderMap() {
   map_ctx.fillStyle = "#33cc33";
   map_ctx.fillRect((playerTile.x * mapPixelsPerTile) - mapPixelsPerTile, (playerTile.y * mapPixelsPerTile) - mapPixelsPerTile, mapPixelsPerTile * 3, mapPixelsPerTile * 3);
 }
-
