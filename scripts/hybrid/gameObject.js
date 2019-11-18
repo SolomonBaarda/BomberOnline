@@ -2,7 +2,7 @@
 This is the script for the all game objects
 */
 
-const BOMB_SIZE = PIXELS_PER_TILE;
+const BOMB_SIZE = PIXELS_PER_TILE / 2;
 const BOMB_DEFAULT_TIMER = 2;
 
 // all powerups have the same constant width and height
@@ -21,9 +21,6 @@ function Bomb(x, y, seconds, owner) {
 
   // Set reference to the owner of the bomb
   bomb.owner = owner;
-
-  // Set how strong the bomb should be when it explodes 
-  bomb.power = owner.currentBombPower;
 
   // Update function is called once per tick
   bomb.update = function () {
@@ -46,18 +43,19 @@ This is the script used for the creation of the various
 types of powerups used and picked up in-game.
 */
 function Powerup(x, y) {
-  let powerup = GameObject(x, y, POWERUP_SIZE);
+  var powerup = GameObject(x, y, POWERUP_SIZE);
   powerup.isPoweredUp = false;
   powerup.duration = POWERUP_DURATION * TICKS_PER_SECOND;
   powerup.sprite.src = '';
-  
+
 
   return powerup;
 }
 
+
 // TODO
 function SpeedPowerup(x, y) {
-  var speedPowerup = Powerup(x, y);
+  let speedPowerup = Powerup(x, y);
   speedPowerup.visible = true;
   speedPowerup.sprite.src = 'sprites/player.jpg';
   speedPowerup.update = function () {
@@ -70,17 +68,19 @@ function SpeedPowerup(x, y) {
 
     }
     else {
-      if (getPlayerX(), getPlayerY(), player.size, player.size, SpeedPowerup(x), SpeedPowerup(y), POWERUP_SIZE, POWERUP_SIZE){
+      if (getPlayerX(), getPlayerY(), player.size, player.size, SpeedPowerup(x), SpeedPowerup(y), POWERUP_SIZE, POWERUP_SIZE) {
         speedPowerup.isPoweredUp = true;
         speedPowerup.isVisible = false;
-        
+
       }
-      
+
     }
 
   }
 
+  return speedPowerup;
 }
+
 function ExtraFlamePowerup(x, y) {
   var extraflamePowerup = Powerup;
 }

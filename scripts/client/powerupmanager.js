@@ -1,6 +1,5 @@
 function addPowerUp () {
-    var speedo = SpeedPowerup (3 * PIXELS_PER_TILE, 3 * PIXELS_PER_TILE);
-    console.log(speedo.x + ", " + speedo.y);
+    var speedo = SpeedPowerup (getPlayerX()-2*PIXELS_PER_TILE,getPlayerY()-2*PIXELS_PER_TILE);
     
     gameObjects.push(speedo);
 }
