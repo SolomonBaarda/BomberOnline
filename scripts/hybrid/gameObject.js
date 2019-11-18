@@ -39,7 +39,7 @@ function Bomb(x, y, seconds, owner) {
     if (bomb.timer > 0) {
       bomb.timer--;
       // Get affected tiles when the bomb has been properly created 
-      if(!bomb.hasGotAffectedTiles) {
+      if (!bomb.hasGotAffectedTiles) {
         bomb.affected_tiles = getBombTiles(this);
         bomb.hasGotAffectedTiles = true;
       }
@@ -64,9 +64,9 @@ function Bomb(x, y, seconds, owner) {
       }
     }
   },
-  
-  // Set source of sprite
-  bomb.sprite.src = 'sprites/bomb/bomb.png';
+
+    // Set source of sprite
+    bomb.sprite.src = 'sprites/bomb/bomb.png';
 
   return bomb;
 }
@@ -81,7 +81,7 @@ function Powerup(x, y) {
   var powerup = GameObject(x, y, POWERUP_SIZE);
   powerup.isPoweredUp = false;
   powerup.duration = POWERUP_DURATION * TICKS_PER_SECOND;
-  powerup.sprite.src = '';
+  powerup.isVisible = true;
 
 
   return powerup;
@@ -93,22 +93,25 @@ function SpeedPowerup(x, y) {
   let speedPowerup = Powerup(x, y);
   speedPowerup.visible = true;
   speedPowerup.sprite.src = 'sprites/player.jpg';
+
   speedPowerup.update = function () {
     if (speedPowerup.isPoweredUp) {
-      speedPowerup.timer--;
-      if (speedPowerup.timer >= 0) {
+      if (speedPowerup.duration > 0) {
+        speedPowerup.duration--;
         // Increase velocity
-        player.speed = MAX_SPEED + 1;
+        player.speed = MAX_SPEED + 5;
       }
-
+      else {
+        // delete powerup
+      }
     }
     else {
-      if (getPlayerX(), getPlayerY(), player.size, player.size, SpeedPowerup(x), SpeedPowerup(y), POWERUP_SIZE, POWERUP_SIZE) {
+      // Check collisions 
+      if (Intersects(getPlayerX(), getPlayerY(), player.size, player.size, speedPowerup.x, speedPowerup.y, POWERUP_SIZE, POWERUP_SIZE)) {
         speedPowerup.isPoweredUp = true;
         speedPowerup.isVisible = false;
-
+        console.log("Has collided ");
       }
-
     }
 
   }
@@ -126,7 +129,7 @@ function ExtraFlamePowerup(x, y) {
       if (efPowerup.timer >= 0) {
         // Increase range of bombs
         player.currentBombPower = DEFAULT_BOMB_POWER + 1;
-        
+
       }
 
     }
