@@ -117,8 +117,34 @@ function SpeedPowerup(x, y) {
 }
 
 function ExtraFlamePowerup(x, y) {
-  var extraflamePowerup = Powerup;
+  let efPowerup = Powerup(x, y);
+  efPowerup.visible = true;
+  efPowerup.sprite.src = 'sprites/player.jpg';
+  efPowerup.update = function () {
+    if (efPowerup.isPoweredUp) {
+      efPowerup.timer--;
+      if (efPowerup.timer >= 0) {
+        // Increase range of bombs
+        player.currentBombPower = DEFAULT_BOMB_POWER + 1;
+        
+      }
+
+    }
+    else {
+      if (getPlayerX(), getPlayerY(), player.size, player.size, SpeedPowerup(x), SpeedPowerup(y), POWERUP_SIZE, POWERUP_SIZE) {
+        efPowerup.isPoweredUp = true;
+        efPowerup.isVisible = false;
+
+      }
+
+    }
+
+  }
+
+  return speedPowerup;
 }
+
+
 function ExtraBombPowerup(x, y) {
   var extrabombPowerup = Powerup;
 }
