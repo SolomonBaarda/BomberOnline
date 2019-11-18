@@ -27,11 +27,12 @@
   <script src="scripts/client/canvas.js" defer></script>
   <script src="scripts/client/miniMap.js" defer></script>
   <!-- Load the different gamemode details -->
-  <script src="scripts/client/gamemodes.js" defer></script>
+  <script src="scripts/hybrid/gamemodes.js" defer></script>
   <!-- Load sounds script -->
   <script src="scripts/client/sounds.js" defer></script>
   <!-- Initialise the game -->
   <script src="scripts/client/validateUsername.js" defer></script>
+  <script src="scripts/client/mainMenu.js" defer></script>
   <script src="scripts/client/initialise.js" defer></script>
   <!-- Load the game tick. Should be last -->
   <script src="scripts/server/run.js" defer></script>
@@ -69,7 +70,7 @@
       <div id="playBox">
 
         <!-- Call initialise function -->
-        <button type="button" id="start-button" onclick="Initialise()">START</button>
+        <button type="button" id="start-button" onclick="showNameSelection()">START</button>
 
         <!-- Text box for name input and button to call SetName, which starts the game. -->
         <div id="nameInput">
@@ -86,17 +87,16 @@
             ACCOUNT</button>
           <button type="button" id="play-button" onclick="LogIn()">PLAY</button>
         </div>
+
+        <div id="selectGamemode">
+          <button type="button" id="tutorial" style="display:none;" onclick="Tutorial()">TUTORIAL</button>
+          <button type="button" id="battle_royale" style="display:none;" onclick="BattleRoyale()">BATTLE ROYALE</button>
+        </div>
       </div>
     </div>
 
-    <div class="inputName">
-      <p id="inputNameDescription"></p>
-    </div>
     <!-- Class for the main game content -->
     <div class="main-game">
-
-      <!-- Player image -->
-      <img id="player" alt="player" style="display:none; position:absolute; left:0; top:0;">
 
       <div class="game">
         <!-- Canvas for left panel - health etc? -->

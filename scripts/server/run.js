@@ -34,8 +34,8 @@ function Render() {
   // Render the main canvas
   RenderCanvas()
 
-  // Render map twice per second as its pretty laggy 
-  if (tickCount % (TICKS_PER_SECOND / 2) == 0) {
+  // Render map 4 times per second as its pretty laggy 
+  if (tickCount % (TICKS_PER_SECOND / 4) == 0) {
     RenderMap();
     tickCount = 0;
   }

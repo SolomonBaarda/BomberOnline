@@ -6,6 +6,7 @@ const MAX_MINIMAP_SIZE_PIXELS = 256;
 
 var map;
 var map_ctx;
+var mapPixelsPerTile;
 
 function InitialiseMap() {
   // Make the canvas visible and set the size
@@ -16,7 +17,10 @@ function InitialiseMap() {
   map.width = MAX_MINIMAP_SIZE_PIXELS;
   map.height = MAX_MINIMAP_SIZE_PIXELS;
   map_ctx = map.getContext("2d");
+
+  mapPixelsPerTile = Smallest(map.width / boardWidth, map.height / boardHeight);
 }
+
 
 function RenderMap() {
   map_ctx.clearRect(0, 0, map.width, map.height);
@@ -25,20 +29,29 @@ function RenderMap() {
   map_ctx.fillStyle = "#000000";
   map_ctx.fillRect(0, 0, map.width, map.height);
 
-  let mapPixelsPerTile = Tile(map.width / boardWidth, map.height / boardHeight);
-
   for (let tileY = 0; tileY < boardHeight; tileY++) {
     for (let tileX = 0; tileX < boardWidth; tileX++) {
+
       if (board[tileX][tileY].isEmpty) {
-        map_ctx.fillStyle = "#282828";
+        // Set explosion colour
+        if (board[tileX][tileY].isDamaging) {
+          map_ctx.fillStyle = "#FFA500";
+        }
+        // Empty tile colour
+        else {
+          map_ctx.fillStyle = "#282828";
+        }
       }
+      // Indestructable tile
       else if (!board[tileX][tileY].isDestructable) {
         map_ctx.fillStyle = "#D3D3D3";
       }
+      // Destructable, not destroyed tile 
       else if (board[tileX][tileY].isDestructable) {
         map_ctx.fillStyle = "#808080";
       }
-      map_ctx.fillRect(tileX * mapPixelsPerTile.x, tileY * mapPixelsPerTile.y, mapPixelsPerTile.x, mapPixelsPerTile.y);
+
+      map_ctx.fillRect(tileX * mapPixelsPerTile, tileY * mapPixelsPerTile, mapPixelsPerTile, mapPixelsPerTile);
     }
   }
 
@@ -46,6 +59,6 @@ function RenderMap() {
 
   // Render player 3 * larger than the tile so easy to see
   map_ctx.fillStyle = "#33cc33";
-  map_ctx.fillRect(playerTile.x * mapPixelsPerTile.x - 1, playerTile.y * mapPixelsPerTile.y - 1, mapPixelsPerTile.x * 3, mapPixelsPerTile.y * 3);
+  map_ctx.fillRect((playerTile.x * mapPixelsPerTile) - mapPixelsPerTile, (playerTile.y * mapPixelsPerTile) - mapPixelsPerTile, mapPixelsPerTile * 3, mapPixelsPerTile * 3);
 }
 
