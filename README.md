@@ -47,7 +47,7 @@ Team members:
 
 ###Bugs
 
-1.
+1. Bomb radius is too small
 
 ###Patches
 

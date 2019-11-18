@@ -1,20 +1,27 @@
+// Dependencies
 var express = require('express');
+var http = require('http');
+var path = require('path');
+var socketIO = require('socket.io');
+
 var app = express();
-var server = require('http').createServer(app);
+var server = http.Server(app);
+var io = socketIO(server);
 
-// Initialise espress server
-app.get('/', function(req, res) {
-  res.sendFile(__dirname + '/index.html');
+app.set('port', 8080);
+app.use(express.static('./'));
+
+
+app.get('/', function(request, response) {
+  response.sendFile(path.join(__dirname, 'index.html'));
 });
-app.use('/', express.static(__dirname + '/'));
 
-console.log("Server started.")
-//End of express initialisation
-
-//Socket IO
-var io = require('socket.io')(server);
-
-io.sockets.on('connection', function(socket){
-
+// Start the server
+server.listen(8080, function() {
+  console.log('Server started on port 8080');
 });
-server.listen(8080);
+
+
+// Add socketIO handler
+io.on('connection', function(socket) {
+});
