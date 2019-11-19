@@ -6,7 +6,7 @@ const BOMB_SIZE = PIXELS_PER_TILE;
 const BOMB_DEFAULT_TIMER = 2;
 
 // all powerups have the same constant width and height
-const POWERUP_SIZE = PIXELS_PER_TILE / 2;
+const POWERUP_SIZE = PIXELS_PER_TILE;
 const POWERUP_DURATION = 6;
 
 var EXPLOSION_SPRITE = new Image()
@@ -82,33 +82,65 @@ This is the script used for the creation of the various
 types of powerups used and picked up in-game.
 */
 function Powerup(x, y) {
-  let powerup = GameObject(x, y, POWERUP_SIZE);
+  var powerup = GameObject(x, y, POWERUP_SIZE);
   powerup.isPoweredUp = false;
   powerup.duration = POWERUP_DURATION * TICKS_PER_SECOND;
-  powerup.sprite.src = '';
+  powerup.isVisible = true;
 
 
   return powerup;
 }
 
+
 // TODO
 function SpeedPowerup(x, y) {
-  var speedPowerup = Powerup(x, y);
+  let speedPowerup = Powerup(x, y);
   speedPowerup.visible = true;
   speedPowerup.sprite.src = 'sprites/player.jpg';
+
   speedPowerup.update = function () {
     if (speedPowerup.isPoweredUp) {
-      speedPowerup.timer--;
-      if (speedPowerup.timer >= 0) {
+      if (speedPowerup.duration > 0) {
+        speedPowerup.duration--;
         // Increase velocity
-        player.speed = MAX_SPEED + 1;
+        player.speed = MAX_SPEED + 5;
+      }
+      else {
+        // delete powerup
+      }
+    }
+    else {
+      // Check collisions
+      if (Intersects(getPlayerX(), getPlayerY(), player.size, player.size, speedPowerup.x, speedPowerup.y, POWERUP_SIZE, POWERUP_SIZE)) {
+        speedPowerup.isPoweredUp = true;
+        speedPowerup.isVisible = false;
+        console.log("Has collided ");
+      }
+    }
+
+  }
+
+  return speedPowerup;
+}
+
+function ExtraFlamePowerup(x, y) {
+  let efPowerup = Powerup(x, y);
+  efPowerup.visible = true;
+  efPowerup.sprite.src = 'sprites/player.jpg';
+  efPowerup.update = function () {
+    if (efPowerup.isPoweredUp) {
+      efPowerup.timer--;
+      if (efPowerup.timer >= 0) {
+        // Increase range of bombs
+        player.currentBombPower = DEFAULT_BOMB_POWER + 1;
+
       }
 
     }
     else {
       if (getPlayerX(), getPlayerY(), player.size, player.size, SpeedPowerup(x), SpeedPowerup(y), POWERUP_SIZE, POWERUP_SIZE) {
-        speedPowerup.isPoweredUp = true;
-        speedPowerup.isVisible = false;
+        efPowerup.isPoweredUp = true;
+        efPowerup.isVisible = false;
 
       }
 
@@ -116,10 +148,10 @@ function SpeedPowerup(x, y) {
 
   }
 
+  return speedPowerup;
 }
-function ExtraFlamePowerup(x, y) {
-  var extraflamePowerup = Powerup;
-}
+
+
 function ExtraBombPowerup(x, y) {
   var extrabombPowerup = Powerup;
 }

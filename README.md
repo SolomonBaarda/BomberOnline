@@ -9,7 +9,9 @@ Team members:
 - Akeil Nabi (an116)
 - Matthew Reidy (matthewreidy)
 
-
+**Note for Sol**
+Tried to get the board to load on startup but couldn't get it to work.
+I was using localhost but GitHub pages loads the same.
 
 ## Feature Checklist
 
@@ -47,7 +49,7 @@ Team members:
 
 ###Bugs
 
-1.
+1. Bomb radius is too small
 
 ###Patches
 

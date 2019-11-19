@@ -5,7 +5,7 @@ This is the script containing the launch options for different gamemodes.
 var players = [];
 var playerName;
 
-const BATTLE_ROYALE_BOARD_SIZE = 64;
+const BATTLE_ROYALE_BOARD_SIZE = 16;
 
 
 function saveUsername(name) {
@@ -39,9 +39,6 @@ function SpawnPlayer(playerName, x, y) {
 
 
 function loadBattleRoyale(playerName) {
-  // Add one to the size so that a  player can stand in the very centre
-  generateBattleRoyale(BATTLE_ROYALE_BOARD_SIZE, BATTLE_ROYALE_BOARD_SIZE, 15);
-
   // For now, just spawn the player at a random, empty tile
   let x = Math.floor(Clamp(Math.random() * BATTLE_ROYALE_BOARD_SIZE, 0, BATTLE_ROYALE_BOARD_SIZE));
   let y = Math.floor(Clamp(Math.random() * BATTLE_ROYALE_BOARD_SIZE, 0, BATTLE_ROYALE_BOARD_SIZE));
@@ -75,7 +72,7 @@ function StartGame() {
   Timer();
 }
 
-// Function that is called when the player dies 
+// Function that is called when the player dies
 function GameOver() {
   RemoveController();
 }
