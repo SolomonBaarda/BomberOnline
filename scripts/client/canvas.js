@@ -2,7 +2,6 @@
 This is the script for rendering the game.
 */
 
-
 const MAX_CANVAS_SIZE_PIXELS = 512;
 
 var canvas;
@@ -44,8 +43,6 @@ function InitialiseCanvas() {
   cameraCentreY = getPlayerY() + player.size / 2;
 }
 
-
-
 function RenderCanvas() {
   // Clear canvas before each render
   canvas_ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -58,36 +55,55 @@ function RenderCanvas() {
   RenderGameObjects();
   RenderPlayers();
 
-  // Render message if time hasn't finished 
+  // Render message if time hasn't finished
   if (messageTimer > 0) {
     messageTimer--;
     if (!messageToLong) {
       RenderMessage();
     }
   }
-
 }
 
-
 function RenderBoard() {
-  // Draw black background 
+  // Draw black background
   canvas_ctx.fillStyle = "#000000";
   canvas_ctx.fillRect(0, 0, canvas.width, canvas.height);
 
   // Get the min and max values for the tiles visible on screen (around the player)
-  // This means only tiles visible on the screen are rendered 
+  // This means only tiles visible on the screen are rendered
   let tileMin = getNearestTile(cameraOffsetX, cameraOffsetY);
   let tileMax = getNearestTile(cameraOffsetX + canvas.width + PIXELS_PER_TILE, cameraOffsetY + canvas.height + PIXELS_PER_TILE);
 
-  // Loop through the nearby tiles 
+  // Loop through the nearby tiles
   for (let y = tileMin.y; y < tileMax.y; y++) {
     for (let x = tileMin.x; x < tileMax.x; x++) {
-      // Calculate the x and y pos of the tile on the screen 
+      // Calculate the x and y pos of the tile on the screen
       let tileCanvasX = x * PIXELS_PER_TILE - cameraOffsetX;
       let tileCanvasY = y * PIXELS_PER_TILE - cameraOffsetY;
 
       // Draw the tile
-      canvas_ctx.drawImage(board[x][y].sprite, tileCanvasX, tileCanvasY, PIXELS_PER_TILE, PIXELS_PER_TILE);
+      var spriteImg = new Image(16, 16);
+      switch (board[x][y].spriteid) {
+        case 0:
+          spriteImg.src = 'sprites/tileset/cropped/emptyTile.png';
+          break;
+        case 1:
+          spriteImg.src = 'sprites/tileset/cropped/indestructableTile.png';
+          break;
+        case 2:
+          spriteImg.src = 'sprites/tileset/cropped/destructableTile2.png';
+          break;
+        case 3:
+          spriteImg.src = 'sprites/tileset/cropped/destructableTile1.png';
+          break;
+        case 4:
+          spriteImg.src = 'sprites/tileset/cropped/destructableTile4.png';
+          break;
+        case 5:
+          spriteImg.src = 'sprites/tileset/cropped/destroyedTile.png';
+          break;
+      }
+      canvas_ctx.drawImage(spriteImg, tileCanvasX, tileCanvasY, PIXELS_PER_TILE, PIXELS_PER_TILE);
 
       // Draw an explosion sprite on top
       if (board[x][y].isDamaging) {
@@ -100,8 +116,8 @@ function RenderBoard() {
 
 /**
  * Function that renders the text message on the main game canvas for seconds.
- * @param {*} message 
- * @param {*} seconds 
+ * @param {*} message
+ * @param {*} seconds
  */
 function DisplayAlert(message, seconds) {
   this.message = message;
@@ -141,19 +157,19 @@ function RenderMessage() {
       }
     }
   }
-  // Try again 
+  // Try again
   while (currentMessageMeasure.width > canvas.width)
 }
 
 
 function RenderGameObjects() {
-  // Loop through all game objects 
+  // Loop through all game objects
   for (var i = 0; i < gameObjects.length; i++) {
     let objectCanvasX = gameObjects[i].x - cameraOffsetX;
     let objectCanvasY = gameObjects[i].y - cameraOffsetY;
 
     if (gameObjects[i].isVisible) {
-      // Render each object 
+      // Render each object
       canvas_ctx.drawImage(gameObjects[i].sprite, objectCanvasX, objectCanvasY, gameObjects[i].size, gameObjects[i].size);
     }
 

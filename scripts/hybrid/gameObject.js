@@ -2,11 +2,11 @@
 This is the script for the all game objects
 */
 
-const BOMB_SIZE = PIXELS_PER_TILE / 2;
+const BOMB_SIZE = PIXELS_PER_TILE;
 const BOMB_DEFAULT_TIMER = 2;
 
 // all powerups have the same constant width and height
-const POWERUP_SIZE = PIXELS_PER_TILE / 2;
+const POWERUP_SIZE = PIXELS_PER_TILE;
 const POWERUP_DURATION = 6;
 
 var EXPLOSION_SPRITE = new Image()
@@ -26,7 +26,7 @@ function Bomb(x, y, seconds, owner) {
 
   bomb.hasExploded = false;
 
-  // Get a list of the tiles that this bomb will affect 
+  // Get a list of the tiles that this bomb will affect
   bomb.affected_tiles = undefined;
   bomb.hasGotAffectedTiles = false;
 
@@ -38,7 +38,7 @@ function Bomb(x, y, seconds, owner) {
     // Reduce timer by one
     if (bomb.timer > 0) {
       bomb.timer--;
-      // Get affected tiles when the bomb has been properly created 
+      // Get affected tiles when the bomb has been properly created
       if (!bomb.hasGotAffectedTiles) {
         bomb.affected_tiles = getBombTiles(this);
         bomb.hasGotAffectedTiles = true;
@@ -106,7 +106,7 @@ function SpeedPowerup(x, y) {
       }
     }
     else {
-      // Check collisions 
+      // Check collisions
       if (Intersects(getPlayerX(), getPlayerY(), player.size, player.size, speedPowerup.x, speedPowerup.y, POWERUP_SIZE, POWERUP_SIZE)) {
         speedPowerup.isPoweredUp = true;
         speedPowerup.isVisible = false;
