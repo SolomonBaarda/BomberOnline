@@ -50,7 +50,7 @@ function Bomb(x, y, seconds, owner) {
     else {
       if (!bomb.hasExploded) {
         // Call explode function in board when timer has finished
-        playBomb();
+        playBombExplode();
         BombExplode(bomb.affected_tiles);
         bomb.owner.activeBombs--;
         bomb.hasExploded = true;

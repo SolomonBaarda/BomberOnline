@@ -144,26 +144,29 @@ function Player(name, x, y) {
   // End of player
 }
 
+//Initialise array of images for player animation
+//player moving up images
 var playerUp = [];
-
 playerUp[0] = new Image();
 playerUp[0].src = "sprites/player/walkUp.png"
 playerUp[1] = new Image();
 playerUp[1].src = "sprites/player/walkUp2.png"
 
+//player moving down images
 var playerDown = [];
-
 playerDown[0] = new Image();
 playerDown[0].src = "sprites/player/walkDown.png"
 playerDown[1] = new Image();
 playerDown[1].src = "sprites/player/walkDown2.png"
 
+//player moving left images
 var playerLeft = [];
 playerLeft[0] = new Image();
 playerLeft[0].src = "sprites/player/walkLeft.png"
 playerLeft[1] = new Image();
 playerLeft[1].src = "sprites/player/walkLeft2.png"
 
+//player moving right images
 var playerRight = [];
 playerRight[0] = new Image();
 playerRight[0].src = "sprites/player/walkRight.png"
@@ -171,11 +174,12 @@ playerRight[1] = new Image();
 playerRight[1].src = "sprites/player/walkright2.png"
 
 
-
+//temporary counter until i find a better solution
 var i = 0
 
+//function that updates the players sprite for animation
 function updateSprite(direction) {
-
+//if up key pressed loop through the walkin up images
   if (direction == "u") {
     player.sprite.src = playerUp[i].src;
     if (i >= 1) {
@@ -183,6 +187,7 @@ function updateSprite(direction) {
     }
     i = i + 1;
   }
+  //if up down pressed loop through the walkin down images
   else if (direction == "d") {
     player.sprite.src = playerDown[i].src;
     if (i >= 1) {
@@ -190,6 +195,7 @@ function updateSprite(direction) {
     }
     i = i + 1;
   }
+  //if left key pressed loop through the walkin left images
   else if (direction == "l") {
     player.sprite.src = playerLeft[i].src;
     if (i >= 1) {
@@ -197,6 +203,7 @@ function updateSprite(direction) {
     }
     i = i + 1;
   }
+  //if up right pressed loop through the walkin right images
   else if (direction == "r") {
     player.sprite.src = playerRight[i].src;
     if (i >= 1) {
@@ -204,6 +211,7 @@ function updateSprite(direction) {
     }
     i = i + 1;
   }
+    //redraw the player 
     setInterval(RenderPlayers(), 100);
 }
 
