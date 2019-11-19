@@ -133,13 +133,80 @@ function Player(name, x, y) {
   }
   // Set image
   player.sprite = new Image();
-  player.sprite.src = "sprites/player.jpg"
+  player.sprite.src = "sprites/player/still.png"
+
+
 
   console.log("Player has been set.");
+
 
   return player;
   // End of player
 }
+
+var playerUp = [];
+
+playerUp[0] = new Image();
+playerUp[0].src = "sprites/player/walkUp.png"
+playerUp[1] = new Image();
+playerUp[1].src = "sprites/player/walkUp2.png"
+
+var playerDown = [];
+
+playerDown[0] = new Image();
+playerDown[0].src = "sprites/player/walkDown.png"
+playerDown[1] = new Image();
+playerDown[1].src = "sprites/player/walkDown2.png"
+
+var playerLeft = [];
+playerLeft[0] = new Image();
+playerLeft[0].src = "sprites/player/walkLeft.png"
+playerLeft[1] = new Image();
+playerLeft[1].src = "sprites/player/walkLeft2.png"
+
+var playerRight = [];
+playerRight[0] = new Image();
+playerRight[0].src = "sprites/player/walkRight.png"
+playerRight[1] = new Image();
+playerRight[1].src = "sprites/player/walkright2.png"
+
+
+
+var i = 0
+
+function updateSprite(direction) {
+
+  if (direction == "u") {
+    player.sprite.src = playerUp[i].src;
+    if (i >= 1) {
+      i = -1
+    }
+    i = i + 1;
+  }
+  else if (direction == "d") {
+    player.sprite.src = playerDown[i].src;
+    if (i >= 1) {
+      i = -1
+    }
+    i = i + 1;
+  }
+  else if (direction == "l") {
+    player.sprite.src = playerLeft[i].src;
+    if (i >= 1) {
+      i = -1
+    }
+    i = i + 1;
+  }
+  else if (direction == "r") {
+    player.sprite.src = playerRight[i].src;
+    if (i >= 1) {
+      i = -1
+    }
+    i = i + 1;
+  }
+    setInterval(RenderPlayers(), 100);
+}
+
 
 function getPlayerX() {
   return player.x;

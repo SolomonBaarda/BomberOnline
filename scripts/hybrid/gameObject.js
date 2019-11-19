@@ -26,14 +26,14 @@ function Bomb(x, y, seconds, owner) {
 
   bomb.hasExploded = false;
 
-  // Get a list of the tiles that this bomb will affect 
+  // Get a list of the tiles that this bomb will affect
   bomb.affected_tiles = undefined;
   bomb.hasGotAffectedTiles = false;
 
   // Set reference to the owner of the bomb
   bomb.owner = owner;
 
-  // Set how strong the bomb should be when it explodes 
+  // Set how strong the bomb should be when it explodes
   bomb.power = owner.currentBombPower;
 
   // Update function is called once per tick
@@ -41,7 +41,7 @@ function Bomb(x, y, seconds, owner) {
     // Reduce timer by one
     if (bomb.timer > 0) {
       bomb.timer--;
-      // Get affected tiles when the bomb has been properly created 
+      // Get affected tiles when the bomb has been properly created
       if(!bomb.hasGotAffectedTiles) {
         bomb.affected_tiles = getBombTiles(this);
         bomb.hasGotAffectedTiles = true;
@@ -50,6 +50,7 @@ function Bomb(x, y, seconds, owner) {
     else {
       if (!bomb.hasExploded) {
         // Call explode function in board when timer has finished
+        playBomb();
         BombExplode(bomb.affected_tiles);
         bomb.owner.activeBombs--;
         bomb.hasExploded = true;
@@ -67,7 +68,7 @@ function Bomb(x, y, seconds, owner) {
       }
     }
   },
-  
+
   // Set source of sprite
   bomb.sprite.src = 'sprites/bomb/bomb.png';
 

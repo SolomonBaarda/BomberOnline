@@ -9,7 +9,7 @@ Score + leaderboard + In-game chat (Using the left canvas)
 *Additional features*
 Gamemodes
 Unit tests
-Sprites and animation
+Sprites
 
 ---------------------
 
@@ -17,14 +17,14 @@ Sprites and animation
 
 -Solomon-
 Allowing for multiple player objects.
-Passwords + accounts 
+Passwords + accounts
 Tutorial level
 
 -Oliver-
 Powerups + powerup manager
 
 -Darren-
-
+animation
 
 -Akeil-
 Sounds
@@ -41,7 +41,7 @@ Redo UI
 
 board, player and tile rendering using canvas
 tile collision
-tile implementation 
+tile implementation
 bomb implementation
 
 

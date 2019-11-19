@@ -31,27 +31,31 @@ function KeyDown(e) {
     if (key == 37 || key == 65) {
       player.moveLeft();
       left = true;
+      updateSprite("l");
     }
     // Key is right
     if (key == 39 || key == 68) {
       player.moveRight();
       right = true;
+      updateSprite("r");
     }
     // Key is up
     if (key == 38 || key == 87) {
       player.moveUp();
       up = true;
+      updateSprite("u");
     }
     // Key is down
     if (key == 40 || key == 83) {
       player.moveDown();
       down = true;
+      updateSprite("d");
     }
-    // Key is spacebar 
+    // Key is spacebar
     if (key == 32) {
       dropBomb(player);
     }
-    // Key is shift 
+    // Key is shift
     if (key == 16) {
       player.moveWalk();
     }
@@ -110,7 +114,7 @@ function KeyUp(e) {
         player.resetVelY();
       }
     }
-    // Key is shift 
+    // Key is shift
     if (key == 16) {
       player.moveRun();
     }
