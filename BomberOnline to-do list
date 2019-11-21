@@ -1,24 +1,36 @@
 F28WP BomberOnline To Do List:
 
 ---NOT COMPLETED---
-**Important**
+**Important (Marked requirements)**
+UI Overhaul 
 Level layouts
+Function testing/unit tests
+Score + leaderboard + point system
+Sprites and animation 
+Server stuff 
+data storage - SQl
+Security, backups?
+Optimisation (connection, code design, fils size)
 
-Score + leaderboard + In-game chat (Using the left canvas)
+The report contains:
+    No. lines of code per person
+    External files, libraries etc
+    External assets, sprites, sounds etc
+    Game limitation 
+
 
 *Additional features*
-Gamemodes
-Unit tests
-Sprites
+In-game chat (Using the left canvas)
+
 
 ---------------------
 
 ---IN PROGRESS---
 
 -Solomon-
-Allowing for multiple player objects.
 Passwords + accounts
 Tutorial level
+Server stuff
 
 -Oliver-
 Powerups + powerup manager
@@ -39,6 +51,7 @@ CSS fixes
 
 Redo UI
 
+Allowing for multiple player objects.
 board, player and tile rendering using canvas
 tile collision
 tile implementation
