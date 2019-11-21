@@ -37,25 +37,25 @@ function KeyDown(e) {
     if (key == 37 || key == 65) {
       player.moveLeft();
       movement.left = true;
-      updateSprite("l");
+      //updateSprite("l");
     }
     // Key is right
     if (key == 39 || key == 68) {
       player.moveRight();
       movement.right = true;
-      updateSprite("r");
+      //updateSprite("r");
     }
     // Key is up
     if (key == 38 || key == 87) {
       player.moveUp();
       movement.up = true;
-      updateSprite("u");
+      //updateSprite("u");
     }
     // Key is down
     if (key == 40 || key == 83) {
       player.moveDown();
       movement.down = true;
-      updateSprite("d");
+      //updateSprite("d");
     }
     // Key is spacebar
     if (key == 32) {
