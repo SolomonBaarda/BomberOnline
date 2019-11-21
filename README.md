@@ -28,6 +28,7 @@ I was using localhost but GitHub pages loads the same.
 
 **Oliver**
 - Powerups + powerup manager
+- Sprites
 
 **Akeil**
 - Sounds
@@ -35,6 +36,10 @@ I was using localhost but GitHub pages loads the same.
 **Matthew**
 - Multiplayer/server
 - CSS Fixes
+
+**Darren**
+- Animation
+- Sprites
 
 ###Completed
 - UI
