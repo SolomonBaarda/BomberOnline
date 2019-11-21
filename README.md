@@ -9,9 +9,10 @@ Team members:
 - Akeil Nabi (an116)
 - Matthew Reidy (matthewreidy)
 
-**Note for Sol**
-Tried to get the board to load on startup but couldn't get it to work.
-I was using localhost but GitHub pages loads the same.
+# Plan
+
+Bomber Online is an MMO game inspired the iconic SNES game, Bomber Man.  The game is top down and tile based featuring tile collision and destructable tiles.  The game has a range of powerups that spawn around the map giving the player a range of advantages.  In the Battle Royale gamemode, up to 10 players fight while the map size slowly shrinks.  This forces the players to move towards the centre and fight only one remains.  
+
 
 ## Feature Checklist
 
