@@ -59,7 +59,7 @@ function KeyDown(e) {
     }
     // Key is spacebar
     if (key == 32) {
-      dropBomb(player);
+      player.dropBomb();
     }
     // Key is shift
     if (key == 16) {

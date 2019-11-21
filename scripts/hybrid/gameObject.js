@@ -42,7 +42,7 @@ function Bomb(x, y, seconds, owner) {
     if (bomb.timer > 0) {
       bomb.timer--;
       // Get affected tiles when the bomb has been properly created
-      if(!bomb.hasGotAffectedTiles) {
+      if (!bomb.hasGotAffectedTiles) {
         bomb.affected_tiles = getBombTiles(this);
         bomb.hasGotAffectedTiles = true;
       }
@@ -69,8 +69,8 @@ function Bomb(x, y, seconds, owner) {
     }
   },
 
-  // Set source of sprite
-  bomb.sprite.src = 'sprites/bomb/bomb.png';
+    // Set source of sprite
+    bomb.sprite.src = 'sprites/bomb/bomb.png';
 
   return bomb;
 }
@@ -87,66 +87,56 @@ function Powerup(x, y) {
   powerup.duration = POWERUP_DURATION * TICKS_PER_SECOND;
   powerup.isVisible = true;
 
+  // Each powerup type must overwrite this function 
+  powerup.effect = function () {
+  };
+
+  powerup.update = function () {
+    if (powerup.isPoweredUp) {
+      if (powerup.duration > 0) {
+        powerup.duration--;
+
+        // Make a call to each types defferent effect 
+        powerup.effect();
+      }
+      else {
+        // delete powerup
+        deleteGameObject(this);
+      }
+    }
+    else {
+      // Check collisions
+      if (Intersects(getPlayerX(), getPlayerY(), player.size, player.size, powerup.x, powerup.y, POWERUP_SIZE, POWERUP_SIZE)) {
+        powerup.isPoweredUp = true;
+        powerup.isVisible = false;
+      }
+    }
+  }
 
   return powerup;
 }
 
 
-// TODO
 function SpeedPowerup(x, y) {
   let speedPowerup = Powerup(x, y);
-  speedPowerup.visible = true;
   speedPowerup.sprite.src = 'sprites/player.jpg';
 
-  speedPowerup.update = function () {
-    if (speedPowerup.isPoweredUp) {
-      if (speedPowerup.duration > 0) {
-        speedPowerup.duration--;
-        // Increase velocity
-        player.speed = MAX_SPEED + 5;
-      }
-      else {
-        // delete powerup
-      }
-    }
-    else {
-      // Check collisions
-      if (Intersects(getPlayerX(), getPlayerY(), player.size, player.size, speedPowerup.x, speedPowerup.y, POWERUP_SIZE, POWERUP_SIZE)) {
-        speedPowerup.isPoweredUp = true;
-        speedPowerup.isVisible = false;
-        console.log("Has collided ");
-      }
-    }
-
+  // Override the powerups effect 
+  speedPowerup.effect = function () {
+    // Increase velocity
+    player.speed = MAX_SPEED + 5;
   }
 
   return speedPowerup;
 }
 
+
+
 function ExtraFlamePowerup(x, y) {
   let efPowerup = Powerup(x, y);
   efPowerup.visible = true;
   efPowerup.sprite.src = 'sprites/player.jpg';
-  efPowerup.update = function () {
-    if (efPowerup.isPoweredUp) {
-      efPowerup.timer--;
-      if (efPowerup.timer >= 0) {
-        // Increase range of bombs
-        player.currentBombPower = DEFAULT_BOMB_POWER + 1;
 
-      }
-
-    }
-    else {
-      if (getPlayerX(), getPlayerY(), player.size, player.size, SpeedPowerup(x), SpeedPowerup(y), POWERUP_SIZE, POWERUP_SIZE) {
-        efPowerup.isPoweredUp = true;
-        efPowerup.isVisible = false;
-
-      }
-
-    }
-
-  }
 
   return speedPowerup;
 }

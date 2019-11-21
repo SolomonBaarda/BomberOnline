@@ -129,16 +129,26 @@ function Player(name, x, y) {
         // Update the camera position to correctly render
         setCameraPosCentre(this.x + this.size / 2, this.y + this.size / 2);
       }
+    },
+
+    dropBomb: function () {
+      if (this.activeBombs < this.currentMaxBombs) {
+        // Centre of bomb should be centre of player
+        let trueX = this.x + this.size / 2 - BOMB_SIZE / 2;
+        let trueY = this.y + this.size / 2 - BOMB_SIZE / 2;
+
+        player.activeBombs++;
+
+        addGameObject(Bomb(trueX, trueY, BOMB_DEFAULT_TIMER, this));
+      }
     }
+
   }
   // Set image
   player.sprite = new Image();
   player.sprite.src = "sprites/player/still.png"
 
-
-
   console.log("Player has been set.");
-
 
   return player;
   // End of player
@@ -179,7 +189,7 @@ var i = 0
 
 //function that updates the players sprite for animation
 function updateSprite(direction) {
-//if up key pressed loop through the walkin up images
+  //if up key pressed loop through the walkin up images
   if (direction == "u") {
     player.sprite.src = playerUp[i].src;
     if (i >= 1) {
@@ -211,8 +221,8 @@ function updateSprite(direction) {
     }
     i = i + 1;
   }
-    //redraw the player 
-    setInterval(RenderPlayers(), 100);
+  //redraw the player 
+  setInterval(RenderPlayers(), 100);
 }
 
 

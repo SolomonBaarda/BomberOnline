@@ -253,20 +253,7 @@ function getAllConnectingTiles(x, y, width, height) {
 }
 
 
-// this should be in the player object
-function dropBomb(player) {
-  if (player.activeBombs < player.currentMaxBombs) {
-    // Centre of bomb should be centre of player
-    var trueX = getPlayerX() + player.size / 2 - BOMB_SIZE / 2;
-    var trueY = getPlayerY() + player.size / 2 - BOMB_SIZE / 2;
 
-    var bomb = Bomb(trueX, trueY, BOMB_DEFAULT_TIMER, player);
-
-    player.activeBombs++;
-
-    gameObjects.push(bomb);
-  }
-}
 
 /**
  * Function that calculates which tiles are affected by a bomb when it explodes.
@@ -347,14 +334,30 @@ function bombExplodeFinish(bomb) {
     }
   }
 
-  // Remove the bomb game object
-  for (var i = 0; i < gameObjects.length; i++) {
-    if (gameObjects[i] === bomb) {
-      // Remove the bomb from game objects
-      gameObjects.splice(i, 1);
-    }
-  }
+  deleteGameObject(bomb);
+}
 
+/**
+ * Function that removes an object from gameObjects. To be called once it's lifetime has expired.
+ * @param {*} object 
+ */
+function deleteGameObject(object) {
+    // Remove the bomb game object
+    for (var i = 0; i < gameObjects.length; i++) {
+      if (gameObjects[i] === object) {
+        // Remove the bomb from game objects
+        gameObjects.splice(i, 1);
+      }
+    }
+
+}
+
+/**
+ * Function that adds an object to gameObjects.
+ * @param {*} object 
+ */
+function addGameObject(object) {
+  gameObjects.push(object);
 }
 
 /**
