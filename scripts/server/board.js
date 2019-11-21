@@ -220,7 +220,7 @@ function Tile(xPosition, yPosition) {
     isCollidable: undefined,
     isEmpty: undefined,
     isDamaging: undefined,
-    // Message usef for the tutorial level. This is where the string is stored.
+    // Message used for the tutorial level. This is where the string is stored.
     message: undefined,
     spriteid: undefined
   }
