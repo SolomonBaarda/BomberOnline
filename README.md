@@ -9,23 +9,21 @@ Team members:
 - Akeil Nabi (an116)
 - Matthew Reidy (matthewreidy)
 
-# Plan
+## Plan
 
 Bomber Online is an MMO game inspired the iconic SNES game, Bomber Man.  The game is top down and tile based featuring tile collision and destructable tiles.  The game has a range of powerups that spawn around the map giving the player a range of advantages.  In the Battle Royale gamemode, up to 10 players fight while the map size slowly shrinks.  This forces the players to move towards the centre and fight only one remains.  
 
 
 ## Feature Checklist
 
-###Incomplete
-- Level layouts
-- Gamemodes
-- Unit tests
-- Sprites and animation
+### Incomplete
+- Check BomberOnline to-do list for a list of tasks.
 
-###In Progress
+### In Progress
 **Solomon***
 - Allowing for multiple player objects.
 - Score + leaderboard + In-game chat (Using the left canvas)
+- Server and DB stuff
 
 **Oliver**
 - Powerups + powerup manager
@@ -42,7 +40,7 @@ Bomber Online is an MMO game inspired the iconic SNES game, Bomber Man.  The gam
 - Animation
 - Sprites
 
-###Completed
+### Completed
 - UI
 - Board, player and tile rendering using canvas
 - Tile collision
@@ -51,13 +49,13 @@ Bomber Online is an MMO game inspired the iconic SNES game, Bomber Man.  The gam
 
 
 
-##Bugs & Fixes
+### Bugs & Fixes
 
-###Bugs
+### Bugs
 
 1. Bomb radius is too small
 
-###Patches
+### Patches
 
 - Name requirements now work, switch cases replaced by if statements.
 - Start button appears correctly
