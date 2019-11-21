@@ -52,7 +52,7 @@ function Bomb(x, y, seconds, owner) {
         // Call explode function in board when timer has finished
         playBombExplode();
         BombExplode(bomb.affected_tiles);
-        bomb.owner.activeBombs--;
+        bomb.owner.active<Bombs--;
         bomb.hasExploded = true;
         bomb.isVisible = false;
       }
@@ -134,16 +134,27 @@ function SpeedPowerup(x, y) {
 
 function ExtraFlamePowerup(x, y) {
   let efPowerup = Powerup(x, y);
-  efPowerup.visible = true;
   efPowerup.sprite.src = 'sprites/player.jpg';
+  efPowerup.effect = function (){
+    //increase power of bombs explosion
+    player.currentBombPower = DEFAULT_BOMB_POWER + 2;
 
+  }
 
-  return speedPowerup;
+  return efPowerup;
 }
 
 
 function ExtraBombPowerup(x, y) {
-  var extrabombPowerup = Powerup;
+  let ebPowerup = Powerup(x, y);
+  ebPowerup.sprite.src = 'sprites/player.jpg';
+  ebPowerup.effect = function (){
+    //increase power of bombs explosion
+    player.currentMaxBombs = DEFAULT_MAX_BOMBS + 1;
+
+  }
+
+  return ebPowerup;
 }
 function CollisionPowerup(x, y) {
   var collisionPowerup = Powerup;
