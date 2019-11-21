@@ -52,7 +52,7 @@ function Bomb(x, y, seconds, owner) {
         // Call explode function in board when timer has finished
         playBombExplode();
         BombExplode(bomb.affected_tiles);
-        bomb.owner.active<Bombs--;
+        bomb.owner.activeBombs--;
         bomb.hasExploded = true;
         bomb.isVisible = false;
       }
