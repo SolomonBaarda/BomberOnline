@@ -4,21 +4,24 @@
     "version": "1.0.0",
     "main": "index.html",
     "scripts": {
-        "build": "node build --output public"
+      "start": "nodemon src/index.js localhost 8080",
+      "build": "node build --output public"
     },
     "repository": {
-        "type": "git",
-        "url": "https://github.com/SolomonBaarda/BomberOnline/"
+      "type": "git",
+      "url": "https://github.com/SolomonBaarda/BomberOnline/"
     },
     "keywords": [],
     "author": "",
     "license": "ISC",
     "bugs": {
-        "url": "https://github.com/SolomonBaarda/BomberOnline/blob/master/Known%20Bugs"
+      "url": "https://github.com/SolomonBaarda/BomberOnline/blob/master/Known%20Bugs"
     },
     "homepage": "https://github.com/SolomonBaarda/BomberOnline/",
     "dependencies": {
-        "express": "^4.17.1",
-        "socket.io": "^2.3.0"
+      "express": "^4.17.1",
+      "socket.io": "^2.3.0",
+      "mysql": "2.17.1"
     }
-}
+  }
+  
