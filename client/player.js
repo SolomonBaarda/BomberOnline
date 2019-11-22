@@ -241,49 +241,6 @@ playerRight[2].src = "sprites/player/walkRight3.png"
 playerRight[3] = new Image();
 playerRight[3].src = "sprites/player/walkright4.png"
 
-//function that updates the players sprite for animation
-function updateSprite(direction) {
-  //if up key pressed loop through the walkin up images
-  if (direction == "u") {
-    player.sprite.src = playerUp[i].src;
-    if (i >= 1) {
-      i = -1
-    }
-    i = i + 1;
-  }
-  //if up down pressed loop through the walkin down images
-  else if (direction == "d") {
-    player.sprite.src = playerDown[i].src;
-    if (i >= 1) {
-      i = -1
-    }
-    i = i + 1;
-  }
-  //if left key pressed loop through the walkin left images
-  else if (direction == "l") {
-    player.sprite.src = playerLeft[i].src;
-    if (i >= 1) {
-      i = -1
-    }
-    i = i + 1;
-  }
-  //if up right pressed loop through the walkin right images
-  else if (direction == "r") {
-    player.sprite.src = playerRight[i].src;
-    if (i >= 1) {
-      i = -1
-    }
-    i = i + 1;
-  }
-
-  //redraw the player
-  var tick = 0;
-  if (tick % (TICKS_PER_SECOND / 2) == 0) {
-    UpdatePlayers();
-    tick = 0;
-  }
-}
-
 
 function getPlayerX() {
   return player.x;
