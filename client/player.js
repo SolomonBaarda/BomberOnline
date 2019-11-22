@@ -117,8 +117,10 @@ function Player(name, x, y) {
         // case, movement would need to be done in smaller steps. Check out
         // https://jonathanwhiting.com/tutorial/collision/ for an explanation on collision.
 
-        //start playing the background music on loop
+
+        //start playing the background music on a loop
         playBackgroundMusic();
+
 
         //temporary counter until i find a better solution
         var i = 0
@@ -168,13 +170,16 @@ function Player(name, x, y) {
 
 
         // Check that the new position isn't inside of an explosion
-        if (isInsideExplosion(this.x, this.y, this.size)) {
+        if (isInsideExplosion(this.x, this.y, this.size)) 
+        {
           // If it is, set the player to be dead
           this.isAlive = false;
-          //stop background music and play player death sound
-          stopBackgroundMusic();
+          //as the player dies and game ends, play player death sound and stop
+          //backgroud music
           playerDeathSound();
+          stopBackgroundMusic();
           GameOver();
+  
         }
 
         if (isMessageAt(this.x + (this.size / 2), this.y + (this.size / 2))) {
