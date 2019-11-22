@@ -152,7 +152,7 @@ function Player(name, x, y) {
             i = i + 1;
           }
           spriteTick = 0;
-          }
+        }
 
 
         // Check that the new position isn't inside of an explosion

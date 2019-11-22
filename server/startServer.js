@@ -32,3 +32,35 @@ app.use(express.static('./'));
 server.listen(port, function () {
   console.log('Server started on port ' +port);
 });
+
+
+/*
+  ************************************************************
+*/
+
+io.on('connection', (socket) => {
+  console.log("Connected");
+  
+});
+
+  // initalize a new player object
+  socket.on('new player', (name, maxX, maxY) => {
+      
+  });
+
+  socket.on('updatePlayer', (keyHandler) => {
+
+  });
+
+  socket.on('disconnect', (reason) => {
+ 
+  });
+
+// Main clock for the game 
+setInterval(() => {
+  if (players.length > 0) {
+      io.sockets.emit('drawPlayers', players);
+  }
+}, 1000 / TICKS_PER_SECOND);
+
+
