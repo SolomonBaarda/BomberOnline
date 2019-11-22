@@ -124,6 +124,8 @@ function SpeedPowerup(x, y) {
 
   // Override the powerups effect 
   speedPowerup.effect = function () {
+    //play power up sound effect
+    playPowerupAudio();
     // Increase velocity
     player.speed = MAX_SPEED + 5;
   }
@@ -137,6 +139,8 @@ function ExtraFlamePowerup(x, y) {
   let efPowerup = Powerup(x, y);
   efPowerup.sprite.src = 'sprites/player.jpg';
   efPowerup.effect = function (){
+    //play power up sound effect
+    playPowerupAudio();
     //increase power of bombs explosion
     player.currentBombPower = DEFAULT_BOMB_POWER + 2;
 
@@ -150,6 +154,8 @@ function ExtraBombPowerup(x, y) {
   let ebPowerup = Powerup(x, y);
   ebPowerup.sprite.src = 'sprites/player.jpg';
   ebPowerup.effect = function (){
+    //play power up sound effect
+    playPowerupAudio();
     //increase power of bombs explosion
     player.currentMaxBombs = DEFAULT_MAX_BOMBS + 1;
 
