@@ -13,12 +13,34 @@ end of the application
 - sound for player activating power up
 */
 
+
 //Initialise audio files to created variables
 
 var bombAudio = new Audio("sounds/bomb.wav");
-//function that plays each audio file
+var backgroundMusic = new Audio("sounds/background.mp3")
+var playerDeath = new Audio("sounds/death.mp3")
+
+//function that plays and stops each audio file
 
 function playBombAudio()
 {
 bombAudio.play();
+
+function playBackgroundMusic()
+{
+  backgroundMusic.loop = true;
+  backgroundMusic.play();
+}
+
+function stopBackgroundMusic() 
+{
+  backgroundMusic.loop = false;
+  backgroundMusic.pause();
+}
+
+function playerDeathSound() 
+{
+  playerDeath.play();
+}
+
 }
