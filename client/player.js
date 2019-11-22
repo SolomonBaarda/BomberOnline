@@ -131,14 +131,12 @@ function Player(name, x, y) {
         spriteTick++;
         //update the sprite image every 10 ticks
         if (spriteTick == 10) {
-          console.log("tick gets to 10")
           //if players x velocity is positive update sprites for moving right
           if (player.velX > 0) {
             player.sprite.src = playerRight[i].src;
             if (i >= 3) {
               i = -1
             }
-            console.log(i);
             i = i + 1;
           }
 
