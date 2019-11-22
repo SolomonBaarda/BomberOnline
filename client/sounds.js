@@ -10,12 +10,37 @@ end of the application
 - sound to signify start of the game
 - sound for explosion of bomb
 - sound for death of player/end of game
+- sound for player activating power up
 */
 
-//Initialise audio files to variables
-var bombExplodeAudio = new Audio("sounds/bomb.mp3");
 
-//plays the sound for bomb exploding
-function playBombExplode(){
-  bombExplodeAudio.play();
+//Initialise audio files to created variables
+
+var bombAudio = new Audio("sounds/bomb.wav");
+var backgroundMusic = new Audio("sounds/background.mp3")
+var playerDeath = new Audio("sounds/death.mp3")
+
+//function that plays and stops each audio file
+
+function playBombAudio()
+{
+bombAudio.play();
+
+function playBackgroundMusic()
+{
+  backgroundMusic.loop = true;
+  backgroundMusic.play();
+}
+
+function stopBackgroundMusic() 
+{
+  backgroundMusic.loop = false;
+  backgroundMusic.pause();
+}
+
+function playerDeathSound() 
+{
+  playerDeath.play();
+}
+
 }
