@@ -17,16 +17,17 @@ var bombExplodeAudio = new Audio("sounds/bomb.mp3");
 var backgroundMusic = new Audio("sounds/background.mp3")
 var playerDeath = new Audio("sounds/death.mp3")
 
+//play the background music on loop
 function playBackgroundMusic(){
   backgroundMusic.loop = true;
   backgroundMusic.play();
 }
-
+//stop playing the background music
 function stopBackgroundMusic() {
   backgroundMusic.loop = false;
   backgroundMusic.pause();
 }
-
+//play player death sound
 function playerDeathSound() {
   playerDeath.play();
 }

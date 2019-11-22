@@ -117,14 +117,17 @@ function Player(name, x, y) {
         // case, movement would need to be done in smaller steps. Check out
         // https://jonathanwhiting.com/tutorial/collision/ for an explanation on collision.
 
+        //start playing the background music on loop
         playBackgroundMusic();
 
         //temporary counter until i find a better solution
         var i = 0
 
+        //tick counter to update sprite image after x ticks
         spriteTick++;
-
+        //update the sprite image every 10 ticks
         if (spriteTick == 10) {
+          //if players x velocity is positive update sprites for moving right
           if (player.velX > 0) {
             player.sprite.src = playerRight[i].src;
             if (i >= 3) {
@@ -133,7 +136,7 @@ function Player(name, x, y) {
             i = i + 1;
           }
 
-          //if up down pressed loop through the walkin down images
+          //if players x velocity is negative update sprites for moving left
           else if (player.velX < 0) {
             player.sprite.src = playerLeft[i].src;
             if (i >= 1) {
@@ -142,7 +145,7 @@ function Player(name, x, y) {
             i = i + 1;
           }
 
-          //if left key pressed loop through the walkin left images
+          //if players y velocity is positive update sprites for moving down
           else if (player.velY > 0) {
             player.sprite.src = playerDown[i].src;
             if (i >= 3) {
@@ -151,7 +154,7 @@ function Player(name, x, y) {
             i = i + 1;
           }
 
-          //if up right pressed loop through the walkin right images
+          //if players y velocity is negative update sprites for moving up
           else if (player.velY < 0) {
             player.sprite.src = playerUp[i].src;
             if (i >= 3) {
@@ -159,7 +162,7 @@ function Player(name, x, y) {
             }
             i = i + 1;
           }
-
+          //set tick back to 0 after image updated
           spriteTick = 0;
         }
 
@@ -168,6 +171,7 @@ function Player(name, x, y) {
         if (isInsideExplosion(this.x, this.y, this.size)) {
           // If it is, set the player to be dead
           this.isAlive = false;
+          //stop background music and play player death sound
           stopBackgroundMusic();
           playerDeathSound();
           GameOver();
