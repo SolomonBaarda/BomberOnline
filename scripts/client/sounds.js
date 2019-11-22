@@ -12,10 +12,12 @@ end of the application
 - sound for death of player/end of game
 */
 
-//Initialise audio files to variables
-var bombExplodeAudio = new Audio("sounds/bomb.mp3");
+//Initialise audio files to created variables
 
-//plays the sound for bomb exploding
-function playBombExplode(){
-  bombExplodeAudio.play();
+var bombAudio = new Audio("sounds/bomb.wav");
+//function that plays each audio file
+
+function playBombAudio()
+{
+bombAudio.play();
 }
