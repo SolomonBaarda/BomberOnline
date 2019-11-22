@@ -13,6 +13,9 @@ const DEFAULT_PLAYER_SIZE = 3 * PIXELS_PER_TILE / 4;
 
 var spriteTick = 0;
 
+//temporary counter until i find a better solution
+var i = 0
+
 // Initialise new player
 function Player(name, x, y) {
   let player = {
@@ -122,19 +125,20 @@ function Player(name, x, y) {
         playBackgroundMusic();
 
 
-        //temporary counter until i find a better solution
-        var i = 0
+
 
         //tick counter to update sprite image after x ticks
         spriteTick++;
         //update the sprite image every 10 ticks
         if (spriteTick == 10) {
+          console.log("tick gets to 10")
           //if players x velocity is positive update sprites for moving right
           if (player.velX > 0) {
             player.sprite.src = playerRight[i].src;
             if (i >= 3) {
               i = -1
             }
+            console.log(i);
             i = i + 1;
           }
 
@@ -170,7 +174,7 @@ function Player(name, x, y) {
 
 
         // Check that the new position isn't inside of an explosion
-        if (isInsideExplosion(this.x, this.y, this.size)) 
+        if (isInsideExplosion(this.x, this.y, this.size))
         {
           // If it is, set the player to be dead
           this.isAlive = false;
@@ -179,7 +183,7 @@ function Player(name, x, y) {
           playerDeathSound();
           stopBackgroundMusic();
           GameOver();
-  
+
         }
 
         if (isMessageAt(this.x + (this.size / 2), this.y + (this.size / 2))) {
