@@ -32,13 +32,13 @@ function playBackgroundMusic()
   backgroundMusic.play();
 }
 
-function stopBackgroundMusic() 
+function stopBackgroundMusic()
 {
   backgroundMusic.loop = false;
   backgroundMusic.pause();
 }
 
-function playerDeathSound() 
+function playerDeathSound()
 {
   playerDeath.play();
 }
