@@ -121,9 +121,10 @@ function Player(name, x, y) {
         // https://jonathanwhiting.com/tutorial/collision/ for an explanation on collision.
 
 
-        //start playing the background music on a loop
-        playBackgroundMusic();
+       
 
+
+        
 
 
 
