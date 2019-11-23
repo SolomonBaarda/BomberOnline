@@ -39,7 +39,7 @@ server.listen(port, function () {
 console.log(board);
 
 // Generate the board for the server
-generateBattleRoyale();
+//generateBattleRoyale();
 
 console.log(board);
 
