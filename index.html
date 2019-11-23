@@ -14,14 +14,15 @@
   <script src="/socket.io/socket.io.js"></script>
 
   <script>
-    var socket = io();
+    $(function () {
+      var socket = io();
+    });
   </script>
 
-  <script src="server/game.js"></script>
 
   <!-- I don't know if these should be in here
+  <script src="server/game.js"></script>
   <script src="database.js"></script>
-  <script src= "startServer.js"></script>
   -->
 
   <!-- Load JQuery library. Hosted by Google. Defer until page has loaded -->

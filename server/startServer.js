@@ -1,38 +1,34 @@
 // Dependencies
-var express = require('express')();
-var server = require('http').createServer(express);
+var express = require('express');
+var http = require('http');
+
+var http = require('path');
+var socketIO = require('socket.io');
 
 var path = require('path');
+var app = express();
 
-var io = require('socket.io')(http);
-//var app = express();
-
-//var server = http.Server(app);
-//var io = socketIO(server);
+var server = http.Server(app);
+var io = socketIO(server);
 
 // JS Module imports
 
 
 // Routing to index.html
 app.get('/', function (request, response) {
-  //response.sendFile(path.join(__dirname, 'index.html'));
-  response.sendFile(__dirname + '/index.html');
+  response.sendFile(path.join(__dirname, 'index.html'));
 });
 
 
-var port = process.env.port || 5000;
+// Set port 
+var port = process.env.port || 3000;
+
 console.log(port);
 
 
-/*
-app.set('port', 8080);
-app.use(express.static('./'));
-*/
-
-
 // Start the server
-server.listen(3000, function () {
-  console.log('Server started on port ' + port);
+server.listen(port, function () {
+  console.log('Server started on port: ' + port);
 });
 
 
