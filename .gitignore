@@ -1,3 +1,4 @@
 # Ignores the node_modules folder when pushing commits to github.
 /node_modules/
 .DS_Store
+.vscode
