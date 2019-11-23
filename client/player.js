@@ -240,11 +240,11 @@ var playerRight = [];
 playerRight[0] = new Image();
 playerRight[0].src = "sprites/player/walkRight1.png"
 playerRight[1] = new Image();
-playerRight[1].src = "sprites/player/walkright2.png"
+playerRight[1].src = "sprites/player/walkRight2.png"
 playerRight[2] = new Image();
 playerRight[2].src = "sprites/player/walkRight3.png"
 playerRight[3] = new Image();
-playerRight[3].src = "sprites/player/walkright4.png"
+playerRight[3].src = "sprites/player/walkRight4.png"
 
 
 function getNextSpriteIndex(current) {

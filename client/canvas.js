@@ -161,8 +161,9 @@ function RenderPlayers() {
     if (players[i].isAlive) {
       let playerOnCanvasX = canvasCentreX - (players[i].size / 2);
       let playerOnCanvasY = canvasCentreY - (players[i].size / 2);
-      // Render the player
+      
       if (players[i].sprite.src != "") {
+        // Render the player
         canvas_ctx.drawImage(players[i].sprite, playerOnCanvasX, playerOnCanvasY, players[i].size, players[i].size);
       }
     }
