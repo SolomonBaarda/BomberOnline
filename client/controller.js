@@ -2,6 +2,11 @@
 This is the script for controlling the player movement.
 */
 
+var socket = io();
+socket.on('message', function(data) {
+  console.log(data);
+});
+
 // Boolean values for the active direction
 var movement = {
   up: false,
@@ -128,7 +133,12 @@ function KeyUp(e) {
 }
 
 // Calls InitialiseController on the server
-//socket.emit('new player');
+
+// socket.emit('new player');
+// socket.emit('initController', InitialiseController());
+// socket.emit('KeyDown', KeyDown());
+// socket.emit('KeyUp', KeyUp());
+
 //Sends the keyboard inputs of the client to the server 60x a second
 // setInterval(function () {
 //   socket.emit('movement', movement);

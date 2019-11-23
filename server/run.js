@@ -9,7 +9,7 @@ var tickCount = 0;
 function Timer() {
   // Update method that calls all sub update methods
   Update();
-  // Render method that calls all sub render methods
+  // Render method that calls all sub render methods 
   Render();
 
   // Call timer again in 1 tick
@@ -27,14 +27,14 @@ function Update() {
   //console.log("Game updated");
 }
 
-// The main render function
+// The main render function 
 function Render() {
   tickCount++;
 
   // Render the main canvas
   RenderCanvas()
 
-  // Render map 4 times per second as its pretty laggy
+  // Render map 4 times per second as its pretty laggy 
   if (tickCount % (TICKS_PER_SECOND / 4) == 0) {
     RenderMap();
     tickCount = 0;
