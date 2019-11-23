@@ -49,7 +49,7 @@ console.log(board);
   I believe this is because var 'socket' is not being created properly. 
 */
 io.on('connection', (socket) => {
-  console.log("Player connected");
+  console.log("player connected");
 
   socket.emit('status', { hello: 'world' });
 
