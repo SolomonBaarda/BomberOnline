@@ -73,3 +73,21 @@ function Smallest(a, b) {
         return a;
     }
 }
+
+/**
+ * Function that returns the largest of two values.
+ * @param {*} a
+ * @param {*} b
+ */
+function Largest(a, b) {
+    if (a > b) {
+        return a;
+    }
+    else if (b > a) {
+        return b;
+    }
+    else {
+        // If the same just return one
+        return a;
+    }
+}

@@ -16,11 +16,6 @@ const DEFAULT_BOMB_POWER = 1;
 // Size of the player
 const DEFAULT_PLAYER_SIZE = (3 * PIXELS_PER_TILE) / 4;
 
-var spriteTick = 0;
-
-//temporary counter until i find a better solution
-var i = 0
-
 // Initialise new player
 function Player(name, x, y) {
   let player = {
@@ -49,6 +44,8 @@ function Player(name, x, y) {
 
     // Reference to the element image
     sprite: undefined,
+    spriteTick: 0,
+    spriteIndex: 0,
 
     // Move functions - they set the x and y velocities
     moveUp: function () {
@@ -110,7 +107,7 @@ function Player(name, x, y) {
         }
 
         // Update y position
-        var newY = Clamp(this.y + this.velY, minY, maxY);
+        let newY = Clamp(this.y + this.velY, minY, maxY);
 
         // Update new y position
         if (newY != oldY) {
@@ -130,46 +127,32 @@ function Player(name, x, y) {
         */
 
         //tick counter to update sprite image after x ticks
-        spriteTick++;
+        this.spriteTick++;
+        
         //update the sprite image every 10 ticks
-        if (spriteTick == 10) {
+        if (this.spriteTick == 10) {
           //if players x velocity is positive update sprites for moving right
-          if (player.velX > 0) {
-            player.sprite.src = playerRight[i].src;
-            if (i >= 3) {
-              i = -1
-            }
-            i = i + 1;
+          if (this.velX > 0) {
+            this.spriteIndex = getNextSpriteIndex(this.spriteIndex);
+            this.sprite.src = playerRight[this.spriteIndex].src;
           }
-
           //if players x velocity is negative update sprites for moving left
-          else if (player.velX < 0) {
-            player.sprite.src = playerLeft[i].src;
-            if (i >= 1) {
-              i = -1
-            }
-            i = i + 1;
+          else if (this.velX < 0) {
+            this.spriteIndex = getNextSpriteIndex(this.spriteIndex);
+            this.sprite.src = playerLeft[this.spriteIndex].src;
           }
-
           //if players y velocity is positive update sprites for moving down
-          else if (player.velY > 0) {
-            player.sprite.src = playerDown[i].src;
-            if (i >= 3) {
-              i = -1
-            }
-            i = i + 1;
+          else if (this.velY > 0) {
+            this.spriteIndex = getNextSpriteIndex(this.spriteIndex);
+            this.sprite.src = playerDown[this.spriteIndex].src;
           }
-
           //if players y velocity is negative update sprites for moving up
-          else if (player.velY < 0) {
-            player.sprite.src = playerUp[i].src;
-            if (i >= 3) {
-              i = -1
-            }
-            i = i + 1;
+          else if (this.velY < 0) {
+            this.spriteIndex = getNextSpriteIndex(this.spriteIndex);
+            this.sprite.src = playerUp[this.spriteIndex].src;
           }
           //set tick back to 0 after image updated
-          spriteTick = 0;
+          this.spriteTick = 0;
         }
 
 
@@ -262,6 +245,17 @@ playerRight[2] = new Image();
 playerRight[2].src = "sprites/player/walkRight3.png"
 playerRight[3] = new Image();
 playerRight[3].src = "sprites/player/walkright4.png"
+
+
+function getNextSpriteIndex(current) {
+  let next = current + 1;
+
+  if (next >= playerUp.length) {
+    next = 0;
+  }
+
+  return next;
+}
 
 
 function getPlayerX() {

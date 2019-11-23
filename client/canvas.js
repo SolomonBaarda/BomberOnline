@@ -132,7 +132,7 @@ function RenderMessage() {
       }
       else {
         messageToLong = true;
-        console.error("Message "+message+ " could not be displayed as it is too long.")
+        console.error("Message " + message + " could not be displayed as it is too long.")
         return;
       }
     }
@@ -161,8 +161,10 @@ function RenderPlayers() {
     if (players[i].isAlive) {
       let playerOnCanvasX = canvasCentreX - (players[i].size / 2);
       let playerOnCanvasY = canvasCentreY - (players[i].size / 2);
-
-      canvas_ctx.drawImage(players[i].sprite, playerOnCanvasX, playerOnCanvasY, players[i].size, players[i].size);
+      // Render the player
+      if (players[i].sprite.src != "") {
+        canvas_ctx.drawImage(players[i].sprite, playerOnCanvasX, playerOnCanvasY, players[i].size, players[i].size);
+      }
     }
   }
 
