@@ -13,7 +13,7 @@ function Timer() {
   Render();
 
   // Call timer again in 1 tick
-  myTime = setTimeout('Timer()', 1000 / TICKS_PER_SECOND);
+  //myTime = setTimeout('Timer()', 1000 / TICKS_PER_SECOND);
 }
 
 // The main update function will call all others

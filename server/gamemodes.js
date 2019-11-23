@@ -38,10 +38,21 @@ function SpawnPlayer(playerName, x, y) {
 }
 
 
-function loadBattleRoyale(playerName) {
-  // Add one to the size so that a  player can stand in the very centre
-  generateBattleRoyale(BATTLE_ROYALE_BOARD_SIZE, BATTLE_ROYALE_BOARD_SIZE, 60);
 
+function removePlayer(player) {
+    // Remove the right player
+    for (var i = 0; i < gameObjects.length; i++) {
+      if (players[i] === player) {
+        // Remove the bomb from game objects
+        players.splice(i, 1);
+      }
+    }
+    
+    delete(player);
+}
+
+
+function loadBattleRoyale(playerName) {
   // For now, just spawn the player at a random, empty tile
   let x = Math.floor(Clamp(Math.random() * BATTLE_ROYALE_BOARD_SIZE, 0, BATTLE_ROYALE_BOARD_SIZE));
   let y = Math.floor(Clamp(Math.random() * BATTLE_ROYALE_BOARD_SIZE, 0, BATTLE_ROYALE_BOARD_SIZE));

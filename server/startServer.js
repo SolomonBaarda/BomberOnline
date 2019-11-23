@@ -30,7 +30,7 @@ app.use(express.static('./'));
 
 // Start the server
 server.listen(port, function () {
-  console.log('Server started on port ' +port);
+  console.log('Server started on port ' + port);
 });
 
 
@@ -38,28 +38,48 @@ server.listen(port, function () {
   ************************************************************
 */
 
+// Generate the board for the server
+generateBattleRoyale();
+
 io.on('connection', (socket) => {
-  console.log("Connected");
-  
+  console.log("Player connected");
+
+  // Initalize a new player object
+  socket.on('new player', (username) => {
+    // This function creates a new player and spawns them
+    loadBattleRoyale(username)
+    console.log("Player "+username+" added to the game.");
+  });
+
+
+
+  // Update a players position 
+  socket.on('updatePlayer', (keyHandler) => {
+    // get player from server and set its x and y to the player here
+    // local player has all the collision detection so just set them to be the same 
+
+
+  });
+
+  // Disconnect the player from the game if they disconect 
+  socket.on('disconnect', (reason) => {
+
+    // First get the player 
+
+    // Remove them 
+    removePlayer(player);
+  });
+
 });
 
-  // initalize a new player object
-  socket.on('new player', (name, maxX, maxY) => {
-      
-  });
 
-  socket.on('updatePlayer', (keyHandler) => {
 
-  });
 
-  socket.on('disconnect', (reason) => {
- 
-  });
 
 // Main clock for the game 
 setInterval(() => {
   if (players.length > 0) {
-      io.sockets.emit('drawPlayers', players);
+    io.sockets.emit('Timer');
   }
 }, 1000 / TICKS_PER_SECOND);
 

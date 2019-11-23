@@ -97,9 +97,12 @@ function generateTutorial(width, height) {
  * @param {*} warmupSeconds 
  */
 
-function generateBattleRoyale(warmupSeconds) {
+function generateBattleRoyale() {
   width = 64;
   height = 64;
+
+  warmupSeconds = 60;
+
   isBattleRoyale = true;
   initialBoardTimer = warmupSeconds * TICKS_PER_SECOND;
   secondaryBoardTimer = DEFAULT_SECONDARY_BOARD_TIMER;
