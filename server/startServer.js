@@ -43,6 +43,11 @@ console.log(board);
 console.log(board);
 
 
+
+/* 
+  These three functions are throwing the error "Failed to load resource: the server responded with a status of 404 ()"
+  I believe this is because var 'socket' is not being created properly. 
+*/
 io.on('connection', (socket) => {
   console.log("Player connected");
 
