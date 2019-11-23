@@ -2,11 +2,11 @@
 This is the script for the all game objects
 */
 
-const BOMB_SIZE = PIXELS_PER_TILE / 2;
+const BOMB_SIZE = PIXELS_PER_TILE;
 const BOMB_DEFAULT_TIMER = 2;
 
 // all powerups have the same constant width and height
-const POWERUP_SIZE = PIXELS_PER_TILE / 2;
+const POWERUP_SIZE = PIXELS_PER_TILE;
 const POWERUP_DURATION = 6;
 
 var EXPLOSION_SPRITE = new Image()

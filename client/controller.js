@@ -2,10 +2,10 @@
 This is the script for controlling the player movement.
 */
 
-var socket = io();
-socket.on('message', function(data) {
-  console.log(data);
-});
+// var socket = io();
+// socket.on('message', function(data) {
+//   console.log(data);
+// });
 
 // Boolean values for the active direction
 var movement = {

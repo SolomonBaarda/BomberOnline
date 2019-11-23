@@ -2,10 +2,10 @@
 This is the script for the player class.
 */
 
-module.exports = {
-  x: getPlayerX(),
-  y: getPlayerY()
-}
+// module.exports = {
+//   x: getPlayerX(),
+//   y: getPlayerY()
+// }
 
 // Maximum speed the player can move at
 const MAX_SPEED = 2;
@@ -13,8 +13,8 @@ const MAX_SPEED = 2;
 const DEFAULT_MAX_BOMBS = 1;
 // Strength of bombs by default
 const DEFAULT_BOMB_POWER = 1;
-
-const DEFAULT_PLAYER_SIZE = 3 * PIXELS_PER_TILE / 4;
+// Size of the player
+const DEFAULT_PLAYER_SIZE = (3 * PIXELS_PER_TILE) / 4;
 
 var spriteTick = 0;
 
@@ -125,13 +125,9 @@ function Player(name, x, y) {
         // case, movement would need to be done in smaller steps. Check out
         // https://jonathanwhiting.com/tutorial/collision/ for an explanation on collision.
 
-
-       
-
-
-        
-
-
+        /*
+          Sprite stuff 
+        */
 
         //tick counter to update sprite image after x ticks
         spriteTick++;
@@ -178,8 +174,7 @@ function Player(name, x, y) {
 
 
         // Check that the new position isn't inside of an explosion
-        if (isInsideExplosion(this.x, this.y, this.size))
-        {
+        if (isInsideExplosion(this.x, this.y, this.size)) {
           // If it is, set the player to be dead
           this.isAlive = false;
           //as the player dies and game ends, play player death sound and stop
