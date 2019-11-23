@@ -15,7 +15,8 @@ var io = require('socket.io')(http);
 
 // Routing to index.html
 app.get('/', function (request, response) {
-  response.sendFile(path.join(__dirname, 'index.html'));
+  //response.sendFile(path.join(__dirname, 'index.html'));
+  response.sendFile(__dirname + '/index.html');
 });
 
 
@@ -30,7 +31,7 @@ app.use(express.static('./'));
 
 
 // Start the server
-server.listen(port, function () {
+server.listen(3000, function () {
   console.log('Server started on port ' + port);
 });
 
