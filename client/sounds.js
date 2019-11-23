@@ -23,6 +23,7 @@ var powerupAudio = new Audio("sounds/powerup.wav");
 var gameStart = new Audio("sounds/start.ogg")
 var buttonClick = new Audio("sounds/button.wav")
 
+
 //function that plays/stops each audio file
 
 function playBombAudio()
