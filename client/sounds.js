@@ -17,14 +17,18 @@ end of the application
 //Initialise audio files to created variables
 
 var bombAudio = new Audio("sounds/bomb.wav");
-var backgroundMusic = new Audio("sounds/background.mp3")
-var playerDeath = new Audio("sounds/death.mp3")
+var backgroundMusic = new Audio("sounds/background.mp3");
+var playerDeath = new Audio("sounds/death.mp3");
+var powerupAudio = new Audio("sounds/powerup.wav");
+var gameStart = new Audio("sounds/start.ogg")
+var buttonClick = new Audio("sounds/button.wav")
 
-//function that plays and stops each audio file
+//function that plays/stops each audio file
 
 function playBombAudio()
 {
 bombAudio.play();
+}
 
 function playBackgroundMusic()
 {
@@ -32,15 +36,28 @@ function playBackgroundMusic()
   backgroundMusic.play();
 }
 
-function stopBackgroundMusic() 
+function stopBackgroundMusic()
 {
   backgroundMusic.loop = false;
   backgroundMusic.pause();
 }
 
-function playerDeathSound() 
+function playerDeathSound()
 {
   playerDeath.play();
 }
 
+function playPowerupAudio()
+{
+  powerupAudio.play();
+}
+
+function playStartSound()
+{
+gameStart.play();
+}
+
+function playButtonClick()
+{
+buttonClick.play();
 }
