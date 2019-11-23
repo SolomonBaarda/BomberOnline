@@ -81,9 +81,14 @@ io.on('connection', (socket) => {
 
 // Main clock for the game 
 setInterval(() => {
+  console.log("setInterval called");
+
   if (players.length > 0) {
     io.sockets.emit('Timer');
+    console.log("io.socket.emit(Timer)");
+    
   }
+  
 }, 1000 / TICKS_PER_SECOND);
 
 
