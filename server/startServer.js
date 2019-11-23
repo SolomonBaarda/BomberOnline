@@ -1,13 +1,14 @@
 // Dependencies
-var express = require('express');
-var http = require('http');
+var express = require('express')();
+var server = require('http').createServer(express);
+
 var path = require('path');
 
-var socketIO = require('socket.io');
-var app = express();
+var io = require('socket.io')(http);
+//var app = express();
 
-var server = http.Server(app);
-var io = socketIO(server);
+//var server = http.Server(app);
+//var io = socketIO(server);
 
 // JS Module imports
 

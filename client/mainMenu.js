@@ -73,7 +73,7 @@ function showNameSelection() {
 
   // Set initial attributes for newly displayed elements.
   document.getElementById("playBox").style.display = "grid";
-  document.getElementById("pBoxHeader").innerHTML = "Select your colour and enter a name";
+  //document.getElementById("pBoxHeader").innerHTML = "Select your colour and enter a name";
   document.getElementById("playBox").style.border = "6px solid white";
 }
 
