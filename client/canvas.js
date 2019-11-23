@@ -65,10 +65,6 @@ function RenderCanvas() {
 }
 
 function RenderBoard() {
-  // Draw black background
-  canvas_ctx.fillStyle = "#000000";
-  canvas_ctx.fillRect(0, 0, canvas.width, canvas.height);
-
   // Get the min and max values for the tiles visible on screen (around the player)
   // This means only tiles visible on the screen are rendered
   let tileMin = getNearestTile(cameraOffsetX, cameraOffsetY);
@@ -82,7 +78,7 @@ function RenderBoard() {
       let tileCanvasY = y * PIXELS_PER_TILE - cameraOffsetY;
 
       // Draw the tile
-      var spriteImg = new Image(16, 16);
+      let spriteImg = new Image(16, 16);
       switch (board[x][y].spriteid) {
         case 0:
           spriteImg.src = 'sprites/tileset/cropped/emptyTile.png';

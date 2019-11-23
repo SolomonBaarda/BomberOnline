@@ -101,8 +101,8 @@ function generateTutorial(width, height) {
  */
 
 function generateBattleRoyale(warmupSeconds) {
-  width = 16;
-  height = 16;
+  width = 64;
+  height = 64;
   isBattleRoyale = true;
   initialBoardTimer = warmupSeconds * 60;
   secondaryBoardTimer = DEFAULT_SECONDARY_BOARD_TIMER;
@@ -342,13 +342,13 @@ function bombExplodeFinish(bomb) {
  * @param {*} object 
  */
 function deleteGameObject(object) {
-    // Remove the bomb game object
-    for (var i = 0; i < gameObjects.length; i++) {
-      if (gameObjects[i] === object) {
-        // Remove the bomb from game objects
-        gameObjects.splice(i, 1);
-      }
+  // Remove the bomb game object
+  for (var i = 0; i < gameObjects.length; i++) {
+    if (gameObjects[i] === object) {
+      // Remove the bomb from game objects
+      gameObjects.splice(i, 1);
     }
+  }
 
 }
 
@@ -520,21 +520,25 @@ function UpdateBoard() {
       initialBoardTimer--;
     }
     else {
-      if(!toldInitialMessage) {
+      if (toldInitialMessage) {
+        // Secondary timer for time between each block moving
+        if (secondaryBoardTimer > 0) {
+          secondaryBoardTimer--;
+        }
+        else {
+          // Reset timer update wall position
+          secondaryBoardTimer = DEFAULT_SECONDARY_BOARD_TIMER;
+          currentWallPosition++;
+          UpdateWallPosition(currentWallPosition);
+        }
+      }
+      // Display a message to the players that the wall is closing in
+      else {
         DisplayAlert("Warning! The wall is now closing in!", 5);
         toldInitialMessage = true;
-      }
-      // Secondary timer for time between each block moving
-      if (secondaryBoardTimer > 0) {
-        secondaryBoardTimer--;
-      }
-      else {
-        // Reset timer update wall position
-        secondaryBoardTimer = DEFAULT_SECONDARY_BOARD_TIMER;
-        currentWallPosition++;
-        UpdateWallPosition(currentWallPosition);
       }
     }
   }
 
 }
+
