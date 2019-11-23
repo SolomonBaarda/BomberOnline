@@ -25,7 +25,6 @@ var port = process.env.port || 3000;
 
 console.log(port);
 
-
 // Start the server
 server.listen(port, function () {
   console.log('Server started on port: ' + port);
@@ -46,6 +45,8 @@ console.log(board);
 
 io.on('connection', (socket) => {
   console.log("Player connected");
+
+  socket.emit('status', { hello: 'world' });
 
   // Initalize a new player object
   socket.on('new player', (username) => {
