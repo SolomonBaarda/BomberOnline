@@ -128,8 +128,8 @@ function KeyUp(e) {
 }
 
 // Calls InitialiseController on the server
-socket.emit('new player');
+//socket.emit('new player');
 //Sends the keyboard inputs of the client to the server 60x a second
-setInterval(function () {
-  socket.emit('movement', movement);
-}, 1000 / 60);
+// setInterval(function () {
+//   socket.emit('movement', movement);
+// }, 1000 / 60);

@@ -118,7 +118,7 @@ function Player(name, x, y) {
         // https://jonathanwhiting.com/tutorial/collision/ for an explanation on collision.
 
         //start playing the background music on loop
-        playBackgroundMusic();
+        //playBackgroundMusic();
 
         //temporary counter until i find a better solution
         var i = 0
