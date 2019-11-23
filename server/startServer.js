@@ -38,8 +38,13 @@ server.listen(port, function () {
   ************************************************************
 */
 
+console.log(board);
+
 // Generate the board for the server
 generateBattleRoyale();
+
+console.log(board);
+
 
 io.on('connection', (socket) => {
   console.log("Player connected");
@@ -48,7 +53,7 @@ io.on('connection', (socket) => {
   socket.on('new player', (username) => {
     // This function creates a new player and spawns them
     loadBattleRoyale(username)
-    console.log("Player "+username+" added to the game.");
+    console.log("Player " + username + " added to the game.");
   });
 
 

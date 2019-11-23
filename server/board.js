@@ -90,12 +90,6 @@ function generateTutorial(width, height) {
 }
 
 
-/**
- * 
- * @param {*} width 
- * @param {*} height 
- * @param {*} warmupSeconds 
- */
 
 function generateBattleRoyale() {
   width = 64;
