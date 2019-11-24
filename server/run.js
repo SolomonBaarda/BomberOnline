@@ -41,6 +41,7 @@ function Render() {
   }
 }
 
-function stopTimer() {
+
+function StopTimer() {
   clearTimeout(myTime);
 }

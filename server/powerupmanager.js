@@ -39,8 +39,8 @@ function spawnRandomPowerup() {
 function UpdatePowerupManager() {
   powerupManagerTicks++;
 
-  // Trigger every second
-  if (powerupManagerTicks % TICKS_PER_SECOND == 0) {
+  // Trigger every 3 seconds
+  if (powerupManagerTicks % (3 * TICKS_PER_SECOND) == 0) {
     powerupManagerTicks = 0;
 
     spawnRandomPowerup();
