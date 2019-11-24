@@ -2,6 +2,9 @@
 This is the script for the main game board.
 */
 
+// Create socket var
+var socket = io();
+
 var board;
 var boardHeight;
 var boardWidth;
@@ -469,6 +472,10 @@ function UpdateWallPosition(pos) {
       if (board[allPositions[i].x][allPositions[i].y].isDestructable) {
         board[allPositions[i].x][allPositions[i].y].destroy();
       }
+      else {
+        board[allPositions[i].x][allPositions[i].y] = EmptyTile(board[allPositions[i].x][allPositions[i].y].x, board[allPositions[i].x][allPositions[i].y].y);
+      }
+
       // Set it to destructable 
       if (board[allPositions[i].x][allPositions[i].y].isEmpty) {
         board[allPositions[i].x][allPositions[i].y].isDamaging = true;
@@ -536,6 +543,8 @@ function UpdateBoard() {
         toldInitialMessage = true;
       }
     }
+
+    UpdatePowerupManager();
   }
 
 }

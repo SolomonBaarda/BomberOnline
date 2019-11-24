@@ -2,6 +2,8 @@
 This is the script for ensuring the players username input is valid.
 */
 
+const USERNAME_MIN_LENGTH = 2;
+const USERNAME_MAX_LENGTH = 12;
 
 
 /** 
@@ -47,6 +49,35 @@ function CreateAccount() {
     if (password == password2) {
       // Need to check that the new account isnt already in the database and if so add it 
       document.getElementById('errorMsg').innerHTML = "Account is valid!";
+
+      // Send the new account to the database 
+      $.ajax({
+        async: false,
+        // get places arguments in query string (post doesn't)
+        // get call in ajax has a size limitation on the amount of data
+        // get is used to get data to display on the screen 
+        // post is used to update data on the server 
+        type: 'POST',
+        url: '/dbInteraction/user/createAccount/',
+        // Turn the data into a json string 
+        data: JSON.stringify({
+          username: userName,
+          password: password
+        }),
+        contentType: 'application/json',
+
+        success: function (result) {
+          console.log(result);
+        },
+
+        error: function (xhr, status, error) {
+          var errorResponse = xhr.responseJSON;
+          document.getElementById("error").innerHTML += errorResponse.message + "<br>";
+          document.getElementById("error").style.display = "block";
+          loginSignupValid = false;
+        }
+      });
+
       SetName();
     }
     else {
@@ -62,9 +93,9 @@ function CreateAccount() {
  */
 function validInput(input) {
   // between 2 and 12 chars long
-  if (input.length > 12 || input.length < 2) {
-    console.error("Error: Input must be between 2 and 12 characters.");
-    document.getElementById('errorMsg').innerHTML = "Input must be between 2 and 12 characters!";
+  if (input.length > USERNAME_MAX_LENGTH || input.length < USERNAME_MIN_LENGTH) {
+    console.error("Error: Input must be between " + USERNAME_MIN_LENGTH + " and " + USERNAME_MAX_LENGTH + " characters.");
+    document.getElementById('errorMsg').innerHTML = "Input must be between " + USERNAME_MIN_LENGTH + " and " + USERNAME_MAX_LENGTH + " characters!";
 
     return false;
   }
