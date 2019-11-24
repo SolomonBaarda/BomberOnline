@@ -2,6 +2,9 @@
 This is the script for the main game board.
 */
 
+// Create socket var
+var socket = io();
+
 var board;
 var boardHeight;
 var boardWidth;
