@@ -469,6 +469,10 @@ function UpdateWallPosition(pos) {
       if (board[allPositions[i].x][allPositions[i].y].isDestructable) {
         board[allPositions[i].x][allPositions[i].y].destroy();
       }
+      else {
+        board[allPositions[i].x][allPositions[i].y] = EmptyTile(board[allPositions[i].x][allPositions[i].y].x, board[allPositions[i].x][allPositions[i].y].y);
+      }
+
       // Set it to destructable 
       if (board[allPositions[i].x][allPositions[i].y].isEmpty) {
         board[allPositions[i].x][allPositions[i].y].isDamaging = true;

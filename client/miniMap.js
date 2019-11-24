@@ -25,39 +25,33 @@ function InitialiseMap() {
 function RenderMap() {
   map_ctx.clearRect(0, 0, map.width, map.height);
 
-  // Draw black background
-  map_ctx.fillStyle = "#000000";
-  map_ctx.fillRect(0, 0, map.width, map.height);
-
+  // Draw tiles first 
   for (let tileY = 0; tileY < boardHeight; tileY++) {
     for (let tileX = 0; tileX < boardWidth; tileX++) {
+      map_ctx.drawImage(board[tileX][tileY].sprite, tileX * mapPixelsPerTile, tileY * mapPixelsPerTile, mapPixelsPerTile, mapPixelsPerTile);
 
-      if (board[tileX][tileY].isEmpty) {
-        // Set explosion colour
-        if (board[tileX][tileY].isDamaging) {
-          map_ctx.fillStyle = "#FFA500";
-        }
-        // Empty tile colour
-        else {
-          map_ctx.fillStyle = "#282828";
-        }
-      }
-      // Indestructable tile
-      else if (!board[tileX][tileY].isDestructable) {
-        map_ctx.fillStyle = "#D3D3D3";
-      }
-      // Destructable, not destroyed tile
-      else if (board[tileX][tileY].isDestructable) {
-        map_ctx.fillStyle = "#808080";
+      if (board[tileX][tileY].isDamaging) {
+        map_ctx.fillStyle = "#FFA500";
+        map_ctx.fillRect(tileX * mapPixelsPerTile, tileY * mapPixelsPerTile, mapPixelsPerTile, mapPixelsPerTile);
       }
 
-      map_ctx.fillRect(tileX * mapPixelsPerTile, tileY * mapPixelsPerTile, mapPixelsPerTile, mapPixelsPerTile);
     }
   }
 
-  let playerTile = getNearestTile(getPlayerX(), getPlayerY());
+  for (let i = 0; i < players.length; i++) {
+    let tile = getNearestTile(players[i].x, players[i].y);
 
-  // Render player 3 * larger than the tile so easy to see
-  map_ctx.fillStyle = "#33cc33";
-  map_ctx.fillRect((playerTile.x * mapPixelsPerTile) - mapPixelsPerTile, (playerTile.y * mapPixelsPerTile) - mapPixelsPerTile, mapPixelsPerTile * 3, mapPixelsPerTile * 3);
+    if (players[i].name != players.name) {
+      map_ctx.fillStyle = "#33cc33";
+    }
+    else {
+      map_ctx.fillStyle = "#FF0000";
+    }
+
+    // Render player 2 * larger than the tile so easy to see
+    map_ctx.fillRect((tile.x * mapPixelsPerTile) - (mapPixelsPerTile / 2), (tile.y * mapPixelsPerTile) - (mapPixelsPerTile / 2), mapPixelsPerTile * 2, mapPixelsPerTile * 2);
+
+  }
+
+
 }
