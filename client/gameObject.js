@@ -120,7 +120,7 @@ function Powerup(x, y) {
 
 function SpeedPowerup(x, y) {
   let speedPowerup = Powerup(x, y);
-  speedPowerup.sprite.src = 'sprites/player.jpg';
+  speedPowerup.sprite.src = 'sprites/powerups/speedpowerup.jpg';
 
   // Override the powerups effect 
   speedPowerup.effect = function () {
@@ -137,7 +137,7 @@ function SpeedPowerup(x, y) {
 
 function ExtraFlamePowerup(x, y) {
   let efPowerup = Powerup(x, y);
-  efPowerup.sprite.src = 'sprites/player.jpg';
+  efPowerup.sprite.src = 'sprites/powerups/extrafirepowerup.jpg';
   efPowerup.effect = function (){
     //play power up sound effect
     playPowerupAudio();
@@ -152,7 +152,7 @@ function ExtraFlamePowerup(x, y) {
 
 function ExtraBombPowerup(x, y) {
   let ebPowerup = Powerup(x, y);
-  ebPowerup.sprite.src = 'sprites/player.jpg';
+  ebPowerup.sprite.src = 'sprites/powerups/extrabombpowerup.jpg';
   ebPowerup.effect = function (){
     //play power up sound effect
     playPowerupAudio();
