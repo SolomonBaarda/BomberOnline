@@ -137,7 +137,7 @@ function SpeedPowerup(x, y) {
 
 function ExtraFlamePowerup(x, y) {
   let efPowerup = Powerup(x, y);
-  efPowerup.sprite.src = 'sprites/powerups/extrafirepowerup.jpg';
+  efPowerup.sprite.src = 'sprites/powerups/extrafirepowerup.jpg'
   efPowerup.effect = function (){
     //play power up sound effect
     playPowerupAudio();
