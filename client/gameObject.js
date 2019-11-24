@@ -163,10 +163,6 @@ function ExtraBombPowerup(x, y) {
 
   return ebPowerup;
 }
-function CollisionPowerup(x, y) {
-  var collisionPowerup = Powerup;
-}
-
 
 
 

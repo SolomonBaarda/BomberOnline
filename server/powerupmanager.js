@@ -25,11 +25,6 @@ function spawnRandomPowerup() {
   else if (r == 3) {
     powerup = ExtraBombPowerup(x, y);
   }
-  else if (r == 4) {
-    // This one isn't implemented yet 
-    //powerup = CollisionPowerup(x, y);
-    return;
-  }
 
   addGameObject(powerup);
 }
