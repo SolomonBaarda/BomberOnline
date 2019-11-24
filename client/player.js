@@ -164,8 +164,7 @@ function Player(name, x, y) {
           //backgroud music
           playerDeathSound();
           stopBackgroundMusic();
-          GameOver();
-
+          EndGame();
         }
 
         if (isMessageAt(this.x + (this.size / 2), this.y + (this.size / 2))) {

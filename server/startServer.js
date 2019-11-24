@@ -84,7 +84,6 @@ io.on('connection', (socket) => {
 
 
 
-
 // Main clock for the game 
 setInterval(() => {
   console.log("setInterval called");
