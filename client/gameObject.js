@@ -127,7 +127,7 @@ function SpeedPowerup(x, y) {
     //play power up sound effect
     playPowerupAudio();
     // Increase velocity
-    player.speed = MAX_SPEED + 5;
+    player.speed = MAX_SPEED + 1;
   }
 
   return speedPowerup;

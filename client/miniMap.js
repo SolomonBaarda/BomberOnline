@@ -38,6 +38,18 @@ function RenderMap() {
     }
   }
 
+  // Loop through all game objects 
+  for (var i = 0; i < gameObjects.length; i++) {
+    if (gameObjects[i].isVisible) {
+      let tile = getNearestTile(gameObjects[i].x, gameObjects[i].y);
+      
+      // Render each object 
+      map_ctx.drawImage(gameObjects[i].sprite, tile.x * mapPixelsPerTile, tile.y * mapPixelsPerTile, mapPixelsPerTile, mapPixelsPerTile);
+    }
+
+  }
+
+  // Render players last (always on top)
   for (let i = 0; i < players.length; i++) {
     let tile = getNearestTile(players[i].x, players[i].y);
 
@@ -50,8 +62,6 @@ function RenderMap() {
 
     // Render player 2 * larger than the tile so easy to see
     map_ctx.fillRect((tile.x * mapPixelsPerTile) - (mapPixelsPerTile / 2), (tile.y * mapPixelsPerTile) - (mapPixelsPerTile / 2), mapPixelsPerTile * 2, mapPixelsPerTile * 2);
-
   }
-
 
 }

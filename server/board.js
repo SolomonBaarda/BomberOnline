@@ -543,6 +543,8 @@ function UpdateBoard() {
         toldInitialMessage = true;
       }
     }
+
+    UpdatePowerupManager();
   }
 
 }
