@@ -14,6 +14,8 @@ function showStartButton() {
  * Shows the main menu.
  */
 function showWelcomeBox() {
+  hideGame();
+
   $("#welcomeBox").show();
   $("#infobar").hide();
 }
@@ -22,7 +24,15 @@ function showWelcomeBox() {
  * Shows the main game div.
  */
 function showGame() {
-  $(".main-game").show();
+  $(".main-game")
+    .show()
+    .children().show();
+}
+
+function hideGame() {
+  $(".main-game")
+  .hide()
+  .children().hide();
 }
 
 /**
@@ -30,7 +40,10 @@ function showGame() {
  */
 function hideWelcomeBox() {
   $("#welcomeBox").hide();
-  $("#infobar").show();
+
+  $("#infobar")
+    .show()
+    .children().show();
 }
 
 /**
@@ -49,6 +62,15 @@ function selectGamemode() {
   $("#play-button").hide();
 
   $("#infobar").show();
+}
+
+function ExitGame() {
+  EndGame();
+  clearBoard();
+  clearPlayers();
+
+  hideGame();
+  selectGamemode();
 }
 
 

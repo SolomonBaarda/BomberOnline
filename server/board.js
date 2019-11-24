@@ -462,6 +462,17 @@ function destroyAllTiles() {
 }
 
 
+function clearBoard() {
+  delete(board);
+  delete(gameObjects);
+
+  board = undefined;
+  gameObjects = undefined;
+}
+
+
+
+
 function UpdateWallPosition(pos) {
   if (pos > 0) {
     allPositions = CalculateWallPositions(pos, pos);

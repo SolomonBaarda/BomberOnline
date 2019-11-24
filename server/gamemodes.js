@@ -32,10 +32,14 @@ function Tutorial() {
 
 
 function SpawnPlayer(playerName, x, y) {
-  player = Player(playerName, (x * PIXELS_PER_TILE) + ((PIXELS_PER_TILE - DEFAULT_PLAYER_SIZE)/2), (y * PIXELS_PER_TILE) + ((PIXELS_PER_TILE - DEFAULT_PLAYER_SIZE)/2));
+  player = Player(playerName, (x * PIXELS_PER_TILE) + ((PIXELS_PER_TILE - DEFAULT_PLAYER_SIZE) / 2), (y * PIXELS_PER_TILE) + ((PIXELS_PER_TILE - DEFAULT_PLAYER_SIZE) / 2));
 
   // Set up the game controls
   InitialiseController(player);
+
+  if (players == undefined) {
+    players = [];
+  }
 
   players.push(player);
 }
@@ -43,15 +47,15 @@ function SpawnPlayer(playerName, x, y) {
 
 
 function removePlayer(player) {
-    // Remove the right player
-    for (var i = 0; i < gameObjects.length; i++) {
-      if (players[i] === player) {
-        // Remove the bomb from game objects
-        players.splice(i, 1);
-      }
+  // Remove the right player
+  for (var i = 0; i < gameObjects.length; i++) {
+    if (players[i] === player) {
+      // Remove the bomb from game objects
+      players.splice(i, 1);
     }
-    
-    delete(player);
+  }
+
+  delete (player);
 }
 
 
@@ -89,9 +93,21 @@ function StartGame() {
   Timer();
 }
 
-// Function that is called when the player dies
-function GameOver() {
+/**
+ * Function that stops the game. To be called when the player dies, or to quit.
+ */
+function EndGame() {
   RemoveController();
+  StopTimer();
+}
+
+
+
+
+function clearPlayers() {
+  delete (players);
+
+  players = undefined;
 }
 
 
