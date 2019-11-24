@@ -18,8 +18,8 @@ connection.connect(function (err) {
   console.log('Connected to database');
 
   // Queries for ensuring both tables are created 
-  var createUsers = "CREATE TABLE IF NOT EXISTS Users(username VARCHAR("+USERNAME_MAX_LENGTH+") PRIMARY KEY, password VARCHAR("+USERNAME_MAX_LENGTH+")) ENGINE=INNODB;";
-  var createScores = "CREATE TABLE IF NOT EXISTS Scores(name VARCHAR("+USERNAME_MAX_LENGTH+"), score INT, FOREIGN KEY(name) REFERENCES Users(username)) ENGINE=INNODB;"
+  var createUsers = "CREATE TABLE IF NOT EXISTS Users(username VARCHAR(12) PRIMARY KEY, password VARCHAR(12)) ENGINE=INNODB;";
+  var createScores = "CREATE TABLE IF NOT EXISTS Scores(name VARCHAR(12), score INT, FOREIGN KEY(name) REFERENCES Users(username)) ENGINE=INNODB;"
 
   connection.query(createUsers, function (err, result) {
     if (err) throw err;
@@ -31,7 +31,9 @@ connection.connect(function (err) {
     console.log("Database: Scores table created.");
   });
 
+  // keep the connection running 
+  //connection.end();
 });
 
 // Export it for use elsewhere
-module.exports = database;
+module.exports = connection;
