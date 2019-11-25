@@ -1,18 +1,11 @@
 var powerupManagerTicks = 0;
 
-function spawnRandomPowerup() {
-  // Calculate random position that is valid for the new powerup 
-  let x = Math.floor(Clamp(Math.random() * boardWidth, 0, boardWidth));
-  let y = Math.floor(Clamp(Math.random() * boardHeight, 0, boardHeight));
-  while (!board[x][y].isEmpty || board[x][y].isDamaging) {
-    x = Math.floor(Clamp(Math.random() * boardWidth, 0, boardWidth));
-    y = Math.floor(Clamp(Math.random() * boardHeight, 0, boardHeight));
-  }
-  x *= PIXELS_PER_TILE;
-  y *= PIXELS_PER_TILE;
+function spawnRandomPowerup(tile) {
+  x = tile.x * PIXELS_PER_TILE;
+  y = tile.y * PIXELS_PER_TILE;
 
-  // Get a value of 1,2,3,4
-  let r = Math.floor(Math.random() * 4) + 1;
+  // Get a value of 1,2,3
+  let r = Math.floor(Math.random() * 3) + 1;
 
   let powerup;
 
@@ -29,6 +22,21 @@ function spawnRandomPowerup() {
   addGameObject(powerup);
 }
 
+function getRandomPosition() {
+  // Calculate random position that is valid for the new powerup 
+  let x = Math.floor(Clamp(Math.random() * boardWidth, 0, boardWidth));
+  let y = Math.floor(Clamp(Math.random() * boardHeight, 0, boardHeight));
+  while (!board[x][y].isEmpty || board[x][y].isDamaging) {
+    x = Math.floor(Clamp(Math.random() * boardWidth, 0, boardWidth));
+    y = Math.floor(Clamp(Math.random() * boardHeight, 0, boardHeight));
+  }
+
+  return {
+    x: x,
+    y: y
+  };
+}
+
 
 
 function UpdatePowerupManager() {
@@ -38,6 +46,6 @@ function UpdatePowerupManager() {
   if (powerupManagerTicks % (3 * TICKS_PER_SECOND) == 0) {
     powerupManagerTicks = 0;
 
-    spawnRandomPowerup();
+    spawnRandomPowerup(getRandomPosition());
   }
 }

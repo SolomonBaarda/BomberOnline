@@ -5,6 +5,11 @@ This is the script for the main game tick.
 myTime = null;
 var tickCount = 0;
 var playerScore = 0;
+var playerTime = 0;
+
+const pScore = document.querySelector("#tableScore");
+const pTime = document.querySelector("#tableTime");
+
 
 // The main game clock function
 function Timer() {
@@ -31,8 +36,6 @@ function Update() {
 // The main render function
 function Render() {
   tickCount++;
-  const pScore = document.querySelector("#tableScore");
-  pScore.innerHTML = playerScore;
 
   // Render the main canvas
   RenderCanvas()
@@ -40,11 +43,21 @@ function Render() {
   // Render map 4 times per second as its pretty laggy
   if (tickCount % (TICKS_PER_SECOND / 4) == 0) {
     RenderMap();
+  }
+
+  if (tickCount % 8 == 0) {
+    playerScore++;
+  }
+
+  if (tickCount % TICKS_PER_SECOND == 0) {
+    playerTime++;
+
     tickCount = 0;
   }
-  if (tickCount % 500 == 0) {
-    playerScore+= 1;
-  }
+
+  pScore.innerHTML = playerScore;
+  pTime.innerHTML = playerTime;
+
 }
 
 

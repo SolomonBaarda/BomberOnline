@@ -5,16 +5,18 @@ This is the script for the main game board.
 // Create socket var
 var socket = io();
 
+// General stuff
 var board;
 var boardHeight;
 var boardWidth;
 
+// Battle royale stuff
 var isBattleRoyale;
-
 var initialBoardTimer;
 var secondaryBoardTimer;
 var DEFAULT_SECONDARY_BOARD_TIMER = 5 * TICKS_PER_SECOND;
 var currentWallPosition = 0;
+var validSpawnPoints;
 
 var toldInitialMessage;
 
@@ -37,7 +39,6 @@ function createBoard(width, height) {
   for (let i = 0; i < width; i++) {
     newBoard[i] = new Array(height);
   }
-
 
   // Initialise elements
   for (let y = 0; y < height; y++) {
@@ -265,30 +266,46 @@ function getBombTiles(bomb) {
   let affectedTiles = [];
 
   // Gets the tile on the centre of the bomb sprite 
-  let tile = getNearestTile(bomb.x + BOMB_SIZE / 2, bomb.y + BOMB_SIZE / 2);
+  let tile = getNearestTile(bomb.x + (BOMB_SIZE / 2), bomb.y + (BOMB_SIZE / 2));
   affectedTiles.push(board[tile.x][tile.y]);
 
   // Find out how many tiles should be damaged 
   let power = bomb.power;
 
-  // Loop through tiles N E S W from tile by the power 
-  for (var i = DEFAULT_BOMB_POWER; i <= power; i++) {
-    // For each tile add it to the list of tiles affected 
-    // Tile to the left
-    let left = Tile(Clamp(tile.x - i, 0, boardWidth - 1), tile.y);
-    affectedTiles.push(board[left.x][left.y]);
-
+  for (let i = DEFAULT_BOMB_POWER; i <= power; i++) {
     // Tile to the right
     let right = Tile(Clamp(tile.x + i, 0, boardWidth - 1), tile.y);
+    if (!board[right.x][right.y].isDestructable && !board[right.x][right.y].isEmpty) {
+      break;
+    }
     affectedTiles.push(board[right.x][right.y]);
+  }
 
-    // Tile up
-    let up = Tile(tile.x, Clamp(tile.y - i, 0, boardHeight - 1));
-    affectedTiles.push(board[up.x][up.y]);
-
+  for (let i = DEFAULT_BOMB_POWER; i <= power; i++) {
     // Tile down 
     let down = Tile(tile.x, Clamp(tile.y + i, 0, boardHeight - 1));
+    if (!board[down.x][down.y].isDestructable && !board[down.x][down.y].isEmpty) {
+      break;
+    }
     affectedTiles.push(board[down.x][down.y]);
+  }
+
+  for (let i = DEFAULT_BOMB_POWER; i <= power; i++) {
+    // Tile to the left
+    let left = Tile(Clamp(tile.x - i, 0, boardWidth - 1), tile.y);
+    if (!board[left.x][left.y].isDestructable && !board[left.x][left.y].isEmpty) {
+      break;
+    }
+    affectedTiles.push(board[left.x][left.y]);
+  }
+
+  for (let i = DEFAULT_BOMB_POWER; i <= power; i++) {
+    // Tile up
+    let up = Tile(tile.x, Clamp(tile.y - i, 0, boardHeight - 1));
+    if (!board[up.x][up.y].isDestructable && !board[up.x][up.y].isEmpty) {
+      break;
+    }
+    affectedTiles.push(board[up.x][up.y]);
   }
 
   return affectedTiles;
@@ -463,8 +480,8 @@ function destroyAllTiles() {
 
 
 function clearBoard() {
-  delete(board);
-  delete(gameObjects);
+  delete (board);
+  delete (gameObjects);
 
   board = undefined;
   gameObjects = undefined;
@@ -556,6 +573,25 @@ function UpdateBoard() {
     }
 
     UpdatePowerupManager();
+  }
+  else {
+    // pos 18, 3
+    let b = true;
+
+    // Check all gameObjects and if there is no powerup there 
+    for (let i = 0; i < gameObjects.length; i++) {
+      if (gameObjects[i].x == 18 * PIXELS_PER_TILE && gameObjects[i].y == 3 * PIXELS_PER_TILE) {
+        b = false;
+      }
+    }
+
+    // then add one 
+    if (b) {
+      spawnRandomPowerup({
+        x: 18,
+        y: 3
+      })
+    }
   }
 
 }

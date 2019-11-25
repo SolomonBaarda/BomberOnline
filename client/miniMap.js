@@ -44,7 +44,7 @@ function RenderMap() {
       let tile = getNearestTile(gameObjects[i].x, gameObjects[i].y);
       
       // Render each object 
-      map_ctx.drawImage(gameObjects[i].sprite, tile.x * mapPixelsPerTile, tile.y * mapPixelsPerTile, mapPixelsPerTile, mapPixelsPerTile);
+      map_ctx.drawImage(gameObjects[i].sprite, (tile.x * mapPixelsPerTile) - (mapPixelsPerTile / 2), (tile.y * mapPixelsPerTile)- (mapPixelsPerTile / 2), mapPixelsPerTile * 2, mapPixelsPerTile * 2);
     }
 
   }
