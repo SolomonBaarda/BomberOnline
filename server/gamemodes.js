@@ -17,7 +17,7 @@ function BattleRoyale() {
   hideWelcomeBox();
   showGame();
 
-  // Just for now until the server works 
+  // Just for now until the server works
   generateBattleRoyale();
 
   loadBattleRoyale(playerName);

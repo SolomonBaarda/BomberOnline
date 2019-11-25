@@ -1,0 +1,49 @@
+THIS IS THE OLD CODE FOR generateBattleRoyale FUNCTION IN BOARD.JS
+
+width = 8;
+height = 8;
+
+warmupSeconds = 60;
+
+isBattleRoyale = true;
+initialBoardTimer = warmupSeconds * TICKS_PER_SECOND;
+secondaryBoardTimer = DEFAULT_SECONDARY_BOARD_TIMER;
+toldInitialMessage = false;
+
+// This is the main board collection used to store the locations of objects
+board = createBoard(width, height);
+board = Generate(board);
+
+
+// Battle royale's generate function
+function Generate(board) {
+  // Initialise elements
+  for (let y = 0; y < height; y++) {
+    for (let x = 0; x < width; x++) {
+      // Set edge to be indestructable tiles
+      if (x == 0 || x == width - 1 || y == 0 || y == height - 1) {
+        board[x][y] = IndestructibleTile(x, y);
+      }
+      else {
+        // Set indestructable tiles
+        if (isValidIndestructble(x, y)) {
+          board[x][y] = IndestructibleTile(x, y);
+        }
+        // Set destructable tiles randomly for now
+        else {
+          var random = Math.floor(Math.random() * 10);
+
+          if (random < 4) {
+            board[x][y] = DestructableTile(x, y);
+          }
+        }
+      }
+    }
+  }
+
+  return board;
+}
+
+function isValidIndestructble(x, y) {
+  return (x % 4 == 0 && y % 4 == 0 || x % 4 == 2 && y % 2 == 1);
+}

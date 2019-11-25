@@ -4,12 +4,13 @@ This is the script for the main game tick.
 
 myTime = null;
 var tickCount = 0;
+var playerScore = 0;
 
 // The main game clock function
 function Timer() {
   // Update method that calls all sub update methods
   Update();
-  // Render method that calls all sub render methods 
+  // Render method that calls all sub render methods
   Render();
 
   // Call timer again in 1 tick
@@ -27,17 +28,22 @@ function Update() {
   //console.log("Game updated");
 }
 
-// The main render function 
+// The main render function
 function Render() {
   tickCount++;
+  const pScore = document.querySelector("#tableScore");
+  pScore.innerHTML = playerScore;
 
   // Render the main canvas
   RenderCanvas()
 
-  // Render map 4 times per second as its pretty laggy 
+  // Render map 4 times per second as its pretty laggy
   if (tickCount % (TICKS_PER_SECOND / 4) == 0) {
     RenderMap();
     tickCount = 0;
+  }
+  if (tickCount % 500 == 0) {
+    playerScore+= 1;
   }
 }
 
