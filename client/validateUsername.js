@@ -72,6 +72,8 @@ function CreateAccount() {
         ajaxRequest.send(null);
       } */
 
+      /*
+      not working either
       $.ajax({
         async: false,
         // get places arguments in query string (post doesn't)
@@ -98,6 +100,7 @@ function CreateAccount() {
           loginSignupValid = false;
         }
       });
+      */
 
       SetName();
     }
