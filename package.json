@@ -4,7 +4,8 @@
   "version": "1.0.0",
   "main": "index.html",
   "scripts": {
-    "start": "node startServer.js"
+    "start": "node server/startServer.js",
+    "test": "node test/test.js"
   },
   "repository": {
     "type": "git",
