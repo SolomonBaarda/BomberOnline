@@ -2,7 +2,6 @@
 This is the script for rendering the game.
 */
 
-
 const MAX_CANVAS_SIZE_PIXELS = 512;
 
 var canvas;

@@ -27,12 +27,14 @@ function InitialiseController(player) {
   console.log("Keyboard listeners added.");
 }
 
+
 function RemoveController() {
   document.removeEventListener("keydown", KeyDown);
   document.removeEventListener("keyup", KeyUp);
 
   console.log("Keyboard listeners removed");
 }
+
 
 function KeyDown(e) {
   if (e.keyCode != undefined) {
@@ -80,6 +82,7 @@ function KeyDown(e) {
     }
   }
 }
+
 
 function KeyUp(e) {
   if (e.keyCode != undefined) {
@@ -131,6 +134,8 @@ function KeyUp(e) {
     }
   }
 }
+
+
 
 // Calls InitialiseController on the server
 

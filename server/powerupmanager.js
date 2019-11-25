@@ -1,3 +1,7 @@
+/*
+  Script for spawning powerups around the map.
+*/
+
 var powerupManagerTicks = 0;
 
 function spawnRandomPowerup(tile) {
@@ -36,7 +40,6 @@ function getRandomPosition() {
     y: y
   };
 }
-
 
 
 function UpdatePowerupManager() {

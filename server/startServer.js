@@ -13,7 +13,6 @@ var io = socketIO(server);
 
 // JS Module imports
 
-
 // Routing to index.html
 app.get('/', function (request, response) {
   response.sendFile(path.join(__dirname, 'index.html'));
@@ -82,18 +81,15 @@ io.on('connection', (socket) => {
 });
 
 
-
-
-// Main clock for the game 
+// Server clock for the game 
 setInterval(() => {
   console.log("setInterval called");
 
   if (players.length > 0) {
     io.sockets.emit('Timer');
     console.log("io.socket.emit(Timer)");
-    
-  }
-  
-}, 1000 / TICKS_PER_SECOND);
 
+  }
+
+}, 1000 / TICKS_PER_SECOND);
 

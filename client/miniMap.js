@@ -42,9 +42,9 @@ function RenderMap() {
   for (var i = 0; i < gameObjects.length; i++) {
     if (gameObjects[i].isVisible) {
       let tile = getNearestTile(gameObjects[i].x, gameObjects[i].y);
-      
+
       // Render each object 
-      map_ctx.drawImage(gameObjects[i].sprite, (tile.x * mapPixelsPerTile) - (mapPixelsPerTile / 2), (tile.y * mapPixelsPerTile)- (mapPixelsPerTile / 2), mapPixelsPerTile * 2, mapPixelsPerTile * 2);
+      map_ctx.drawImage(gameObjects[i].sprite, (tile.x * mapPixelsPerTile) - (mapPixelsPerTile / 2), (tile.y * mapPixelsPerTile) - (mapPixelsPerTile / 2), mapPixelsPerTile * 2, mapPixelsPerTile * 2);
     }
 
   }

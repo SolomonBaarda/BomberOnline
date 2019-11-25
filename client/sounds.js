@@ -26,39 +26,32 @@ var buttonClick = new Audio("sounds/button.wav")
 
 //function that plays/stops each audio file
 
-function playBombAudio()
-{
-bombAudio.play();
+function playBombAudio() {
+  bombAudio.play();
 }
 
-function playBackgroundMusic()
-{
+function playBackgroundMusic() {
   backgroundMusic.loop = true;
   backgroundMusic.play();
 }
 
-function stopBackgroundMusic()
-{
+function stopBackgroundMusic() {
   backgroundMusic.loop = false;
   backgroundMusic.pause();
 }
 
-function playerDeathSound()
-{
+function playerDeathSound() {
   playerDeath.play();
 }
 
-function playPowerupAudio()
-{
+function playPowerupAudio() {
   powerupAudio.play();
 }
 
-function playStartSound()
-{
-gameStart.play();
+function playStartSound() {
+  gameStart.play();
 }
 
-function playButtonClick()
-{
-buttonClick.play();
+function playButtonClick() {
+  buttonClick.play();
 }

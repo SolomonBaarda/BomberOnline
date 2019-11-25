@@ -10,7 +10,6 @@ var playerTime = 0;
 const pScore = document.querySelector("#tableScore");
 const pTime = document.querySelector("#tableTime");
 
-
 // The main game clock function
 function Timer() {
   // Update method that calls all sub update methods
@@ -55,6 +54,7 @@ function Render() {
     tickCount = 0;
   }
 
+  // Update score and time 
   pScore.innerHTML = playerScore;
   pTime.innerHTML = playerTime;
 

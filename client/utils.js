@@ -3,6 +3,9 @@ This is a script that contains useful utilities and methods. It also contains so
 the initialisation and running of other scripts.
 */
 
+// These constants are here because this script is always loaded first and so 
+// every script afterwards should be able to access them.
+
 // Set number of updates per second
 const TICKS_PER_SECOND = 60;
 // Set the number of pixels in every tile

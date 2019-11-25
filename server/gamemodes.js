@@ -12,7 +12,6 @@ function saveUsername(name) {
   playerName = name;
 }
 
-
 function BattleRoyale() {
   hideWelcomeBox();
   showGame();
@@ -31,6 +30,12 @@ function Tutorial() {
 }
 
 
+/**
+ * Spawns a player with playerName at tile x, y.
+ * @param {*} playerName 
+ * @param {*} x 
+ * @param {*} y 
+ */
 function SpawnPlayer(playerName, x, y) {
   player = Player(playerName, (x * PIXELS_PER_TILE) + ((PIXELS_PER_TILE - DEFAULT_PLAYER_SIZE) / 2), (y * PIXELS_PER_TILE) + ((PIXELS_PER_TILE - DEFAULT_PLAYER_SIZE) / 2));
 
@@ -45,7 +50,10 @@ function SpawnPlayer(playerName, x, y) {
 }
 
 
-
+/**
+ * Function that removes a player object.
+ * @param {*} player 
+ */
 function removePlayer(player) {
   // Remove the right player
   for (var i = 0; i < gameObjects.length; i++) {
@@ -59,6 +67,10 @@ function removePlayer(player) {
 }
 
 
+/**
+ * Function that spawns a player and starts the game. 
+ * @param {*} playerName 
+ */
 function loadBattleRoyale(playerName) {
   // For now, just spawn the player at a random, empty tile
   let x = Math.floor(Clamp(Math.random() * BATTLE_ROYALE_BOARD_SIZE, 0, BATTLE_ROYALE_BOARD_SIZE));
@@ -84,7 +96,6 @@ function loadTutorial(playerName) {
 }
 
 
-
 function StartGame() {
   InitialiseCanvas();
   InitialiseMap();
@@ -101,16 +112,11 @@ function EndGame() {
   StopTimer();
 }
 
-
-
-
 function clearPlayers() {
   delete (players);
 
   players = undefined;
 }
-
-
 
 
 function UpdatePlayers() {

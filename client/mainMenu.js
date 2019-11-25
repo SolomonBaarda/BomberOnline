@@ -32,8 +32,8 @@ function showGame() {
 
 function hideGame() {
   $(".main-game")
-  .hide()
-  .children().hide();
+    .hide()
+    .children().hide();
 }
 
 /**
@@ -65,6 +65,10 @@ function selectGamemode() {
   $("#infobar").show();
 }
 
+
+/**
+ * Function that closes the gme and sends the user back to the gamemode selection screen.
+ */
 function ExitGame() {
   EndGame();
   clearBoard();

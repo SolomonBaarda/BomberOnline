@@ -22,7 +22,6 @@ function SetName() {
     selectGamemode();
     saveUsername(name);
   }
-
 }
 
 

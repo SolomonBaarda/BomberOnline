@@ -7,8 +7,6 @@ var router = express.Router();
 
 const db = require('./dbConnection.js');
 
-
-
 function addUser(name, password) {
   let query = "INSERT INTO Users (username, password) VALUES (\"" + name + "\",\"" + password + "\");";
 
@@ -19,7 +17,6 @@ function addUser(name, password) {
   });
 
 }
-
 
 // This returns undefined. Believe it is because of scope. javaScript is stupid. 
 function usernameExists(name) {
@@ -44,7 +41,7 @@ function getPassword(username) {
 
   db.query(query, function (error, result) {
     if (error) throw error
-    
+
     return JSON.stringify(result);
   });
 }
@@ -58,31 +55,31 @@ console.log(getPassword("SOL"));
 //db.end();
 
 
-// // Get all the users in the database
-// router.get('/usernames', function (req, res) {
-//   let query = "SELECT username from Users";
+// Get all the users in the database
+router.get('/usernames', function (req, res) {
+  let query = "SELECT username from Users";
 
-//   db.query(query, function (err, result, fields) {
-//     if (err) throw err;
+  db.query(query, function (err, result, fields) {
+    if (err) throw err;
 
-//     console.log(result);
-//     return result;
-//   });
-// });
+    console.log(result);
+    return result;
+  });
+});
 
 
-// // signup user
-// router.post('/user/createAccount', function (req, res) {
+// signup user
+router.post('/user/createAccount', function (req, res) {
 
-//   let query = "INSERT INTO Users (username, password) VALUES ()";
+  let query = "INSERT INTO Users (username, password) VALUES ()";
 
-//   db.query(query, function (err, result, fields) {
-//     if (err) throw err;
+  db.query(query, function (err, result, fields) {
+    if (err) throw err;
 
-//     console.log("Successfully created account");
-//   });
+    console.log("Successfully created account");
+  });
 
-// });
+});
 
 
 

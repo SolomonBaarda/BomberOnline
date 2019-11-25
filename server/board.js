@@ -146,7 +146,6 @@ function generateBattleRoyale() {
 }
 
 
-
 /**
  * Tile that is empty.
  * @param {*} x 
@@ -253,7 +252,6 @@ function getNearestTile(x, y) {
 function getAllConnectingTiles(x, y, width, height) {
   return [getNearestTile(x, y), getNearestTile(x + width, y), getNearestTile(x, y + height), getNearestTile(x + width, y + height)];
 }
-
 
 
 
@@ -488,8 +486,6 @@ function clearBoard() {
 }
 
 
-
-
 function UpdateWallPosition(pos) {
   if (pos > 0) {
     allPositions = CalculateWallPositions(pos, pos);
@@ -509,8 +505,6 @@ function UpdateWallPosition(pos) {
         board[allPositions[i].x][allPositions[i].y].isDamaging = true;
       }
     }
-
-
   }
 }
 

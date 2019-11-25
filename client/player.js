@@ -128,7 +128,7 @@ function Player(name, x, y) {
 
         //tick counter to update sprite image after x ticks
         this.spriteTick++;
-        
+
         //update the sprite image every 10 ticks
         if (this.spriteTick == 10) {
           //if players x velocity is positive update sprites for moving right
@@ -154,7 +154,6 @@ function Player(name, x, y) {
           //set tick back to 0 after image updated
           this.spriteTick = 0;
         }
-
 
         // Check that the new position isn't inside of an explosion
         if (isInsideExplosion(this.x, this.y, this.size)) {

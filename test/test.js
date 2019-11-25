@@ -8,6 +8,3 @@ assert(i == 0);
 
 var i = Clamp(46, 0, 10);
 assert(i == 10);
-
-
-

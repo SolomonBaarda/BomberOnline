@@ -12,6 +12,7 @@ const POWERUP_DURATION = 6;
 var EXPLOSION_SPRITE = new Image()
 EXPLOSION_SPRITE.src = 'sprites/bomb/explosion.png';
 
+
 /*
   Bomb constructor. Places a bomb at xPos, yPos on the board.
 */
@@ -138,7 +139,7 @@ function SpeedPowerup(x, y) {
 function ExtraFlamePowerup(x, y) {
   let efPowerup = Powerup(x, y);
   efPowerup.sprite.src = 'sprites/powerups/extrafirepowerup.jpg'
-  efPowerup.effect = function (){
+  efPowerup.effect = function () {
     //play power up sound effect
     playPowerupAudio();
     //increase power of bombs explosion
@@ -153,7 +154,7 @@ function ExtraFlamePowerup(x, y) {
 function ExtraBombPowerup(x, y) {
   let ebPowerup = Powerup(x, y);
   ebPowerup.sprite.src = 'sprites/powerups/extrabombpowerup.jpg';
-  ebPowerup.effect = function (){
+  ebPowerup.effect = function () {
     //play power up sound effect
     playPowerupAudio();
     //increase power of bombs explosion
