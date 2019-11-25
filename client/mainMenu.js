@@ -15,6 +15,7 @@ function showStartButton() {
  */
 function showWelcomeBox() {
   hideGame();
+  playBackgroundMusic();
 
   $("#welcomeBox").show();
   $("#infobar").hide();
@@ -98,7 +99,3 @@ function showNameSelection() {
   //document.getElementById("pBoxHeader").innerHTML = "Select your colour and enter a name";
   document.getElementById("playBox").style.border = "6px solid white";
 }
-
-
-
-

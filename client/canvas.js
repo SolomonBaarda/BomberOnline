@@ -42,8 +42,6 @@ function InitialiseCanvas() {
   // Initially set to this value, updated by setCameraPosCentre(x, y)
   cameraCentreX = getPlayerX() + player.size / 2;
   cameraCentreY = getPlayerY() + player.size / 2;
-
-  backgroundMusic.play();
 }
 
 
