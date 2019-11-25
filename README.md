@@ -15,7 +15,7 @@ The Bomber Online server is hosted by codesandbox.io. Use the following link to 
 
 ## Plan
 
-Bomber Online is an MMO game inspired the iconic SNES game, Bomber Man.  The game is top down and tile based featuring tile collision and destructable tiles.  The game has a range of powerups that spawn around the map giving the player a range of advantages.  In the Battle Royale gamemode, up to 10 players fight while the map size slowly shrinks.  This forces the players to move towards the centre and fight only one remains.  
+Bomber Online is an MMO game inspired the iconic SNES game, Bomber Man.  The game is top down and tile based featuring tile collision and destructable tiles.  The game has a range of powerups that spawn around the map giving the player a range of advantages.  In the Battle Royale gamemode, up to 10 players fight while the map size slowly shrinks.  This forces the players to move towards the centre and fight until only one player remains.  
 
 
 ## Feature Checklist
@@ -57,7 +57,8 @@ Bomber Online is an MMO game inspired the iconic SNES game, Bomber Man.  The gam
 
 ### Bugs
 
-1. Bomb radius is too small
+1. When a bomb explodes outside of the circle, the tiles will remain empty while the circle closes.
+2. Player's can spawn
 
 ### Patches
 
